@@ -10,7 +10,7 @@ const projectsData = [
     title: "Scroller's Dashboard",
     date: "February 2025 - March 2025",
     description: "A high-performance digital wellness application that tracks every single swipe to break the cycle of doom-scrolling through real-time interventions.",
-    image: "/assets/scrollers_dashboard_main.png",
+    image: "/assets/dashboard.png",
     readMore: "#",
     technologies: ["Native Android", "Kotlin", "AccessibilityService", "Room DB"],
     liveLink: "https://github.com/Atharav001/shortform-usage-sentinel",
