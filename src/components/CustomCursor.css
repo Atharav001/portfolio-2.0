@@ -1,0 +1,64 @@
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5px; /* slightly thinner */
+  height: 5px;
+  background-color: #ffffff; 
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999991;
+  transform: translate(-50%, -50%); 
+  mix-blend-mode: difference;
+  transition: opacity 0.2s, width 0.3s, height 0.3s;
+  will-change: transform;
+}
+
+.custom-cursor-dot.hovered {
+  opacity: 1; /* keep dot visible on hover */
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 45px; 
+  height: 45px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  z-index: 999990;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, border-color 0.3s, border-width 0.3s, opacity 0.3s, box-shadow 0.3s;
+  will-change: width, height, transform;
+}
+
+.custom-cursor-ring.hovered {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 136, 255, 0.15); 
+  border-color: rgba(0, 136, 255, 0.8); /* Highly visible blue glow */
+  border-width: 2px;
+  box-shadow: 0 0 20px rgba(0, 136, 255, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 1; 
+  mix-blend-mode: normal; /* Normal mode to enforce visibility of the blue hex against any white background completely */
+}
+
+.custom-cursor-ring.docked {
+  border-color: #ffffff;
+  opacity: 0.6;
+  width: 28px;
+  height: 28px;
+  border-width: 2px;
+  background-color: transparent;
+  mix-blend-mode: normal;
+}
+
+@media (max-width: 768px) {
+  .custom-cursor-dot, .custom-cursor-ring {
+    display: none;
+  }
+}

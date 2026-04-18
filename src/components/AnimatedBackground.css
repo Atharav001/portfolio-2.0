@@ -1,0 +1,47 @@
+.animated-framer-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -20;
+  background-color: var(--bg-base);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.framer-blur-layer {
+  position: absolute;
+  inset: 0;
+  /* Heavily blur the orbs so they look like soft, glowing blobs of light */
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  z-index: -10;
+}
+
+.framer-orb {
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  z-index: -15;
+}
+
+.orb-1 {
+  top: -10%;
+  left: -10%;
+}
+
+.orb-2 {
+  top: 40%;
+  right: -20%;
+}
+
+.orb-3 {
+  bottom: -20%;
+  left: 20%;
+}
+
+:root.light-theme .framer-orb {
+  mix-blend-mode: multiply;
+}

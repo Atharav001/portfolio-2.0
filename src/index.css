@@ -1,0 +1,185 @@
+:root {
+  /* Color Palette - Deep sleek dark mode with vibrant neon accents */
+  --bg-base: #030303;
+  --bg-surface: #0a0a0c;
+  --bg-surface-elevated: #121214;
+
+  --text-primary: #f2f2f2;
+  --text-secondary: #8a8a93;
+  --text-muted: #5e5e66;
+
+  --accent-primary: #f1f1f1;
+  /* White minimalism for high-end feel */
+  --accent-secondary: #5e5e66;
+  /* Subdued for elegance */
+  --accent-glow: rgba(255, 255, 255, 0.1);
+  --accent-blue: #3b82f6;
+
+  --glass-bg: rgba(20, 20, 22, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.05);
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Syne', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+
+  /* Layout */
+  --max-width: 1400px;
+  --border-radius: 20px;
+  --transition-smooth: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.light-theme {
+  --bg-base: #f7f7f7;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f0f0f0;
+
+  --text-primary: #121212;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+
+  --accent-primary: #121212;
+  --accent-secondary: #999999;
+  --accent-glow: rgba(0, 0, 0, 0.1);
+  --accent-blue: #3b82f6;
+
+  --glass-bg: rgba(255, 255, 255, 0.3);
+  /* Translucent so blur shows */
+  --glass-border: rgba(0, 0, 0, 0.08);
+
+  --grid-dot-color: rgba(0, 0, 0, 0.1);
+  --grid-spotlight: rgba(0, 0, 0, 0.04);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Hide the default cursor completely across the site */
+  cursor: none !important;
+}
+
+/* Custom Selection */
+::selection {
+  background: var(--text-primary);
+  color: var(--bg-base);
+}
+
+html {
+  /* Handled by lenis, but good practice */
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+a,
+button {
+  color: inherit;
+  text-decoration: none;
+  font-family: var(--font-display);
+}
+
+/* Base Utilities */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+}
+
+/* Noise overlay for texture */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');
+  opacity: 0.015; /* Radically smoother compared to default */
+  mix-blend-mode: overlay;
+}
+
+/* Background blob animation - refined to be highly subtle and elegant */
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: -1;
+  opacity: 0.15;
+  animation: float 25s infinite ease-in-out alternate;
+  pointer-events: none;
+}
+
+.bg-blob-1 {
+  width: 50vw;
+  height: 50vw;
+  background: var(--accent-blue);
+  top: -10%;
+  left: -10%;
+}
+
+.bg-blob-2 {
+  width: 40vw;
+  height: 40vw;
+  background: #fff;
+  bottom: 0%;
+  right: -5%;
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(5%, 5%) scale(1.1);
+  }
+
+  100% {
+    transform: translate(-5%, 10%) scale(0.9);
+  }
+}
+
+/* Section styling */
+section {
+  padding: 8rem 4rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 5rem 1.5rem;
+  }
+}
+
+/* Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 0px;
+  /* Hidden for pure awwwards feel, handled by lenis */
+  background: transparent;
+}
