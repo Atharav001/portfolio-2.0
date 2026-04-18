@@ -35,16 +35,16 @@
 }
 
 .custom-cursor-ring.hovered {
-  width: 60px;
-  height: 60px;
-  background-color: rgba(0, 136, 255, 0.15); 
-  border-color: rgba(0, 136, 255, 0.8); /* Highly visible blue glow */
+  width: 70px;
+  height: 70px;
+  background-color: rgba(0, 136, 255, 0.4); /* Much more blue */
+  border-color: rgba(0, 136, 255, 0.9); /* Sharper blue edge */
   border-width: 2px;
-  box-shadow: 0 0 20px rgba(0, 136, 255, 0.4);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 0 40px rgba(0, 136, 255, 0.6); /* Massive glow */
+  backdrop-filter: blur(12px); /* Intense centre blur */
+  -webkit-backdrop-filter: blur(12px);
   opacity: 1; 
-  mix-blend-mode: normal; /* Normal mode to enforce visibility of the blue hex against any white background completely */
+  mix-blend-mode: normal; 
 }
 
 .custom-cursor-ring.docked {

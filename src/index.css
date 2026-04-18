@@ -35,11 +35,11 @@
   --bg-surface-elevated: #f0f0f0;
 
   --text-primary: #121212;
-  --text-secondary: #666666;
-  --text-muted: #999999;
+  --text-secondary: #333333;
+  --text-muted: #444444;
 
   --accent-primary: #121212;
-  --accent-secondary: #999999;
+  --accent-secondary: #444444;
   --accent-glow: rgba(0, 0, 0, 0.1);
   --accent-blue: #3b82f6;
 

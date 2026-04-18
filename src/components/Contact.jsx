@@ -17,6 +17,12 @@ const Contact = () => {
     // Simulate email sending
     setTimeout(() => {
       setIsSubmitted(true);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
       // Reset after 5 seconds to allow more messages
       setTimeout(() => setIsSubmitted(false), 5000);
     }, 1000);
