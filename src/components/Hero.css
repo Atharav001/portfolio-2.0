@@ -30,12 +30,20 @@
 
 .pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  color: #10b981; /* Green accent for "available" */
+  color: #10b981;
+  /* Green accent for "available" */
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .5; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .5;
+  }
 }
 
 .hero-title {
@@ -60,7 +68,7 @@
 .outline-text:hover {
   -webkit-text-stroke: 0px transparent;
   color: var(--text-primary);
-  text-shadow: 0 0 40px rgba(255,255,255, 0.2);
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
 }
 
 .hero-description-container {

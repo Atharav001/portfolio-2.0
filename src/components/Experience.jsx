@@ -30,7 +30,7 @@ const Experience = () => {
       <div className="section-header">
         <h2 className="section-title">BACKGROUND</h2>
       </div>
-      
+
       <div className="experience-grid">
         <motion.div style={{ y: y1 }} className="experience-column">
           <h3 className="column-title">Journey</h3>
@@ -47,14 +47,14 @@ const Experience = () => {
         </motion.div>
 
         <motion.div style={{ y: y2 }} className="experience-column">
-           <h3 className="column-title">Core Capabilities</h3>
-           <div className="skills-container">
-             {skills.map((skill, index) => (
-               <div key={index} className="skill-pill interactive-tag">
-                 {skill}
-               </div>
-             ))}
-           </div>
+          <h3 className="column-title">Core Capabilities</h3>
+          <div className="skills-container">
+            {skills.map((skill, index) => (
+              <div key={index} className="skill-pill interactive-tag">
+                {skill}
+              </div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

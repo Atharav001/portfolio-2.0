@@ -78,7 +78,7 @@
   letter-spacing: 0.1em;
 }
 
-.input-group input, 
+.input-group input,
 .input-group textarea {
   background: var(--bg-surface);
   border: 1px solid var(--glass-border);
@@ -90,7 +90,7 @@
   transition: all 0.3s ease;
 }
 
-.input-group input:focus, 
+.input-group input:focus,
 .input-group textarea:focus {
   outline: none;
   border-color: var(--accent-blue);
@@ -205,7 +205,7 @@
   .form-row {
     grid-template-columns: 1fr;
   }
-  
+
   .footer-copyright {
     flex-direction: column;
     gap: 1.5rem;

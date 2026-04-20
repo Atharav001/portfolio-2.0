@@ -17,7 +17,7 @@ const Navbar = () => {
       const sections = ['home', 'about', 'experience', 'projects', 'contact'];
       let maxVisible = 0;
       let current = '';
-      
+
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -30,12 +30,12 @@ const Navbar = () => {
           }
         }
       }
-      
+
       if (current && current !== activeTab) {
         setActiveTab(current);
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [activeTab]);
@@ -68,11 +68,11 @@ const Navbar = () => {
   return (
     <header className="navbar-container">
       <div className={`navbar-wrapper ${scrolled ? 'scrolled' : ''}`}>
-        
+
         {/* Left Side: Logo */}
         <div className="navbar-logo-section">
           <a href="#home" className="navbar-logo interactive-tag" onClick={(e) => scrollToSection(e, 'Home')}>
-             Atharav Narang
+            Atharav Narang
           </a>
         </div>
 
@@ -95,7 +95,7 @@ const Navbar = () => {
           {/* Target for the cursor to fly back to when it exits the window screen */}
           <div id="cursor-dock" className="cursor-dock"></div>
 
-          <button 
+          <button
             className="theme-toggle-btn interactive-tag"
             onClick={toggleTheme}
             aria-label="Toggle theme"
