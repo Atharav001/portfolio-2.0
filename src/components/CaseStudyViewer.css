@@ -210,9 +210,16 @@
   margin-bottom: 1.2rem;
   font-size: 0.9rem;
   color: var(--text-muted);
-  cursor: pointer;
   transition: color 0.3s ease;
   position: relative;
+}
+
+.contents-list li a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  cursor: pointer;
 }
 
 .contents-list li:hover {

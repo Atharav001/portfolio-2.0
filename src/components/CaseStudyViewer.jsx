@@ -60,7 +60,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
             <article className="case-study-article">
               {project.caseStudyDetails ? (
                 <>
-                  <div className="case-study-overview-grid">
+                  <div id="overview" className="case-study-overview-grid">
                     <div className="overview-item">
                       <h4>Role</h4>
                       <p>{project.caseStudyDetails.role}</p>
@@ -79,26 +79,28 @@ const CaseStudyViewer = ({ project, onClose }) => {
                     {project.caseStudyDetails.problemLead}
                   </p>
 
-                  <h2>🧠 The Problem: {project.caseStudyDetails.problemTitle}</h2>
+                  <h2 id="problem">🧠 The Problem: {project.caseStudyDetails.problemTitle}</h2>
                   <div dangerouslySetInnerHTML={{ __html: project.caseStudyDetails.problemText }} />
 
-                  <h2>💡 The Solution: {project.caseStudyDetails.solutionTitle}</h2>
+                  <h2 id="solution">💡 The Solution: {project.caseStudyDetails.solutionTitle}</h2>
                   <div dangerouslySetInnerHTML={{ __html: project.caseStudyDetails.solutionText }} />
 
-                  {project.caseStudyDetails.features && project.caseStudyDetails.features.map((feature, index) => (
-                    <div key={index} className="feature-section">
-                      <h3>{index + 1}. {feature.title}</h3>
-                      <p>{feature.text}</p>
-                      {feature.image && (
-                        <figure className="case-study-img-container">
-                          <img src={feature.image} alt={feature.title} />
-                          {feature.caption && <figcaption>{feature.caption}</figcaption>}
-                        </figure>
-                      )}
-                    </div>
-                  ))}
+                  <div id="features">
+                    {project.caseStudyDetails.features && project.caseStudyDetails.features.map((feature, index) => (
+                      <div key={index} className="feature-section">
+                        <h3>{index + 1}. {feature.title}</h3>
+                        <p>{feature.text}</p>
+                        {feature.image && (
+                          <figure className="case-study-img-container">
+                            <img src={feature.image} alt={feature.title} />
+                            {feature.caption && <figcaption>{feature.caption}</figcaption>}
+                          </figure>
+                        )}
+                      </div>
+                    ))}
+                  </div>
 
-                  <h2>🛠️ Technical Implementation</h2>
+                  <h2 id="technical">🛠️ Technical Implementation</h2>
                   <div dangerouslySetInnerHTML={{ __html: project.caseStudyDetails.technicalText }} />
 
                   {project.caseStudyDetails.techHighlights && (
@@ -137,7 +139,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
                     </div>
                   )}
 
-                  <h2>💡 Design Philosophy & Takeaways</h2>
+                  <h2 id="design">💡 Design Philosophy & Takeaways</h2>
                   <div dangerouslySetInnerHTML={{ __html: project.caseStudyDetails.designPhilosophy }} />
 
                   <blockquote className="case-study-quote">
@@ -146,7 +148,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
                 </>
               ) : (
                 <>
-                  <p className="intro-text">
+                  <p id="overview" className="intro-text">
                     {project.description}
                   </p>
 
@@ -162,7 +164,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
                     </div>
                   </figure>
 
-                  <h2>Technical Architecture</h2>
+                  <h2 id="technical">Technical Architecture</h2>
                   <p>
                     Building this platform has been an incredible journey through the cutting edge of AI synthesis and robust web development architectures. 
                   </p>
@@ -173,7 +175,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
                     ))}
                   </ul>
 
-                  <h3>Simplified Generation Pipeline</h3>
+                  <h3 id="features">Simplified Generation Pipeline</h3>
                   <p>The core of the logic scales flawlessly across these critical steps:</p>
 
                   <div className="pipeline-steps">
@@ -191,7 +193,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
                     <p>Binding audio transcription and syncing directly to synthesized visual layers.</p>
                   </div>
 
-                  <h3>Conclusion</h3>
+                  <h3 id="conclusion">Conclusion</h3>
                   <p>
                     Whether you're an engineer looking to scale output or a business needing custom logic layers, this architecture makes the most complex logic pipelines accessible to everyone. Visit the repository or live site to interact directly with the systems built.
                   </p>
@@ -215,21 +217,19 @@ const CaseStudyViewer = ({ project, onClose }) => {
               <ul className="contents-list">
                 {project.caseStudyDetails ? (
                   <>
-                    <li className="active">Overview</li>
-                    <li>The Problem</li>
-                    <li>The Solution</li>
-                    <li>Key Features</li>
-                    <li>Technical Implementation</li>
-                    <li>Design Philosophy</li>
+                    <li key="overview"><a href="#overview" onClick={(e) => { e.preventDefault(); document.getElementById('overview').scrollIntoView({ behavior: 'smooth' }); }}>Overview</a></li>
+                    <li key="problem"><a href="#problem" onClick={(e) => { e.preventDefault(); document.getElementById('problem').scrollIntoView({ behavior: 'smooth' }); }}>The Problem</a></li>
+                    <li key="solution"><a href="#solution" onClick={(e) => { e.preventDefault(); document.getElementById('solution').scrollIntoView({ behavior: 'smooth' }); }}>The Solution</a></li>
+                    <li key="features"><a href="#features" onClick={(e) => { e.preventDefault(); document.getElementById('features').scrollIntoView({ behavior: 'smooth' }); }}>Key Features</a></li>
+                    <li key="technical"><a href="#technical" onClick={(e) => { e.preventDefault(); document.getElementById('technical').scrollIntoView({ behavior: 'smooth' }); }}>Technical Details</a></li>
+                    <li key="design"><a href="#design" onClick={(e) => { e.preventDefault(); document.getElementById('design').scrollIntoView({ behavior: 'smooth' }); }}>Design Philosophy</a></li>
                   </>
                 ) : (
                   <>
-                    <li className="active">The Vision Behind The Project</li>
-                    <li>Technical Architecture</li>
-                    <li>Simplified Generation Pipeline</li>
-                    <li className="sub-item">Step 1: Face Detection</li>
-                    <li className="sub-item">Step 2: Audio Analysis</li>
-                    <li>Conclusion</li>
+                    <li key="overview"><a href="#overview" onClick={(e) => { e.preventDefault(); document.getElementById('overview').scrollIntoView({ behavior: 'smooth' }); }}>Overview</a></li>
+                    <li key="technical"><a href="#technical" onClick={(e) => { e.preventDefault(); document.getElementById('technical').scrollIntoView({ behavior: 'smooth' }); }}>Architecture</a></li>
+                    <li key="features"><a href="#features" onClick={(e) => { e.preventDefault(); document.getElementById('features').scrollIntoView({ behavior: 'smooth' }); }}>Generation Pipeline</a></li>
+                    <li key="conclusion"><a href="#conclusion" onClick={(e) => { e.preventDefault(); document.getElementById('conclusion').scrollIntoView({ behavior: 'smooth' }); }}>Conclusion</a></li>
                   </>
                 )}
               </ul>

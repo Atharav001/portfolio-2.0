@@ -12,20 +12,46 @@ const Contact = () => {
     message: ''
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate email sending
-    setTimeout(() => {
-      setIsSubmitted(true);
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+    
+    // Create form data object for Web3Forms
+    const submissionData = {
+      ...formData,
+      access_key: "YOUR_WEB3FORMS_ACCESS_KEY_HERE" // Get your key from https://web3forms.com/
+    };
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(submissionData),
       });
-      // Reset after 5 seconds to allow more messages
-      setTimeout(() => setIsSubmitted(false), 5000);
-    }, 1000);
+
+      const result = await response.json();
+
+      if (result.success) {
+        setIsSubmitted(true);
+        // Reset after 10 seconds, but keep the name/email for the success message until then
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            name: '',
+            email: '',
+            subject: '',
+            message: ''
+          });
+        }, 10000);
+      } else {
+        alert("Something went wrong. Please try again or email me directly.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Submission failed. Check your connection.");
+    }
   };
 
   return (
