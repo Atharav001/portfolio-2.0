@@ -36,6 +36,14 @@
   z-index: -1;
   pointer-events: none;
   opacity: 1;
+  transition: background 0.8s ease;
+}
+
+/* Enhanced vibrancy for Light Theme */
+.light-theme .case-study-gradient-bg {
+  background: radial-gradient(circle at 20% 30%, rgba(0, 183, 255, 0.25) 0%, rgba(0, 183, 255, 0) 70%),
+              radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0) 70%),
+              radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 80%);
 }
 
 .case-study-nav {
