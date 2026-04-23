@@ -139,17 +139,17 @@
     font-size: clamp(3rem, 15vw, 4rem);
     margin-bottom: 2rem;
   }
-  
+
   .hero-description {
     font-size: clamp(1rem, 5vw, 1.2rem);
   }
-  
+
   .hero-description-container {
     flex-direction: column;
     gap: 1rem;
     margin-bottom: 3rem;
   }
-  
+
   .hero-arrow {
     display: none;
   }

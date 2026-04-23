@@ -134,8 +134,8 @@ const Projects = () => {
             className="project-card interactive-tag"
           >
             {/* LEFT: Mac Browser Frame Image */}
-            <div 
-              className="project-image-container group" 
+            <div
+              className="project-image-container group"
               onClick={() => setSelectedImage(project.image)}
             >
               <div className="browser-header">
@@ -149,7 +149,7 @@ const Projects = () => {
               </div>
               <div className="browser-content">
                 <img src={project.image} alt={project.title} className="project-img" loading="lazy" />
-                
+
                 {/* Hover Reveal: Click to View */}
                 <div className="image-hover-overlay">
                   <div className="click-to-view-badge">
@@ -164,7 +164,7 @@ const Projects = () => {
             <div className="project-info-container">
               <h3 className="project-title">{project.title}</h3>
               <p className="project-date">{project.date}</p>
-              
+
               <p className="project-description">
                 {project.description}
               </p>
@@ -199,36 +199,36 @@ const Projects = () => {
       {/* Fullscreen Image Modal Overlay */}
       <AnimatePresence>
         {selectedImage && (
-          <motion.div 
+          <motion.div
             className="fullscreen-modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedImage(null)}
           >
-            <button 
+            <button
               className="modal-close-btn"
               onClick={(e) => { e.stopPropagation(); setSelectedImage(null); }}
               aria-label="Close modal"
             >
               <X size={24} />
             </button>
-            <motion.img 
-              src={selectedImage} 
-              alt="Fullscreen expanded project" 
+            <motion.img
+              src={selectedImage}
+              alt="Fullscreen expanded project"
               className="fullscreen-img"
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
-              onClick={(e) => e.stopPropagation()} 
+              onClick={(e) => e.stopPropagation()}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
-      <CaseStudyViewer 
-        project={selectedCaseStudy} 
-        onClose={() => setSelectedCaseStudy(null)} 
+      <CaseStudyViewer
+        project={selectedCaseStudy}
+        onClose={() => setSelectedCaseStudy(null)}
       />
     </section>
   );

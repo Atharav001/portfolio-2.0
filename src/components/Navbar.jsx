@@ -118,9 +118,9 @@ const Navbar = () => {
           >
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-          
+
           {/* Hamburger Menu Button */}
-          <button 
+          <button
             className="mobile-menu-btn interactive-tag"
             onClick={toggleMobileMenu}
             aria-label="Toggle mobile menu"
