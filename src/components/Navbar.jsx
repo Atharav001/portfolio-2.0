@@ -6,6 +6,7 @@ const Navbar = () => {
   const [activeTab, setActiveTab] = useState('Home');
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme] = useState('dark');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (document.documentElement.classList.contains('light-theme')) {
@@ -40,6 +41,16 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [activeTab]);
 
+  useEffect(() => {
+    // Lock body scroll when mobile menu is open
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isMobileMenuOpen]);
+
   const toggleTheme = () => {
     if (theme === 'dark') {
       document.documentElement.classList.add('light-theme');
@@ -50,11 +61,16 @@ const Navbar = () => {
     }
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   const links = ['Home', 'About', 'Experience', 'Projects', 'Contact'];
 
   const scrollToSection = (e, link) => {
     e.preventDefault();
     setActiveTab(link);
+    setIsMobileMenuOpen(false); // Close menu on click
     const targetId = link === 'Home' ? 'home' : link.toLowerCase();
     const element = document.getElementById(targetId);
     if (element) {
@@ -90,7 +106,7 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* Right Side: Actions (Cursor Dock & Theme Toggle) */}
+        {/* Right Side: Actions (Cursor Dock, Theme Toggle, & Mobile Burger) */}
         <div className="navbar-actions-section">
           {/* Target for the cursor to fly back to when it exits the window screen */}
           <div id="cursor-dock" className="cursor-dock"></div>
@@ -102,8 +118,38 @@ const Navbar = () => {
           >
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
+          
+          {/* Hamburger Menu Button */}
+          <button 
+            className="mobile-menu-btn interactive-tag"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle mobile menu"
+          >
+            <div className={`burger-icon ${isMobileMenuOpen ? 'open' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
         </div>
 
+      </div>
+
+      {/* Mobile Overlay Menu */}
+      <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
+        <nav className="mobile-nav-links">
+          {links.map((link, index) => (
+            <a
+              key={link}
+              href={`#${link.toLowerCase()}`}
+              className={`mobile-nav-link ${activeTab === link ? 'active' : ''} ${isMobileMenuOpen ? 'fade-in' : ''}`}
+              onClick={(e) => scrollToSection(e, link)}
+              style={{ transitionDelay: `${index * 0.1}s` }}
+            >
+              {link}
+            </a>
+          ))}
+        </nav>
       </div>
     </header>
   );

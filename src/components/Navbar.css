@@ -143,23 +143,128 @@
   transform: translateY(-2px);
 }
 
+/* MOBILE MENU BUTTON */
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.burger-icon {
+  width: 24px;
+  height: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.burger-icon span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  transform-origin: center;
+}
+
+.burger-icon.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.burger-icon.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-icon.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* MOBILE MENU OVERLAY */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+:root.light-theme .mobile-menu-overlay {
+  background: rgba(250, 250, 250, 0.98);
+}
+
+.mobile-menu-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.mobile-nav-link {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.mobile-nav-link.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (max-width: 768px) {
   .navbar-container {
     width: 95vw;
   }
 
   .navbar-wrapper {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
     padding: 0.5rem 1rem;
     gap: 1rem;
   }
 
   .navbar-logo-section {
+    display: flex;
+  }
+
+  .navbar-links-section {
     display: none;
   }
 
-  .nav-link {
-    padding: 0.4rem 0.5rem;
-    font-size: 0.75rem;
+  .navbar-actions-section {
+    gap: 1rem;
+  }
+
+  .cursor-dock {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
   }
 }
