@@ -86,9 +86,10 @@ const Navbar = () => {
     <header className="navbar-container">
       <motion.div 
         className={`navbar-wrapper ${scrolled ? 'scrolled' : ''}`}
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ top: -100, opacity: 0 }}
+        animate={{ top: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        style={{ position: 'relative' }}
       >
 
         {/* Left Side: Logo */}
