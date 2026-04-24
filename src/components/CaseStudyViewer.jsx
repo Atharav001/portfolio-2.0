@@ -4,6 +4,8 @@ import { ArrowLeft, ExternalLink } from 'lucide-react';
 import './CaseStudyViewer.css';
 
 const CaseStudyViewer = ({ project, onClose }) => {
+  if (!project) return null;
+
   // Lock body scroll when open
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -18,8 +20,6 @@ const CaseStudyViewer = ({ project, onClose }) => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [onClose]);
-
-  if (!project) return null;
 
   return (
     <AnimatePresence>

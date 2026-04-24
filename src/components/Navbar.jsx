@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Moon, Sun } from 'lucide-react';
 import './Navbar.css';
 
@@ -46,9 +47,9 @@ const Navbar = () => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = 'unset'; };
+    return () => { document.body.style.overflow = ''; };
   }, [isMobileMenuOpen]);
 
   const toggleTheme = () => {
@@ -83,7 +84,12 @@ const Navbar = () => {
 
   return (
     <header className="navbar-container">
-      <div className={`navbar-wrapper ${scrolled ? 'scrolled' : ''}`}>
+      <motion.div 
+        className={`navbar-wrapper ${scrolled ? 'scrolled' : ''}`}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
 
         {/* Left Side: Logo */}
         <div className="navbar-logo-section">
@@ -133,7 +139,7 @@ const Navbar = () => {
           </button>
         </div>
 
-      </div>
+      </motion.div>
 
       {/* Mobile Overlay Menu */}
       <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
