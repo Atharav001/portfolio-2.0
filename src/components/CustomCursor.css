@@ -12,7 +12,11 @@
   mix-blend-mode: difference;
   transition: opacity 0.2s, width 0.3s, height 0.3s;
   will-change: transform;
+}
 
+:root.light-theme .custom-cursor-dot {
+  background-color: #000000;
+  mix-blend-mode: normal;
 }
 
 .custom-cursor-dot.hovered {
@@ -36,6 +40,11 @@
   transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, border-color 0.3s, border-width 0.3s, opacity 0.3s, box-shadow 0.3s;
   will-change: width, height, transform;
   opacity: 1;
+}
+
+:root.light-theme .custom-cursor-ring {
+  border-color: #000000;
+  mix-blend-mode: normal;
 }
 
 .custom-cursor-ring.hovered {

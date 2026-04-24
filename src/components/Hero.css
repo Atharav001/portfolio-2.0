@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  padding-top: 10vh;
+  padding-top: 15vh; /* Increased to avoid overlap with fixed navbar */
 }
 
 .hero-content {

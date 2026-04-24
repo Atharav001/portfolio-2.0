@@ -28,17 +28,28 @@
   grid-template-columns: 1fr auto 1fr;
   /* Equal fraction forces links into true absolute center! */
   align-items: center;
-  padding: 1rem 3rem;
+  padding: 0.8rem 2.5rem;
   background: rgba(10, 10, 12, 0.2); /* Very transparent so background text shines through */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transform: translateZ(0); /* Force hardware acceleration for the blur */
+  position: relative;
+  z-index: 101;
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 10px 40px rgba(0, 0, 0, 0.3);
   border-radius: 20px;
   transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-  position: relative;
-  z-index: 101;
+  /* GPU acceleration for backdrop-filter */
+  will-change: transform;
+}
+
+.navbar-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 :root.light-theme .navbar-wrapper {
@@ -51,9 +62,12 @@
 .navbar-wrapper.scrolled {
   background: rgba(10, 10, 12, 0.4);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 20px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navbar-wrapper.scrolled::before {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 :root.light-theme .navbar-wrapper.scrolled {
