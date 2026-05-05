@@ -93,12 +93,12 @@ const projectsData = [
     description: "A terminal-based AI support triage agent for the HackerRank Orchestrate hackathon, utilizing local LLMs and RAG to process support tickets with deterministic behavior and local grounding.",
     image: "/assets/ai_support_triage.png",
     readMore: "#",
-    technologies: ["Python", "Local LLM", "RAG", "Terminal-based"],
+    technologies: ["Python", "Local LLM", "OpenAI", "RAG", "Terminal-based"],
     liveLink: "https://github.com/Atharav001/AI-Support-Triage-Agent",
     caseStudy: "#",
     caseStudyDetails: {
       role: "AI/Backend Developer",
-      techStack: "Python, Local LLMs, Retrieval-Augmented Generation (RAG), Terminal/CLI",
+      techStack: "Python, Local LLMs, OpenAI API, Retrieval-Augmented Generation (RAG), Terminal/CLI",
       platform: "Terminal-based / Desktop",
       problemLead: "Support teams are often overwhelmed by the sheer volume of incoming tickets. The challenge was to build an automated, deterministically reliable system that could triage these requests locally without relying on external APIs, ensuring strict privacy and fast response times.",
       problemTitle: "The Need for Localized AI Triage",
@@ -123,7 +123,7 @@ const projectsData = [
       techHighlights: [
         {
           title: "Local LLM Integration",
-          text: "Seamlessly integrated lightweight local models to perform sophisticated inference without any external API dependencies, ensuring maximum privacy and zero network latency."
+          text: "Seamlessly integrated lightweight local models and OpenAI API support to perform sophisticated inference, offering a choice between absolute privacy or high-performance cloud processing."
         },
         {
           title: "Optimized Retrieval System",
@@ -134,7 +134,7 @@ const projectsData = [
         "Ingest incoming support ticket via CLI arguments",
         "Retrieve contextual data from local vector store",
         "Construct strict prompt with context and ticket details",
-        "Local LLM processes and predicts category/priority",
+        "Local LLM or OpenAI (via API Key) processes and predicts category/priority",
         "Output structured JSON and update CSV predictions"
       ],
       deepIntegration: [
