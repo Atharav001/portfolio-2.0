@@ -21,9 +21,6 @@ const Contact = () => {
             </p>
             
             <div className="contact-socials">
-              <a href="mailto:atharavnarang@example.com" className="social-pill interactive-tag">
-                Email Me <ArrowUpRight size={16} />
-              </a>
               <a href="https://www.linkedin.com/in/atharav-narang-132b74273/" target="_blank" rel="noreferrer" className="social-pill interactive-tag">
                 LinkedIn <ArrowUpRight size={16} />
               </a>
@@ -32,6 +29,9 @@ const Contact = () => {
               </a>
               <a href="https://x.com/Atharav3602" target="_blank" rel="noreferrer" className="social-pill interactive-tag">
                 𝕏 (Twitter) <ArrowUpRight size={16} />
+              </a>
+              <a href="mailto:atharavnarang@example.com" className="social-pill interactive-tag">
+                Email Me <ArrowUpRight size={16} />
               </a>
             </div>
           </div>
