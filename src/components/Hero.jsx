@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDownRight, Globe } from 'lucide-react';
+import { ArrowDownRight } from 'lucide-react';
 import './Hero.css';
 
 const Hero = () => {
@@ -33,8 +33,7 @@ const Hero = () => {
         animate="visible"
       >
         <motion.div variants={itemVariants} className="hero-badge">
-          <Globe size={16} className="badge-icon pulse" />
-          <span>Available for global work</span>
+          <span>Available to work globally</span>
         </motion.div>
         
         <motion.h1 variants={itemVariants} className="hero-title">

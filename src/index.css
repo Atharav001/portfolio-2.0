@@ -1,32 +1,40 @@
 :root {
-  /* Color Palette - Deep sleek dark mode with vibrant neon accents */
-  --bg-base: #030303;
-  --bg-surface: #0a0a0c;
-  --bg-surface-elevated: #121214;
+  /* Semantic Color System - OLED Black Base */
+  --bg-base: #000000;
+  --bg-surface: #0a0a0a;
+  --bg-surface-elevated: #111111;
 
-  --text-primary: #f2f2f2;
-  --text-secondary: #8a8a93;
-  --text-muted: #5e5e66;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
 
-  --accent-primary: #f1f1f1;
-  /* White minimalism for high-end feel */
-  --accent-secondary: #5e5e66;
-  /* Subdued for elegance */
-  --accent-glow: rgba(255, 255, 255, 0.1);
+  --accent-primary: #ffffff;
+  --accent-secondary: #3f3f46;
+  --accent-glow: rgba(255, 255, 255, 0.08);
   --accent-blue: #3b82f6;
 
-  --glass-bg: rgba(20, 20, 22, 0.25);
-  --glass-border: rgba(255, 255, 255, 0.05);
+  /* Subtle Glassmorphism */
+  --glass-bg: rgba(10, 10, 10, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.08);
 
-  /* Typography */
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-heading: 'Syne', system-ui, sans-serif;
+  /* Cursor Theme Colors */
+  --cursor-color: #ffffff;
+  --cursor-blend: difference;
+
+  /* Typography - Fluid & Variable Fonts */
+  --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --font-heading: 'Syne', 'Inter Variable', system-ui, sans-serif;
   --font-display: 'Space Grotesk', system-ui, sans-serif;
 
   /* Layout */
   --max-width: 1400px;
-  --border-radius: 20px;
-  --transition-smooth: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  --border-radius: 24px;
+  --transition-smooth: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  font-size: clamp(14px, 1vw + 10px, 18px);
+  scroll-behavior: auto;
 }
 
 .light-theme {
@@ -49,6 +57,10 @@
 
   --grid-dot-color: rgba(0, 0, 0, 0.1);
   --grid-spotlight: rgba(0, 0, 0, 0.04);
+
+  /* Cursor Theme Colors */
+  --cursor-color: #000000;
+  --cursor-blend: normal;
 }
 
 * {

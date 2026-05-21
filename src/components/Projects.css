@@ -34,31 +34,40 @@
 
 /* CARDS */
 .projects-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
 
 .project-card {
   display: flex;
-  background-color: var(--bg-surface);
+  flex-direction: column;
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
   border-radius: 24px;
-  padding: 1.5rem;
-  gap: 3rem;
-  transition: all 0.4s ease;
+  padding: 2rem;
+  gap: 2rem;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s;
   position: relative;
   overflow: hidden;
-  min-height: 550px;
-  max-height: 550px;
+  min-height: 450px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.project-card:nth-child(3n+1) {
+  grid-column: span 2;
+  flex-direction: row;
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-  background-color: var(--bg-surface-elevated);
-  border-color: rgba(0, 255, 255, 0.4);
-  /* Revert to a subtle safe border glow */
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 0 20px rgba(255, 255, 255, 0.05), 0 20px 40px rgba(0, 0, 0, 0.5);
+  background-color: rgba(30, 30, 30, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 :root.light-theme .project-card {
@@ -66,7 +75,9 @@
 }
 
 :root.light-theme .project-card:hover {
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.05), 0 30px 60px rgba(0, 0, 0, 0.1);
+  background-color: rgba(240, 240, 240, 0.6);
+  border-color: rgba(0, 0, 0, 0.15);
 }
 
 /* LEFT: Browser Frame */
@@ -79,6 +90,10 @@
   flex-direction: column;
   overflow: hidden;
   cursor: pointer;
+  width: 100%;
+}
+
+.project-card:nth-child(3n+1) .project-image-container {
   max-width: 55%;
 }
 
@@ -356,7 +371,12 @@
 }
 
 @media (max-width: 992px) {
-  .project-card {
+  .projects-list {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card, .project-card:nth-child(3n+1) {
+    grid-column: span 1;
     flex-direction: column;
     padding: 1.5rem;
     gap: 1.5rem;
@@ -364,7 +384,7 @@
     max-height: none;
   }
 
-  .project-image-container {
+  .project-image-container, .project-card:nth-child(3n+1) .project-image-container {
     max-width: 100%;
     height: 350px;
   }
