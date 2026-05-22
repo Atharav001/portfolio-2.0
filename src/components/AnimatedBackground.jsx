@@ -52,7 +52,7 @@ const AnimatedBackground = () => {
         className="framer-orb orb-1"
         style={{
           background: isLight 
-            ? 'radial-gradient(circle, rgba(138,43,226,0.55) 0%, rgba(138,43,226,0) 70%)'
+            ? 'radial-gradient(circle, rgba(0,162,255,0.45) 0%, rgba(0,162,255,0) 70%)'
             : 'radial-gradient(circle, rgba(138,43,226,0.25) 0%, rgba(138,43,226,0) 70%)'
         }}
         animate={floatAnimation1}
@@ -62,7 +62,7 @@ const AnimatedBackground = () => {
         className="framer-orb orb-2"
         style={{
           background: isLight 
-            ? 'radial-gradient(circle, rgba(0,255,255,0.5) 0%, rgba(0,255,255,0) 70%)'
+            ? 'radial-gradient(circle, rgba(147,51,234,0.35) 0%, rgba(147,51,234,0) 70%)'
             : 'radial-gradient(circle, rgba(0,255,255,0.18) 0%, rgba(0,255,255,0) 70%)'
         }}
         animate={floatAnimation2}
@@ -72,7 +72,7 @@ const AnimatedBackground = () => {
         className="framer-orb orb-3"
         style={{
           background: isLight 
-            ? 'radial-gradient(circle, rgba(138,43,226,0.45) 0%, rgba(138,43,226,0) 70%)'
+            ? 'radial-gradient(circle, rgba(236,72,153,0.3) 0%, rgba(236,72,153,0) 70%)'
             : 'radial-gradient(circle, rgba(138,43,226,0.2) 0%, rgba(138,43,226,0) 70%)'
         }}
         animate={floatAnimation3}

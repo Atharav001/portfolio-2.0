@@ -1,0 +1,54 @@
+/* ================================================================
+   TiltCard — 3D perspective wrapper
+   ================================================================ */
+
+/* Outer perspective container.
+   Must NOT have overflow:hidden — that clips the 3D transform. */
+.tilt-perspective {
+  perspective: 900px;
+  perspective-origin: center center;
+  /* Make it fill whatever space the original motion.div would occupy */
+  width: 100%;
+  height: 100%;
+}
+
+/* Inner card that receives the rotateX/rotateY transforms.
+   Keep transform-style flat (default) so children don't unexpectedly
+   create their own 3D contexts and break the glare overlay. */
+.tilt-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  /* Identity transforms — mandatory per modern-web-guidance to prevent
+     a new stacking context appearing only on interaction, which causes
+     z-index / layout shifts. */
+  rotate: 0deg;
+  scale: 1;
+  translate: 0px 0px;
+
+  /* Smooth the spring back to rest */
+  will-change: transform;
+}
+
+/* Specular glare highlight — absolutely covers the card surface.
+   Inherits border-radius from the card it sits inside. */
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 9;
+  transition: opacity 0.35s ease;
+}
+
+/* ================================================================
+   Mobile — disable the tilt effect on touch devices.
+   On touch there is no cursor, so the tilt springs stay at centre
+   anyway, but perspective can cause layout jank on low-end devices.
+   ================================================================ */
+@media (hover: none) {
+  .tilt-perspective {
+    perspective: none;
+  }
+}

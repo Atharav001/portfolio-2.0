@@ -13,6 +13,25 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import AnimatedBackground from './components/AnimatedBackground';
 
+// Reusable animated section divider
+const SectionDivider = () => (
+  <motion.div
+    initial={{ scaleX: 0 }}
+    whileInView={{ scaleX: 1 }}
+    transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+    viewport={{ once: true, margin: '-60px' }}
+    style={{
+      originX: 0,
+      height: '1px',
+      background: 'linear-gradient(90deg, var(--accent-blue) 0%, rgba(138,43,226,0.6) 50%, transparent 100%)',
+      maxWidth: 'var(--max-width)',
+      margin: '0 auto',
+      padding: '0 4rem',
+      width: 'calc(100% - 8rem)',
+    }}
+  />
+);
+
 function App() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -43,6 +62,30 @@ function App() {
     };
   }, []);
 
+  // IntersectionObserver fallback for .scroll-reveal in Firefox
+  // (native scroll-driven animations not yet supported there)
+  useEffect(() => {
+    if (CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) return;
+
+    const els = document.querySelectorAll('.scroll-reveal');
+    if (!els.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target); // only trigger once
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <motion.div 
@@ -57,13 +100,15 @@ function App() {
       <div className="bg-blob bg-blob-2"></div>
 
       <main>
-        <AnimatePresence mode="wait">
           <Hero />
+          <SectionDivider />
           <About />
+          <SectionDivider />
           <Experience />
+          <SectionDivider />
           <Projects />
+          <SectionDivider />
           <Contact />
-        </AnimatePresence>
       </main>
     </>
   );

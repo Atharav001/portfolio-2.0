@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, ArrowRight, X, Eye } from 'lucide-react';
 import CaseStudyViewer from './CaseStudyViewer';
+import TiltCard from './TiltCard';
 import './Projects.css';
 
 const projectsData = [
@@ -156,7 +157,7 @@ const projectsData = [
     title: 'Voice2Web - Intelligent Interface Maker',
     date: 'April 2025 - Present',
     description: 'Voice2Web is an AI-powered conversational builder platform that automatically generates web interfaces from spoken commands using highly optimized LLM routing logic.',
-    image: 'https://images.unsplash.com/photo-1661956602116-aa6865609028?auto=format&fit=crop&q=80&w=1600',
+    image: '/assets/voice2web_dashboard.png',
     readMore: '#',
     technologies: ['Next.js', 'React', 'OpenAI', 'TailwindCSS/CSS'],
     liveLink: 'https://github.com/Atharav001',
@@ -180,23 +181,29 @@ const Projects = () => {
   return (
     <section id="projects" className="projects-section py-32 px-6 lg:px-16 container mx-auto">
       <div className="section-heading mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 font-heading tracking-tight">
+        <div className="section-heading-label">
+          <span className="section-number-inline">03</span>
+          <span className="about-label-text">Projects</span>
+        </div>
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 font-heading tracking-tight scroll-reveal">
           Featured <span className="text-accent underline-effect">Projects</span>.
         </h2>
-        <p className="text-secondary text-sm font-mono uppercase tracking-widest max-w-2xl">
+        <p className="text-secondary text-sm font-mono uppercase tracking-widest max-w-2xl scroll-reveal">
           Highlighting my latest work: AI research, security innovation, and full-stack development.
         </p>
       </div>
 
       <div className="projects-list flex flex-col gap-8 md:gap-16">
         {projectsData.map((project, index) => (
-          <motion.div
+          <TiltCard
             key={project.id}
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
             className="project-card interactive-tag"
+            animationProps={{
+              initial: { y: 50, opacity: 0 },
+              whileInView: { y: 0, opacity: 1 },
+              viewport: { once: true, margin: '-100px' },
+              transition: { duration: 0.6, delay: index * 0.1 },
+            }}
           >
             {/* LEFT: Mac Browser Frame Image */}
             <div
@@ -257,7 +264,7 @@ const Projects = () => {
                 </button>
               </div>
             </div>
-          </motion.div>
+          </TiltCard>
         ))}
       </div>
 

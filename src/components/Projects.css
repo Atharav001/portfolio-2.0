@@ -8,6 +8,13 @@
   margin-bottom: 4rem;
 }
 
+.section-heading-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
 .section-heading h2 {
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 5vw, 4rem);
@@ -34,35 +41,32 @@
 
 /* CARDS */
 .projects-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
 }
 
 .project-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: stretch;
   background-color: var(--glass-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
   border-radius: 24px;
-  padding: 2rem;
-  gap: 2rem;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s;
+  padding: 2.5rem;
+  gap: 3rem;
+  /* Transition only visual properties — transform is owned by TiltCard/Framer Motion */
+  transition: box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s, background-color 0.5s;
   position: relative;
   overflow: hidden;
-  min-height: 450px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.project-card:nth-child(3n+1) {
-  grid-column: span 2;
-  flex-direction: row;
+  width: 100%;
 }
 
 .project-card:hover {
-  transform: translateY(-4px) scale(1.01);
+  /* No transform here — TiltCard handles all 3D transforms via Framer Motion */
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 0 20px rgba(255, 255, 255, 0.05), 0 20px 40px rgba(0, 0, 0, 0.5);
   background-color: rgba(30, 30, 30, 0.6);
   backdrop-filter: blur(24px);
@@ -82,7 +86,7 @@
 
 /* LEFT: Browser Frame */
 .project-image-container {
-  flex: 1;
+  flex: 1.2;
   background: #111;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -91,10 +95,7 @@
   overflow: hidden;
   cursor: pointer;
   width: 100%;
-}
-
-.project-card:nth-child(3n+1) .project-image-container {
-  max-width: 55%;
+  max-width: 48%;
 }
 
 .browser-header {
@@ -371,12 +372,7 @@
 }
 
 @media (max-width: 992px) {
-  .projects-list {
-    grid-template-columns: 1fr;
-  }
-
-  .project-card, .project-card:nth-child(3n+1) {
-    grid-column: span 1;
+  .project-card {
     flex-direction: column;
     padding: 1.5rem;
     gap: 1.5rem;
@@ -384,7 +380,7 @@
     max-height: none;
   }
 
-  .project-image-container, .project-card:nth-child(3n+1) .project-image-container {
+  .project-image-container {
     max-width: 100%;
     height: 350px;
   }

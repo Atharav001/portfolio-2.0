@@ -11,7 +11,7 @@
   --accent-primary: #ffffff;
   --accent-secondary: #3f3f46;
   --accent-glow: rgba(255, 255, 255, 0.08);
-  --accent-blue: #3b82f6;
+  --accent-blue: #00c8ff;
 
   /* Subtle Glassmorphism */
   --glass-bg: rgba(10, 10, 10, 0.4);
@@ -20,6 +20,7 @@
   /* Cursor Theme Colors */
   --cursor-color: #ffffff;
   --cursor-blend: difference;
+  --cursor-ring-color: rgba(255, 255, 255, 0.9);
 
   /* Typography - Fluid & Variable Fonts */
   --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
@@ -49,7 +50,7 @@ html {
   --accent-primary: #121212;
   --accent-secondary: #444444;
   --accent-glow: rgba(0, 0, 0, 0.1);
-  --accent-blue: #3b82f6;
+  --accent-blue: #0084cc;
 
   --glass-bg: rgba(255, 255, 255, 0.3);
   /* Translucent so blur shows */
@@ -61,6 +62,7 @@ html {
   /* Cursor Theme Colors */
   --cursor-color: #000000;
   --cursor-blend: normal;
+  --cursor-ring-color: rgba(0, 0, 0, 0.9);
 }
 
 * {
@@ -118,6 +120,23 @@ button {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   border-radius: var(--border-radius);
+}
+
+/* ---- Global section number label utilities ---- */
+.section-number-inline {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+}
+
+.about-label-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 /* Noise overlay for texture */
@@ -195,4 +214,62 @@ section {
   width: 0px;
   /* Hidden for pure awwwards feel, handled by lenis */
   background: transparent;
+}
+
+/* ================================================================
+   Scroll-Driven Section Reveal (.scroll-reveal)
+   ================================================================
+   Apply this class to any heading / element you want to wipe in
+   from the bottom as it enters the viewport.
+
+   Strategy (per modern-web-guidance):
+   1. Native CSS scroll-driven animations (Chrome 115+, Edge 115+, Safari 26+)
+   2. IntersectionObserver JS fallback (handles Firefox)
+   3. prefers-reduced-motion: show immediately, no animation
+   ================================================================ */
+
+/* --- Base state: visible by default (progressive enhancement) --- */
+.scroll-reveal {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* --- Native scroll-driven animation (Baseline Newly Available) --- */
+@supports ((animation-timeline: view()) and (animation-range: entry)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-reveal {
+      animation: scroll-reveal-wipe linear both;
+      /* Declare timeline AFTER shorthand to prevent reset */
+      animation-timeline: view();
+      animation-range: entry 0% entry 28%;
+    }
+
+    @keyframes scroll-reveal-wipe {
+      from {
+        opacity: 0;
+        translate: 0 48px;
+      }
+      to {
+        opacity: 1;
+        translate: 0 0;
+      }
+    }
+  }
+}
+
+/* --- JS Fallback state: hidden until IntersectionObserver fires --- */
+@supports not ((animation-timeline: view()) and (animation-range: entry)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-reveal {
+      opacity: 0;
+      translate: 0 48px;
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                  translate 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .scroll-reveal.in-view {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
 }

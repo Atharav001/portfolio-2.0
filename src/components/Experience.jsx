@@ -12,23 +12,35 @@ const Experience = () => {
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
-  const skills = [
-    "Python", "Java", "oops", "C/C++", "Rag", "Data Visualization", "Prompt Engineering", "ML"
+  const skillGroups = [
+    {
+      label: 'Languages',
+      skills: ['Python', 'Java', 'C/C++', 'OOPs'],
+    },
+    {
+      label: 'AI / ML',
+      skills: ['Machine Learning', 'RAG', 'Prompt Engineering', 'Local LLMs'],
+    },
+    {
+      label: 'Tools',
+      skills: ['n8n', 'Ollama', 'Data Visualization', 'Android (Kotlin)'],
+    },
   ];
 
   const education = [
     {
-      period: "2023 — Present",
-      role: "Student",
-      company: "Manipal Institute of Technology (MAHE), Bengaluru",
-      desc: "Immersed in tech, specializing in AI-driven solutions and autonomous systems."
-    }
+      period: '2023 — Present',
+      role: 'B.Tech CSE',
+      company: 'Manipal Institute of Technology (MAHE), Bengaluru',
+      desc: 'Specialising in AI-driven solutions, autonomous systems, and full-stack development.',
+    },
   ];
 
   return (
     <section id="experience" className="experience-section" ref={ref}>
       <div className="section-header">
-        <h2 className="section-title">BACKGROUND</h2>
+        <span className="section-number-inline">02</span>
+        <h2 className="section-title scroll-reveal">BACKGROUND</h2>
       </div>
 
       <div className="experience-grid">
@@ -48,10 +60,17 @@ const Experience = () => {
 
         <motion.div style={{ y: y2 }} className="experience-column">
           <h3 className="column-title">Core Capabilities</h3>
-          <div className="skills-container">
-            {skills.map((skill, index) => (
-              <div key={index} className="skill-pill interactive-tag">
-                {skill}
+          <div className="skills-groups">
+            {skillGroups.map((group) => (
+              <div key={group.label} className="skill-group">
+                <span className="skill-group-label">{group.label}</span>
+                <div className="skills-container">
+                  {group.skills.map((skill) => (
+                    <div key={skill} className="skill-pill interactive-tag">
+                      {skill}
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>

@@ -33,10 +33,12 @@
 
 
 :root.light-theme .navbar-wrapper {
-  /* Opaque frosted white for light theme base */
-  background: rgba(255, 255, 255, 0.4);
+  /* High-end translucent frosted glass for light theme base */
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  border-color: rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6), 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
 .navbar-wrapper.scrolled {
@@ -48,9 +50,11 @@
 }
 
 :root.light-theme .navbar-wrapper.scrolled {
-  background: rgba(250, 250, 250, 0.75);
-  /* Thick frosted glass */
-  border-color: rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6), 0 20px 40px rgba(0, 0, 0, 0.06);
 }
 
 /* LEFT: LOGO */

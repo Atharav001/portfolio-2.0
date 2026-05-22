@@ -6,6 +6,13 @@
   padding-top: 15vh; /* Increased to avoid overlap with fixed navbar */
 }
 
+/* 3D perspective stage — children appear to exist in Z-space */
+.hero-3d-scene {
+  width: 100%;
+  perspective: 1200px;
+  perspective-origin: 50% 40%;
+}
+
 .hero-content {
   display: flex;
   flex-direction: column;
@@ -26,25 +33,11 @@
   width: fit-content;
   margin-bottom: 2rem;
   color: var(--text-secondary);
+  /* Establish identity transform so the parallax spring starts from correct position */
+  translate: 0px 0px;
 }
 
-.pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  color: #10b981;
-  /* Green accent for "available" */
-}
 
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: .5;
-  }
-}
 
 .hero-title {
   display: flex;
@@ -86,9 +79,9 @@
 
 .hero-description {
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   color: var(--text-secondary);
-  line-height: 1.4;
+  line-height: 1.5;
   font-weight: 300;
 }
 
@@ -162,5 +155,12 @@
   .btn {
     width: 100%;
     padding: 1rem;
+  }
+}
+
+/* Touch devices: disable parallax entirely (no hover state, avoids accidental motion) */
+@media (hover: none) {
+  .hero-3d-scene {
+    perspective: none;
   }
 }
