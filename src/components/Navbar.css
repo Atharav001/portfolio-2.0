@@ -73,6 +73,10 @@
   white-space: nowrap;
 }
 
+.navbar-logo .logo-short {
+  display: none;
+}
+
 /* CENTER: LINKS */
 .navbar-links-section {
   justify-self: center;
@@ -192,10 +196,7 @@
 /* MOBILE MENU OVERLAY */
 .mobile-menu-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   background: rgba(10, 10, 10, 0.98);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
@@ -259,7 +260,24 @@
   }
 
   .navbar-logo {
-    font-size: 1.15rem;
+    font-size: clamp(0.95rem, 4.5vw, 1.1rem);
+  }
+
+  .navbar-logo .logo-full {
+    display: inline;
+  }
+
+  .navbar-logo .logo-short {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    .navbar-logo .logo-full {
+      display: none;
+    }
+    .navbar-logo .logo-short {
+      display: inline;
+    }
   }
 
   .navbar-links-section {

@@ -95,7 +95,8 @@ const Navbar = () => {
         {/* Left Side: Logo */}
         <div className="navbar-logo-section">
           <a href="#home" className="navbar-logo interactive-tag" onClick={(e) => scrollToSection(e, 'Home')}>
-            Atharav Narang
+            <span className="logo-full">Atharav Narang</span>
+            <span className="logo-short">Atharav</span>
           </a>
         </div>
 
