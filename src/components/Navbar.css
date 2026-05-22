@@ -1,3 +1,14 @@
+@keyframes navbarSlideDown {
+  from {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+  to {
+    transform: none; /* Discards hardware-acceleration transform stacks! Prevents mobile backdrop-filter bugs */
+    opacity: 1;
+  }
+}
+
 .navbar-container {
   position: fixed;
   top: 1.5rem;
@@ -8,9 +19,8 @@
   width: 90vw;
   /* Extremely wide navigation bar to ensure massive empty spacing */
   max-width: 1800px;
+  animation: navbarSlideDown 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
-
 
 .navbar-wrapper {
   display: grid;
@@ -18,10 +28,10 @@
   /* Equal fraction forces links into true absolute center! */
   align-items: center;
   padding: 0.8rem 2.5rem;
-  background: rgba(10, 10, 12, 0.2);
-  /* Very transparent so background text shines through */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 10, 12, 0.45);
+  /* Perfect translucency so background mesh glow shines through beautifully */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   position: relative;
   z-index: 101;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -30,11 +40,9 @@
   transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-
-
 :root.light-theme .navbar-wrapper {
   /* High-end translucent frosted glass for light theme base */
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-color: rgba(0, 0, 0, 0.06);
@@ -42,15 +50,15 @@
 }
 
 .navbar-wrapper.scrolled {
-  background: rgba(10, 10, 12, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 10, 12, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 20px 40px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 :root.light-theme .navbar-wrapper.scrolled {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-color: rgba(0, 0, 0, 0.08);
