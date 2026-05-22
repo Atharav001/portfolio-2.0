@@ -154,8 +154,10 @@
 
 @media (max-width: 768px) {
   .contact-huge-title {
-    font-size: clamp(3rem, 14vw, 5rem);
-    margin-bottom: 3rem;
+    font-size: clamp(2.2rem, 10vw, 4.2rem);
+    margin-bottom: 2.5rem;
+    line-height: 1.0;
+    word-break: break-word;
   }
 
   .footer-copyright {
