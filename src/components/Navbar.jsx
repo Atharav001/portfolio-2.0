@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Moon, Sun } from 'lucide-react';
 import './Navbar.css';
 
@@ -83,7 +84,13 @@ const Navbar = () => {
 
   return (
     <header className="navbar-container">
-      <div className={`navbar-wrapper ${scrolled ? 'scrolled' : ''}`}>
+      <motion.div 
+        className={`navbar-wrapper ${scrolled ? 'scrolled' : ''}`}
+        initial={{ top: -100, opacity: 0 }}
+        animate={{ top: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        style={{ position: 'relative' }}
+      >
 
         {/* Left Side: Logo */}
         <div className="navbar-logo-section">
@@ -133,7 +140,7 @@ const Navbar = () => {
           </button>
         </div>
 
-      </div>
+      </motion.div>
 
       {/* Mobile Overlay Menu */}
       <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
