@@ -58,6 +58,11 @@ const CaseStudyViewer = ({ project, onClose }) => {
             </header>
 
             <article className="case-study-article">
+              {project.image && (
+                <figure className="case-study-hero-img">
+                  <img src={project.image} alt={project.title} />
+                </figure>
+              )}
               {project.caseStudyDetails ? (
                 <>
                   <div id="overview" className="case-study-overview-grid">
