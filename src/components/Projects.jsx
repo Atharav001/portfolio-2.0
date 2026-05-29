@@ -15,6 +15,8 @@ const projectsData = [
     readMore: "#",
     technologies: ["Native Android", "Kotlin", "AccessibilityService", "Room DB"],
     liveLink: "https://github.com/Atharav001/shortform-usage-sentinel",
+    urlBar: "github.com/Atharav001/shortform-usage-sentinel",
+    tabTag: "App",
     caseStudy: "#",
     caseStudyDetails: {
       role: "Android Developer & UI/UX Designer",
@@ -96,6 +98,8 @@ const projectsData = [
     readMore: "#",
     technologies: ["Python", "Local LLM", "OpenAI", "RAG", "Terminal-based"],
     liveLink: "https://github.com/Atharav001/AI-Support-Triage-Agent",
+    urlBar: "github.com/Atharav001/AI-Support-Triage-Agent",
+    tabTag: "Terminal",
     caseStudy: "#",
     caseStudyDetails: {
       role: "AI/Backend Developer",
@@ -161,6 +165,8 @@ const projectsData = [
     readMore: '#',
     technologies: ['React', 'Framer Motion', 'Vanilla CSS', 'Lenis Scroll', 'Vite'],
     liveLink: 'https://github.com/Atharav001/portfolio-2.0',
+    urlBar: 'github.com/Atharav001/portfolio-2.0',
+    tabTag: 'Web',
     caseStudy: '#',
     caseStudyDetails: {
       role: 'Lead Creative Developer & Designer',
@@ -270,8 +276,8 @@ const Projects = () => {
                   <span className="dot yellow"></span>
                   <span className="dot green"></span>
                 </div>
-                <div className="browser-url-bar">{project.title.toLowerCase().replace(/[^a-z0-9]/g, '')}.com</div>
-                <div className="browser-tab"><Eye size={12} className="mr-1" /> App</div>
+                <div className="browser-url-bar">{project.urlBar}</div>
+                <div className="browser-tab"><Eye size={12} className="mr-1" /> {project.tabTag}</div>
               </div>
               <div className="browser-content">
                 <img src={project.image} alt={project.title} className="project-img" loading="lazy" />
