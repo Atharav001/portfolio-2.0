@@ -10,9 +10,19 @@
 
 ---
 
-## 🎨 Project Preview
+## 🎨 Project Preview & Theme Modes
 
-![Portfolio 2.0 Dashboard](./public/assets/portfolio_v2.png)
+We support both an immersive Dark mode and a high-contrast Light mode, allowing users to toggle between two distinct premium layouts.
+
+<p align="center">
+  <img src="./public/assets/portfolio_v2.png" width="800" alt="Portfolio 2.0 Combined Mockup" />
+</p>
+
+### Custom Theme Showcase
+
+| Dark Mode (Default) | Light Mode (Alternate) |
+| :---: | :---: |
+| <img src="./public/assets/portfolio_dark.jpg" width="400" alt="Portfolio Dark Theme" /> | <img src="./public/assets/portfolio_light.jpg" width="400" alt="Portfolio Light Theme" /> |
 
 ---
 

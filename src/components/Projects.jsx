@@ -170,25 +170,19 @@ const projectsData = [
       problemTitle: 'The Sea of Homogeneity',
       problemText: 'Most developer portfolios use repetitive, plain bootstrap grids or flat templates with no interactive personality. In the competitive space of AI and full-stack engineering, a personal website should be a live testament of technical excellence, clean code, and premium interactive storytelling.',
       solutionTitle: 'Immersive Design & Interaction',
-      solutionText: 'Portfolio 2.0 breaks this paradigm. Using math-driven canvas neural network animations, beautiful organic backdrop-filter overlays, and high-performance inertia scroll physics, the site delivers a futuristic developer showcase that is as responsive as it is visually beautiful.',
+      solutionText: 'Portfolio 2.0 breaks this paradigm. Using math-driven canvas neural network animations, beautiful organic backdrop-filter overlays, and high-performance inertia scroll physics, the site delivers a futuristic developer showcase that is as responsive as it is visually beautiful.<br/><br/><div class="theme-showcase-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; width: 100%;"><div class="theme-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; padding: 12px; transition: all 0.3s ease;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"><span style="font-family: monospace; font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em;">Dark Theme</span><span style="background: rgba(138, 43, 226, 0.15); color: #c084fc; font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px;">Primary Mode</span></div><img src="/assets/portfolio_dark.jpg" alt="Portfolio Dark Theme" style="width: 100%; border-radius: 6px; aspect-ratio: 16/9; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.05);" /></div><div class="theme-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; padding: 12px; transition: all 0.3s ease;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"><span style="font-family: monospace; font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em;">Light Theme</span><span style="background: rgba(138, 43, 226, 0.15); color: #c084fc; font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px;">Alternate Mode</span></div><img src="/assets/portfolio_light.jpg" alt="Portfolio Light Theme" style="width: 100%; border-radius: 6px; aspect-ratio: 16/9; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.05);" /></div></div>',
       features: [
         {
           title: 'Mathematical Canvas Simulation',
-          text: 'A beautiful interactive particle engine running on an HTML5 canvas, calculating dynamic proximity lines to form a real-time reactive neural-orb constellation.',
-          image: '/assets/portfolio_v2.png',
-          caption: 'The interactive background simulating glowing neural network node clusters dynamically.'
+          text: 'A beautiful interactive particle engine running on an HTML5 canvas, calculating dynamic proximity lines to form a real-time reactive neural-orb constellation.'
         },
         {
           title: 'Glassmorphic Case Study Drawer',
-          text: 'Instead of simple pages, an elegant glassmorphic drawer slides out with buttery smooth spring physics to present detailed interactive documentation.',
-          image: '/assets/portfolio_v2.png',
-          caption: 'Detailed case study viewer utilizing Framer Motion\'s AnimatePresence for state transitions.'
+          text: 'Instead of simple pages, an elegant glassmorphic drawer slides out with buttery smooth spring physics to present detailed interactive documentation.'
         },
         {
           title: 'Momentum Inertia Physics',
-          text: 'Integrated Lenis scroll engine with linear interpolation to offer smooth scrolling across all devices and platforms, enhancing the overall tactical feel.',
-          image: '/assets/portfolio_v2.png',
-          caption: 'Smooth kinetic scroll framework with custom CSS scroll-driven reveal transitions.'
+          text: 'Integrated Lenis scroll engine with linear interpolation to offer smooth scrolling across all devices and platforms, enhancing the overall tactical feel.'
         }
       ],
       technicalText: 'Developing the portfolio required overcoming standard browser canvas bottlenecking and animation layout shifts.',
