@@ -154,14 +154,74 @@ const projectsData = [
   },
   {
     id: 3,
-    title: 'Voice2Web - Intelligent Interface Maker',
-    date: 'April 2025 - Present',
-    description: 'Voice2Web is an AI-powered conversational builder platform that automatically generates web interfaces from spoken commands using highly optimized LLM routing logic.',
-    image: '/assets/voice2web_dashboard.png',
+    title: 'Portfolio 2.0 - Immersive Developer Experience',
+    date: 'May 2026',
+    description: 'A high-performance, immersive developer portfolio featuring canvas-based neural simulations, glassmorphic UI overlay case studies, and smooth inertia physics navigation.',
+    image: '/assets/portfolio_v2.png',
     readMore: '#',
-    technologies: ['Next.js', 'React', 'OpenAI', 'TailwindCSS/CSS'],
-    liveLink: 'https://github.com/Atharav001',
-    caseStudy: '#'
+    technologies: ['React', 'Framer Motion', 'Vanilla CSS', 'Lenis Scroll', 'Vite'],
+    liveLink: 'https://github.com/Atharav001/portfolio-2.0',
+    caseStudy: '#',
+    caseStudyDetails: {
+      role: 'Lead Creative Developer & Designer',
+      techStack: 'React, Framer Motion, Lenis Scroll, HTML5 Canvas, Vanilla CSS, Vite',
+      platform: 'Web (Responsive)',
+      problemLead: 'Standard developer portfolios are often flat, static, and fail to immediately capture interest or showcase the developer\'s creative interactive engineering capabilities.',
+      problemTitle: 'The Sea of Homogeneity',
+      problemText: 'Most developer portfolios use repetitive, plain bootstrap grids or flat templates with no interactive personality. In the competitive space of AI and full-stack engineering, a personal website should be a live testament of technical excellence, clean code, and premium interactive storytelling.',
+      solutionTitle: 'Immersive Design & Interaction',
+      solutionText: 'Portfolio 2.0 breaks this paradigm. Using math-driven canvas neural network animations, beautiful organic backdrop-filter overlays, and high-performance inertia scroll physics, the site delivers a futuristic developer showcase that is as responsive as it is visually beautiful.',
+      features: [
+        {
+          title: 'Mathematical Canvas Simulation',
+          text: 'A beautiful interactive particle engine running on an HTML5 canvas, calculating dynamic proximity lines to form a real-time reactive neural-orb constellation.',
+          image: '/assets/portfolio_v2.png',
+          caption: 'The interactive background simulating glowing neural network node clusters dynamically.'
+        },
+        {
+          title: 'Glassmorphic Case Study Drawer',
+          text: 'Instead of simple pages, an elegant glassmorphic drawer slides out with buttery smooth spring physics to present detailed interactive documentation.',
+          image: '/assets/portfolio_v2.png',
+          caption: 'Detailed case study viewer utilizing Framer Motion\'s AnimatePresence for state transitions.'
+        },
+        {
+          title: 'Momentum Inertia Physics',
+          text: 'Integrated Lenis scroll engine with linear interpolation to offer smooth scrolling across all devices and platforms, enhancing the overall tactical feel.',
+          image: '/assets/portfolio_v2.png',
+          caption: 'Smooth kinetic scroll framework with custom CSS scroll-driven reveal transitions.'
+        }
+      ],
+      technicalText: 'Developing the portfolio required overcoming standard browser canvas bottlenecking and animation layout shifts.',
+      techHighlights: [
+        {
+          title: 'Optimized Canvas Animation Loop',
+          text: 'Developed a lightweight mathematical particle engine in Vanilla JS. Proximity calculations are limited dynamically to avoid high CPU/GPU overhead, maintaining a consistent 60 FPS experience.'
+        },
+        {
+          title: 'Intersection Observer Fallbacks',
+          text: 'Created robust polyfill fallbacks in JavaScript for browsers that do not natively support CSS view-timeline or scroll-driven animation standards.'
+        }
+      ],
+      pipeline: [
+        'User enters website',
+        'Lenis initializes scroll timeline bindings',
+        'Mathematical particle simulation spawns neural node orb',
+        'Framer motion orchestrates fade-in reveals on scroll',
+        'Interactive custom magnetic cursor reacts to hover states'
+      ],
+      deepIntegration: [
+        {
+          title: 'Modular Pure CSS Tokens',
+          text: 'Built with pure CSS variables for maximum flex control, avoiding massive external libraries and keeping bundle sizes extremely slim for optimal SEO metrics.'
+        },
+        {
+          title: 'Dynamic Custom Cursor & Magnetic Fields',
+          text: 'A custom cursor with inertia delay that morphs into a glowing ring when hovering over interactive items, reinforcing deep user engagement.'
+        }
+      ],
+      designPhilosophy: 'Design is not just what it looks like, but how it works. By combining complex mathematical animations with clean software patterns, the portfolio serves as an active product showcase rather than a simple CV.',
+      closingQuote: 'An interactive resume is standard. A digital experience is unforgettable.'
+    }
   }
 ];
 
