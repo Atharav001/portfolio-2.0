@@ -155,6 +155,7 @@ const projectsData = [
       designPhilosophy: "The focus was purely on robust functionality, speed, and reliability. By keeping the application entirely terminal-based, we minimized overhead and maximized the processing power dedicated to the local LLM.",
       closingQuote: "Bringing intelligent, deterministic AI to the edge—where privacy meets performance."
     }
+  },
   {
     id: 3,
     title: "Agentic Deep Research System",
