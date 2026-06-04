@@ -155,9 +155,75 @@ const projectsData = [
       designPhilosophy: "The focus was purely on robust functionality, speed, and reliability. By keeping the application entirely terminal-based, we minimized overhead and maximized the processing power dedicated to the local LLM.",
       closingQuote: "Bringing intelligent, deterministic AI to the edge—where privacy meets performance."
     }
-  },
   {
     id: 3,
+    title: "Agentic Deep Research System",
+    date: "2026",
+    description: "A fully agentic, ReAct-pattern deep research system built over a corpus of 439 arXiv papers, incorporating a four-stage reasoning loop to address the limitations of single-pass RAG.",
+    image: "/assets/ai_support_triage.png",
+    readMore: "#",
+    technologies: ["Agentic RAG", "Python", "Local LLMs", "FAISS", "BM25", "Ollama"],
+    liveLink: "#",
+    urlBar: "github.com/Atharav001/Agentic-Deep-Research",
+    tabTag: "AI Research",
+    caseStudy: "#",
+    caseStudyDetails: {
+      role: "AI Researcher & Developer",
+      techStack: "Python, Ollama (gemma3:4b), FAISS, BM25Okapi, PyMuPDF",
+      platform: "Local AI Agent",
+      problemLead: "Single-pass retrieval-augmented generation systems degrade systematically on multi-source academic queries, where answer completeness depends on evidence aggregation across several independent papers.",
+      problemTitle: "The Limitations of Single-Pass RAG",
+      problemText: "Conventional RAG architectures operate as single-pass pipelines. This design exhibits fundamental failure modes under the conditions characteristic of academic literature synthesis due to query ambiguity, evidence sparsity, and positional retrieval bias (the 'Lost in the Middle' effect).",
+      solutionTitle: "Agentic ReAct-Pattern Architecture",
+      solutionText: "A ReAct-pattern deep research system incorporating a four-stage reasoning loop—Planner, Hybrid Retriever, Reflector, and NLI-backed Synthesizer. A seven-configuration ablation study demonstrates that the complete agentic system achieves measurably superior citation precision and answer faithfulness.",
+      features: [
+        {
+          title: "Context-Enriched Chunking",
+          text: "Every chunk is prepended with a structured prefix (Paper Title, Section, Abstract) before embedding. This directly addresses the 'Lost in the Middle' problem, ensuring chunks encode both local semantic content and origin context."
+        },
+        {
+          title: "Hybrid Retrieval & RRF",
+          text: "Maintains a dense index (BAAI/bge-small-en-v1.5 via FAISS) and a lexical index (BM25Okapi). Fusion is performed via Reciprocal Rank Fusion (RRF) with k=60, followed by cross-encoder reranking."
+        },
+        {
+          title: "The ReAct Reasoning Loop",
+          text: "A dynamic loop where the Planner decomposes queries, the Retriever executes hybrid pipelines, and the Reflector acts as a retrieval quality controller to generate follow-up queries."
+        },
+        {
+          title: "NLI Citation Verifier",
+          text: "Performs Strict ID Boundary Checking. Every inline citation is cross-referenced against the retrieved evidence list, surgically removing sentences tied to absent arXiv IDs without discarding valid content."
+        }
+      ],
+      technicalText: "Built over a corpus of 439 arXiv papers, evaluated using a 30-question dataset and 7 ablation configurations. The inference backend runs entirely locally on Ollama (gemma3:4b) with zero API dependency.",
+      techHighlights: [
+        {
+          title: "Dynamic Routing via Reflector",
+          text: "The Reflector evaluates citation coverage against domain-appropriate thresholds. On deficit, it generates semantically distinct follow-up queries."
+        },
+        {
+          title: "Scale-Invariant Score Fusion",
+          text: "RRF is mathematically superior to naive score averaging because it is scale-invariant and rank-position-sensitive, naturally amplifying consensus high-confidence retrievals."
+        }
+      ],
+      pipeline: [
+        "Planner decomposes the question into sub-queries",
+        "Hybrid Retriever executes FAISS+BM25 searches",
+        "RRF and Cross-Encoder Reranking filter top context",
+        "Reflector loop ensures citation coverage thresholds",
+        "Synthesizer generates answer and NLI Verifier checks citations"
+      ],
+      deepIntegration: [
+        {
+          title: "Zero API Dependency",
+          text: "The entire system runs on fully local inference backends, ensuring complete data privacy and reproducibility."
+        }
+      ],
+      designPhilosophy: "The central design insight is that dynamic routing via an iterative Reflector loop is categorically superior to a fixed retrieval pipeline. This transforms retrieval from a deterministic lookup into a coverage-maximising search process.",
+      closingQuote: "Transforming retrieval from a deterministic lookup into a coverage-maximising search process."
+    }
+  },
+  {
+    id: 4,
     title: 'Portfolio 2.0 - Immersive Developer Experience',
     date: 'May 2026',
     description: 'A high-performance, immersive developer portfolio featuring canvas-based neural simulations, glassmorphic UI overlay case studies, and smooth inertia physics navigation.',
