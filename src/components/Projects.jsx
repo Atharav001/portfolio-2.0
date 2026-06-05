@@ -164,8 +164,8 @@ const projectsData = [
     image: "/assets/deep_research_mockup.png",
     readMore: "#",
     technologies: ["Agentic RAG", "Python", "Local LLMs", "FAISS", "BM25", "Ollama"],
-    liveLink: "#",
-    urlBar: "github.com/Atharav001/Agentic-Deep-Research",
+    liveLink: "https://github.com/Atharav001/RAG-Agentic-Deep-Research",
+    urlBar: "github.com/Atharav001/RAG-Agentic-Deep-Research",
     tabTag: "Terminal",
     caseStudy: "#",
     caseStudyDetails: {
