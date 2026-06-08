@@ -4,13 +4,19 @@
   width: 100vw;
   height: 100vh;
   z-index: 10000;
-  background-color: var(--bg-base); /* Pure obsidian matching the reference edges exactly */
+  background-color: rgba(0, 0, 0, 0.5); /* Extremely rich obsidian translucent tint */
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
   overflow-y: auto;
   overflow-x: hidden;
   color: var(--text-primary);
   pointer-events: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch; /* Ensures iOS smoothly scrolls */
+}
+
+.light-theme .case-study-overlay {
+  background-color: rgba(247, 247, 247, 0.5); /* Translucent light mode tint */
 }
 
 .case-study-overlay::-webkit-scrollbar {

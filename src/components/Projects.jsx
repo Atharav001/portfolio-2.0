@@ -493,10 +493,14 @@ const Projects = () => {
         )}
       </AnimatePresence>
 
-      <CaseStudyViewer
-        project={selectedCaseStudy}
-        onClose={() => setSelectedCaseStudy(null)}
-      />
+      <AnimatePresence>
+        {selectedCaseStudy && (
+          <CaseStudyViewer
+            project={selectedCaseStudy}
+            onClose={() => setSelectedCaseStudy(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 };

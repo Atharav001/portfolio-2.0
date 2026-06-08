@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import './CaseStudyViewer.css';
 
@@ -22,27 +22,26 @@ const CaseStudyViewer = ({ project, onClose }) => {
   }, [onClose]);
 
   return (
-    <AnimatePresence>
-      <motion.div 
-        className="case-study-overlay"
-        data-lenis-prevent="true"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 50 }}
-        transition={{ duration: 0.6, cubicBezier: [0.16, 1, 0.3, 1] }}
-      >
-        {/* Floating gradient orb specifically for the case study header matching the reference image */}
-        <div className="case-study-gradient-bg"></div>
+    <motion.div 
+      className="case-study-overlay"
+      data-lenis-prevent="true"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 50 }}
+      transition={{ duration: 0.6, cubicBezier: [0.16, 1, 0.3, 1] }}
+    >
+      {/* Floating gradient orb specifically for the case study header matching the reference image */}
+      <div className="case-study-gradient-bg"></div>
 
-        <nav className="case-study-nav">
-          <button onClick={onClose} className="back-btn interactive-tag">
-            <ArrowLeft size={18} className="mr-2" /> Back to Portfolio
-          </button>
-          
-          <a href={project.liveLink} target="_blank" rel="noreferrer" className="view-live-btn interactive-tag">
-            View Live <ExternalLink size={16} className="ml-1" />
-          </a>
-        </nav>
+      <nav className="case-study-nav">
+        <button onClick={onClose} className="back-btn interactive-tag">
+          <ArrowLeft size={18} className="mr-2" /> Back to Portfolio
+        </button>
+        
+        <a href={project.liveLink} target="_blank" rel="noreferrer" className="view-live-btn interactive-tag">
+          View Live <ExternalLink size={16} className="ml-1" />
+        </a>
+      </nav>
 
         <div className="case-study-layout">
           {/* Main Manuscript Area */}
@@ -241,8 +240,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
             </div>
           </aside>
         </div>
-      </motion.div>
-    </AnimatePresence>
+    </motion.div>
   );
 };
 

@@ -13,7 +13,7 @@ const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&!?';
  * @param {number} options.speed   - ms per animation frame (lower = faster)
  * @param {number} options.framesPerChar - how many frames each character scrambles before resolving
  */
-export function useTextScramble(targetText, { delay = 0, speed = 40, framesPerChar = 8 } = {}) {
+export function useTextScramble(targetText, { delay = 0, speed = 40, framesPerChar = 8, trigger } = {}) {
   const [displayText, setDisplayText] = useState(targetText);
 
   const runScramble = useCallback(() => {
@@ -54,7 +54,7 @@ export function useTextScramble(targetText, { delay = 0, speed = 40, framesPerCh
   useEffect(() => {
     const timeout = setTimeout(runScramble, delay);
     return () => clearTimeout(timeout);
-  }, [runScramble, delay]);
+  }, [runScramble, delay, trigger]);
 
   return displayText;
 }
