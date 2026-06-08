@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ExternalLink, ArrowRight, X, Eye } from 'lucide-react';
 import CaseStudyViewer from './CaseStudyViewer';
 import TiltCard from './TiltCard';
@@ -292,9 +292,138 @@ const projectsData = [
   }
 ];
 
+const ProjectCardWrapper = ({
+  project,
+  index,
+  totalProjects,
+  isDesktop,
+  setSelectedImage,
+  setSelectedCaseStudy
+}) => {
+  const containerRef = useRef(null);
+
+  // Staggered top offset for sticky cards (e.g. 100px, 140px, 180px, 220px)
+  const stickyTop = 100 + index * 40;
+
+  // Track the scroll progress of the individual card wrapper
+  // It starts when the top of the wrapper hits its sticky threshold, and ends when it scrolls completely out
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: [`start ${stickyTop}px`, "end start"]
+  });
+
+  // Calculate targetScale: earlier cards scale down to add depth, e.g. Card 0 goes to 0.88, Card 3 stays at 1.00
+  const targetScale = 1 - ((totalProjects - 1 - index) * 0.04);
+
+  // Transform scale and opacity dynamically based on scroll progress
+  const scaleTransform = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 1], [1, 0.65]);
+
+  const scale = isDesktop ? scaleTransform : 1;
+  const opacity = isDesktop ? opacityTransform : 1;
+
+  return (
+    <div
+      ref={containerRef}
+      className="project-card-wrapper"
+      style={{
+        position: isDesktop ? "sticky" : "relative",
+        top: isDesktop ? `${stickyTop}px` : "auto",
+        zIndex: index + 1
+      }}
+    >
+      <motion.div
+        style={{ scale, opacity }}
+        className="project-card-inner-container"
+      >
+        <TiltCard
+          className="project-card interactive-tag"
+          animationProps={!isDesktop ? {
+            initial: { y: 30, opacity: 0 },
+            whileInView: { y: 0, opacity: 1 },
+            viewport: { once: true, margin: '-50px' },
+            transition: { duration: 0.5 },
+          } : {}}
+        >
+          {/* LEFT: Mac Browser Frame Image */}
+          <div
+            className="project-image-container group"
+            onClick={() => setSelectedImage(project.image)}
+          >
+            <div className="browser-header">
+              <div className="browser-dots">
+                <span className="dot red"></span>
+                <span className="dot yellow"></span>
+                <span className="dot green"></span>
+              </div>
+              <div className="browser-url-bar">{project.urlBar}</div>
+              <div className="browser-tab"><Eye size={12} className="mr-1" /> {project.tabTag}</div>
+            </div>
+            <div className="browser-content">
+              <img src={project.image} alt={project.title} className="project-img" loading="lazy" />
+
+              {/* Hover Reveal: Click to View */}
+              <div className="image-hover-overlay">
+                <div className="click-to-view-badge">
+                  <Eye size={20} className="mb-2" />
+                  <span>Click to view</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT: Project Info */}
+          <div className="project-info-container">
+            <h3 className="project-title">{project.title}</h3>
+            <p className="project-date">{project.date}</p>
+
+            <p className="project-description">
+              {project.description}
+            </p>
+            <a href={project.readMore} className="read-more-link">
+              ↓ Read more
+            </a>
+
+            <div className="technologies-section">
+              <h4 className="tech-heading">TECHNOLOGIES</h4>
+              <div className="tech-tags">
+                {project.technologies.map(tech => (
+                  <span key={tech} className="tech-badge focus-pill">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="project-actions">
+              <a href={project.liveLink} target="_blank" rel="noreferrer" className="action-btn primary interactive-tag">
+                <ExternalLink size={16} /> View Live <ArrowRight size={16} className="ml-1" />
+              </a>
+              <button onClick={() => setSelectedCaseStudy(project)} className="action-btn secondary interactive-tag">
+                <Eye size={16} /> Case Study <ArrowRight size={16} className="ml-1" />
+              </button>
+            </div>
+          </div>
+        </TiltCard>
+      </motion.div>
+    </div>
+  );
+};
+
 const Projects = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState(null);
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  // Monitor media queries to disable sticky/scale logic on mobile safely
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 993px)');
+    const handleMediaChange = (e) => setIsDesktop(e.matches);
+    
+    setIsDesktop(mediaQuery.matches);
+    mediaQuery.addEventListener('change', handleMediaChange);
+    return () => mediaQuery.removeEventListener('change', handleMediaChange);
+  }, []);
 
   // Close modal with Escape key
   useEffect(() => {
@@ -322,76 +451,15 @@ const Projects = () => {
 
       <div className="projects-list flex flex-col gap-8 md:gap-16">
         {projectsData.map((project, index) => (
-          <TiltCard
+          <ProjectCardWrapper
             key={project.id}
-            className="project-card interactive-tag"
-            animationProps={{
-              initial: { y: 50, opacity: 0 },
-              whileInView: { y: 0, opacity: 1 },
-              viewport: { once: true, margin: '-100px' },
-              transition: { duration: 0.6, delay: index * 0.1 },
-            }}
-          >
-            {/* LEFT: Mac Browser Frame Image */}
-            <div
-              className="project-image-container group"
-              onClick={() => setSelectedImage(project.image)}
-            >
-              <div className="browser-header">
-                <div className="browser-dots">
-                  <span className="dot red"></span>
-                  <span className="dot yellow"></span>
-                  <span className="dot green"></span>
-                </div>
-                <div className="browser-url-bar">{project.urlBar}</div>
-                <div className="browser-tab"><Eye size={12} className="mr-1" /> {project.tabTag}</div>
-              </div>
-              <div className="browser-content">
-                <img src={project.image} alt={project.title} className="project-img" loading="lazy" />
-
-                {/* Hover Reveal: Click to View */}
-                <div className="image-hover-overlay">
-                  <div className="click-to-view-badge">
-                    <Eye size={20} className="mb-2" />
-                    <span>Click to view</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT: Project Info */}
-            <div className="project-info-container">
-              <h3 className="project-title">{project.title}</h3>
-              <p className="project-date">{project.date}</p>
-
-              <p className="project-description">
-                {project.description}
-              </p>
-              <a href={project.readMore} className="read-more-link">
-                ↓ Read more
-              </a>
-
-              <div className="technologies-section">
-                <h4 className="tech-heading">TECHNOLOGIES</h4>
-                <div className="tech-tags">
-                  {project.technologies.map(tech => (
-                    <span key={tech} className="tech-badge focus-pill">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="project-actions">
-                <a href={project.liveLink} target="_blank" rel="noreferrer" className="action-btn primary interactive-tag">
-                  <ExternalLink size={16} /> View Live <ArrowRight size={16} className="ml-1" />
-                </a>
-                <button onClick={() => setSelectedCaseStudy(project)} className="action-btn secondary interactive-tag">
-                  <Eye size={16} /> Case Study <ArrowRight size={16} className="ml-1" />
-                </button>
-              </div>
-            </div>
-          </TiltCard>
+            project={project}
+            index={index}
+            totalProjects={projectsData.length}
+            isDesktop={isDesktop}
+            setSelectedImage={setSelectedImage}
+            setSelectedCaseStudy={setSelectedCaseStudy}
+          />
         ))}
       </div>
 

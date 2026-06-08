@@ -44,6 +44,36 @@
   display: flex;
   flex-direction: column;
   gap: 3.5rem;
+  position: relative;
+}
+
+@media (min-width: 993px) {
+  .projects-list {
+    /* Normal compact spacing - no massive gaps */
+    gap: 80px;
+  }
+}
+
+.project-card-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+@media (min-width: 993px) {
+  .project-card-wrapper {
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    /* top offset is set inline dynamically in React */
+  }
+}
+
+.project-card-inner-container {
+  width: 100%;
+  max-width: 1200px;
+  transform-origin: top center;
+  display: flex;
+  justify-content: center;
 }
 
 .project-card {
