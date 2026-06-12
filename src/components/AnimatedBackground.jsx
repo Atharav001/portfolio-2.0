@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import './AnimatedBackground.css';
 
 const AnimatedBackground = () => {
@@ -17,30 +17,35 @@ const AnimatedBackground = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Soft elegant floating paths
-  const floatAnimation1 = {
-    x: [0, 100, -50, 0],
-    y: [0, -100, 50, 0],
-    rotate: [0, 90, 180, 360],
-    scale: [1, 1.2, 0.9, 1],
-    transition: { duration: 25, repeat: Infinity, ease: 'linear' }
-  };
+  // Motion values to hold the mouse coordinates, initialized to center of screen
+  const mouseX = useMotionValue(typeof window !== 'undefined' ? window.innerWidth / 2 : 0);
+  const mouseY = useMotionValue(typeof window !== 'undefined' ? window.innerHeight / 2 : 0);
 
-  const floatAnimation2 = {
-    x: [0, -120, 80, 0],
-    y: [0, 150, -100, 0],
-    rotate: [360, 180, 90, 0],
-    scale: [1, 0.8, 1.1, 1],
-    transition: { duration: 30, repeat: Infinity, ease: 'linear' }
-  };
+  // Smooth springs for sluggish inertia tracking (high damping, low stiffness)
+  const springConfig = { damping: 80, stiffness: 20, mass: 1.5 };
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
 
-  const floatAnimation3 = {
-    x: [-100, 150, -80, -100],
-    y: [100, -80, 150, 100],
-    rotate: [0, -180, -360, 0],
-    scale: [1.1, 0.9, 1.2, 1.1],
-    transition: { duration: 35, repeat: Infinity, ease: 'linear' }
-  };
+  // Parallax transform mapping for the Violet Orb (Direct tracking with offset)
+  const violetX = useTransform(springX, (val) => val - (typeof window !== 'undefined' ? window.innerWidth : 1400) / 2);
+  const violetY = useTransform(springY, (val) => val - (typeof window !== 'undefined' ? window.innerHeight : 900) / 2);
+
+  // Parallax transform mapping for the Teal Orb (Inverse tracking, slower speed)
+  const tealX = useTransform(springX, (val) => -0.5 * (val - (typeof window !== 'undefined' ? window.innerWidth : 1400) / 2));
+  const tealY = useTransform(springY, (val) => -0.4 * (val - (typeof window !== 'undefined' ? window.innerHeight : 900) / 2));
+
+  // Update mouse position on move completely outside of React's state/render cycles
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [mouseX, mouseY]);
 
   const isLight = theme === 'light';
 
@@ -48,34 +53,28 @@ const AnimatedBackground = () => {
     <div className="animated-framer-bg">
       <div className="framer-blur-layer"></div>
 
+      {/* Violet Orb (Tracks cursor directly) */}
       <motion.div
         className="framer-orb orb-1"
         style={{
+          x: violetX,
+          y: violetY,
           background: isLight 
-            ? 'radial-gradient(circle, rgba(0,162,255,0.45) 0%, rgba(0,162,255,0) 70%)'
-            : 'radial-gradient(circle, rgba(138,43,226,0.25) 0%, rgba(138,43,226,0) 70%)'
+            ? 'radial-gradient(circle, rgba(147,51,234,0.18) 0%, rgba(147,51,234,0) 70%)'
+            : 'radial-gradient(circle, rgba(138,43,226,0.18) 0%, rgba(138,43,226,0) 70%)'
         }}
-        animate={floatAnimation1}
       />
       
+      {/* Teal Orb (Tracks cursor inversely and slower) */}
       <motion.div
         className="framer-orb orb-2"
         style={{
+          x: tealX,
+          y: tealY,
           background: isLight 
-            ? 'radial-gradient(circle, rgba(147,51,234,0.35) 0%, rgba(147,51,234,0) 70%)'
-            : 'radial-gradient(circle, rgba(0,255,255,0.18) 0%, rgba(0,255,255,0) 70%)'
+            ? 'radial-gradient(circle, rgba(0,132,255,0.15) 0%, rgba(0,132,255,0) 70%)'
+            : 'radial-gradient(circle, rgba(0,255,255,0.15) 0%, rgba(0,255,255,0) 70%)'
         }}
-        animate={floatAnimation2}
-      />
-
-      <motion.div
-        className="framer-orb orb-3"
-        style={{
-          background: isLight 
-            ? 'radial-gradient(circle, rgba(236,72,153,0.3) 0%, rgba(236,72,153,0) 70%)'
-            : 'radial-gradient(circle, rgba(138,43,226,0.2) 0%, rgba(138,43,226,0) 70%)'
-        }}
-        animate={floatAnimation3}
       />
     </div>
   );

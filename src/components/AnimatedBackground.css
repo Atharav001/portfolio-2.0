@@ -20,26 +20,26 @@
 
 .framer-orb {
   position: absolute;
-  width: 60vw;
-  height: 60vw;
+  width: 55vw;
+  height: 55vw;
   border-radius: 50%;
   mix-blend-mode: screen;
   z-index: -15;
+  top: 50%;
+  left: 50%;
+  will-change: transform;
 }
 
 .orb-1 {
-  top: -10%;
-  left: -10%;
+  /* Offset slightly top-left of center as baseline */
+  margin-top: -38vw;
+  margin-left: -38vw;
 }
 
 .orb-2 {
-  top: 40%;
-  right: -20%;
-}
-
-.orb-3 {
-  bottom: -20%;
-  left: 20%;
+  /* Offset slightly bottom-right of center as baseline */
+  margin-top: -18vw;
+  margin-left: -18vw;
 }
 
 :root.light-theme .framer-orb {
