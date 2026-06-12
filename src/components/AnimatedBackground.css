@@ -7,11 +7,11 @@
   pointer-events: none;
   overflow: hidden;
 
-  /* Dark Mode (Default): Deep Obsidian base with static diagonal gradients */
+  /* Dark Mode (Default): Deep Obsidian base with premium, sharp diagonal gradients */
   background:
-    radial-gradient(circle at 80% 20%, rgba(76, 29, 149, 0.45) 0%, transparent 60%),
-    radial-gradient(circle at 10% 90%, rgba(13, 148, 136, 0.4) 0%, transparent 60%),
-    #0f0f13;
+    radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(20, 184, 166, 0.18) 0%, transparent 45%),
+    #030303;
 }
 
 /* Light Mode: Off-white base with high vibrancy static diagonal gradients */
