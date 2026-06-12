@@ -96,9 +96,6 @@ function App() {
       <CustomCursor />
       <Navbar />
 
-      <div className="bg-blob bg-blob-1"></div>
-      <div className="bg-blob bg-blob-2"></div>
-
       <main>
           <Hero />
           <SectionDivider />
