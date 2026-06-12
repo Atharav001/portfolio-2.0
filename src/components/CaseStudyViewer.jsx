@@ -4,10 +4,9 @@ import { ArrowLeft, ExternalLink } from 'lucide-react';
 import './CaseStudyViewer.css';
 
 const CaseStudyViewer = ({ project, onClose }) => {
-  if (!project) return null;
-
   // Lock body scroll when open
   useEffect(() => {
+    if (!project) return;
     document.body.style.overflow = 'hidden';
     
     const handleKeyDown = (e) => {
@@ -19,19 +18,29 @@ const CaseStudyViewer = ({ project, onClose }) => {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose]);
+  }, [project, onClose]);
+
+  if (!project) return null;
 
   return (
-    <motion.div 
-      className="case-study-overlay"
-      data-lenis-prevent="true"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 50 }}
-      transition={{ duration: 0.6, cubicBezier: [0.16, 1, 0.3, 1] }}
-    >
-      {/* Floating gradient orb specifically for the case study header matching the reference image */}
-      <div className="case-study-gradient-bg"></div>
+    <>
+      <motion.div 
+        className="case-study-backdrop"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4 }}
+      />
+      <motion.div 
+        className="case-study-overlay"
+        data-lenis-prevent="true"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        transition={{ duration: 0.6, cubicBezier: [0.16, 1, 0.3, 1] }}
+      >
+        {/* Floating gradient orb specifically for the case study header matching the reference image */}
+        <div className="case-study-gradient-bg"></div>
 
       <nav className="case-study-nav">
         <button onClick={onClose} className="back-btn interactive-tag">
@@ -240,7 +249,8 @@ const CaseStudyViewer = ({ project, onClose }) => {
             </div>
           </aside>
         </div>
-    </motion.div>
+      </motion.div>
+    </>
   );
 };
 
