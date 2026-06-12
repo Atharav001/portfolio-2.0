@@ -160,7 +160,7 @@ const projectsData = [
     id: 3,
     title: "Agentic Deep Research System",
     date: "2026",
-    description: "A fully agentic, ReAct-pattern deep research system built over a corpus of 439 arXiv papers, incorporating a four-stage reasoning loop to address the limitations of single-pass RAG.",
+    description: "A production-grade, local-first deep research agent implementing an iterative ReAct reasoning loop across 439 academic papers. Optimized for zero-cost API constraints, running 4x parallel pipelines with local Gemma models.",
     image: "/assets/deep_research_mockup.png",
     readMore: "#",
     technologies: ["Agentic RAG", "Python", "Local LLMs", "FAISS", "BM25", "Ollama"],
@@ -169,41 +169,41 @@ const projectsData = [
     tabTag: "Terminal",
     caseStudy: "#",
     caseStudyDetails: {
-      role: "AI Researcher & Developer",
-      techStack: "Python, Ollama (gemma3:4b), FAISS, BM25Okapi, PyMuPDF",
-      platform: "Local AI Agent",
-      problemLead: "Single-pass retrieval-augmented generation systems degrade systematically on multi-source academic queries, where answer completeness depends on evidence aggregation across several independent papers.",
-      problemTitle: "The Limitations of Single-Pass RAG",
-      problemText: "Conventional RAG architectures operate as single-pass pipelines. This design exhibits fundamental failure modes under the conditions characteristic of academic literature synthesis due to query ambiguity, evidence sparsity, and positional retrieval bias (the 'Lost in the Middle' effect).",
-      solutionTitle: "Agentic ReAct-Pattern Architecture",
-      solutionText: "A ReAct-pattern deep research system incorporating a four-stage reasoning loop—Planner, Hybrid Retriever, Reflector, and NLI-backed Synthesizer. A seven-configuration ablation study demonstrates that the complete agentic system achieves measurably superior citation precision and answer faithfulness.",
+      role: "AI & Systems Engineer",
+      techStack: "Python, Ollama (Gemma), FAISS Dense Index, BM25Okapi Lexical Index, PyMuPDF, Cross-Encoders",
+      localLLM: "Gemma (Local Ollama Instance)",
+      problemLead: "Single-pass retrieval-augmented generation systems degrade systematically on complex multi-source academic queries, where answer completeness depends on evidence aggregation across several independent papers. Furthermore, in budget-constrained local scenarios, relying on paid cloud APIs is impossible, yet running sequential local LLM calls creates severe execution bottlenecks.",
+      problemTitle: "The VRAM & Latency Bottleneck of Local RAG",
+      problemText: "Conventional RAG architectures operate as single-pass pipelines. This design exhibits fundamental failure modes under the conditions characteristic of academic literature synthesis due to query ambiguity and evidence sparsity. Running comprehensive multi-document synthesis entirely locally presents a classic compute bottleneck. Because agentic iterative reasoning increases token generation exponentially, running sequential local LLM calls on local workstations can turn a simple query into a days-long task that often stalls or runs out of memory.",
+      solutionTitle: "Local ReAct Engine with 4x Parallel Query Pipelines",
+      solutionText: "I engineered an edge-first deep research agent powered by Google's Gemma model via Ollama. The system executes a four-stage reasoning loop: Planner, Hybrid Retriever, Reflector, and NLI-backed Synthesizer. To overcome the speed limitations of sequential local inference, **I implemented 4x concurrent parallel query workers** to query chunk partitions. Under a strict zero-cost, no-credit-card deployment constraint, **the system ran continuously on a local workstation for 15 hours**, executing thousands of local model inferences to comprehensively map and synthesize the 439 arXiv paper corpus without a single dollar spent on cloud API keys.",
       features: [
         {
-          title: "Context-Enriched Chunking",
+          title: "4-Way Parallel Query Workers",
+          text: "Bypasses VRAM execution locks by batching token generation and running 4 parallel query threads across independent document chunks, reducing local processing time from weeks to hours."
+        },
+        {
+          title: "Context-Enriched Semantic Chunking",
           text: "Every chunk is prepended with a structured prefix (Paper Title, Section, Abstract) before embedding. This directly addresses the 'Lost in the Middle' problem, ensuring chunks encode both local semantic content and origin context."
         },
         {
-          title: "Hybrid Retrieval & RRF",
+          title: "Hybrid Retrieval with Rank Fusion",
           text: "Maintains a dense index (BAAI/bge-small-en-v1.5 via FAISS) and a lexical index (BM25Okapi). Fusion is performed via Reciprocal Rank Fusion (RRF) with k=60, followed by cross-encoder reranking."
         },
         {
-          title: "The ReAct Reasoning Loop",
-          text: "A dynamic loop where the Planner decomposes queries, the Retriever executes hybrid pipelines, and the Reflector acts as a retrieval quality controller to generate follow-up queries."
-        },
-        {
-          title: "NLI Citation Verifier",
-          text: "Performs Strict ID Boundary Checking. Every inline citation is cross-referenced against the retrieved evidence list, surgically removing sentences tied to absent arXiv IDs without discarding valid content."
+          title: "NLI-Backed Claim Guardrails",
+          text: "Performs Strict ID Boundary Checking. Every inline citation is cross-referenced against the retrieved evidence list, surgically removing sentences tied to absent arXiv IDs to ensure 100% factual accuracy."
         }
       ],
-      technicalText: "Built over a corpus of 439 arXiv papers, evaluated using a 30-question dataset and 7 ablation configurations. The inference backend runs entirely locally on Ollama (gemma3:4b) with zero API dependency.",
+      technicalText: "Built over a corpus of 439 arXiv papers, evaluated using a 30-question dataset and 7 ablation configurations. The inference backend runs entirely locally on Ollama (Gemma) with zero API dependency.",
       techHighlights: [
         {
-          title: "Dynamic Routing via Reflector",
-          text: "The Reflector evaluates citation coverage against domain-appropriate thresholds. On deficit, it generates semantically distinct follow-up queries."
+          title: "15-Hour Local Benchmark Run",
+          text: "Executed a comprehensive benchmark synthesis over the entire corpus in a single 15-hour session using local Gemma model weights under zero-cost constraints."
         },
         {
-          title: "Scale-Invariant Score Fusion",
-          text: "RRF is mathematically superior to naive score averaging because it is scale-invariant and rank-position-sensitive, naturally amplifying consensus high-confidence retrievals."
+          title: "Dynamic Query Expansion",
+          text: "The Reflector evaluates citation coverage. If evidence is lacking, it generates expanded queries to query the vector store iteratively."
         }
       ],
       pipeline: [
@@ -215,19 +215,23 @@ const projectsData = [
       ],
       deepIntegration: [
         {
-          title: "Zero API Dependency",
-          text: "The entire system runs on fully local inference backends, ensuring complete data privacy and reproducibility."
+          title: "Ollama Edge Routing",
+          text: "Zero external API dependency, fully utilizing local hardware VRAM optimization for Gemma execution."
+        },
+        {
+          title: "Parallel Queue Management",
+          text: "Threaded async workers coordinate model input/output streams to maximize GPU/CPU core utilization during long runs."
         }
       ],
-      designPhilosophy: "The central design insight is that dynamic routing via an iterative Reflector loop is categorically superior to a fixed retrieval pipeline. This transforms retrieval from a deterministic lookup into a coverage-maximising search process.",
-      closingQuote: "Transforming retrieval from a deterministic lookup into a coverage-maximising search process."
+      designPhilosophy: "By treating compute constraints as a design feature, this project proves that production-grade RAG and deep research agents do not require massive cloud budgets. Designing efficient index caching, concurrent retrieval, and local validation allows edge devices to run heavy AI workloads safely and cleanly.",
+      closingQuote: "High-fidelity academic synthesis running entirely at the edge, proving that zero-budget AI can match enterprise depth."
     }
   },
   {
     id: 4,
     title: 'Portfolio 2.0 - Immersive Developer Experience',
     date: 'May 2026',
-    description: 'A high-performance, immersive developer portfolio featuring canvas-based neural simulations, glassmorphic UI overlay case studies, and smooth inertia physics navigation.',
+    description: 'A high-performance creative portfolio featuring canvas-based neural simulations, a decoupled GPU-accelerated glassmorphic UI overlay system, and custom magnetic cursor docking.',
     image: '/assets/portfolio_v2.png',
     readMore: '#',
     technologies: ['React', 'Framer Motion', 'Vanilla CSS', 'Lenis Scroll', 'Vite'],
@@ -236,37 +240,41 @@ const projectsData = [
     tabTag: 'Web',
     caseStudy: '#',
     caseStudyDetails: {
-      role: 'Lead Creative Developer & Designer',
-      techStack: 'React, Framer Motion, Lenis Scroll, HTML5 Canvas, Vanilla CSS, Vite',
-      platform: 'Web (Responsive)',
-      problemLead: 'Standard developer portfolios are often flat, static, and fail to immediately capture interest or showcase the developer\'s creative interactive engineering capabilities.',
-      problemTitle: 'The Sea of Homogeneity',
-      problemText: 'Most developer portfolios use repetitive, plain bootstrap grids or flat templates with no interactive personality. In the competitive space of AI and full-stack engineering, a personal website should be a live testament of technical excellence, clean code, and premium interactive storytelling.',
-      solutionTitle: 'Immersive Design & Interaction',
-      solutionText: 'Portfolio 2.0 breaks this paradigm. Using math-driven canvas neural network animations, beautiful organic backdrop-filter overlays, and high-performance inertia scroll physics, the site delivers a futuristic developer showcase that is as responsive as it is visually beautiful.<br/><br/><div class="theme-showcase-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; width: 100%;"><div class="theme-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; padding: 12px; transition: all 0.3s ease;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"><span style="font-family: monospace; font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em;">Dark Theme</span><span style="background: rgba(138, 43, 226, 0.15); color: #c084fc; font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px;">Primary Mode</span></div><img src="/assets/portfolio_dark.jpg" alt="Portfolio Dark Theme" style="width: 100%; border-radius: 6px; aspect-ratio: 16/9; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.05);" /></div><div class="theme-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; padding: 12px; transition: all 0.3s ease;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"><span style="font-family: monospace; font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em;">Light Theme</span><span style="background: rgba(138, 43, 226, 0.15); color: #c084fc; font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px;">Alternate Mode</span></div><img src="/assets/portfolio_light.jpg" alt="Portfolio Light Theme" style="width: 100%; border-radius: 6px; aspect-ratio: 16/9; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.05);" /></div></div>',
+      role: 'Creative Developer & Frontend Architect',
+      techStack: 'React, Framer Motion, Lenis Smooth Scroll, HTML5 Canvas, Vanilla CSS, Vite',
+      platform: 'Modern Web (Fully Responsive)',
+      problemLead: 'Standard developer portfolios are often flat, static, and fail to showcase active interactive engineering capabilities. Furthermore, complex UI elements like backdrop-filters often collide with animation layers in production, causing performance drops and rendering glitches.',
+      problemTitle: 'The Stacking Context and Prefixing Trap',
+      problemText: 'Modern frontend design demands premium aesthetics like glassmorphic blur and fluid scroll timelines. However, implementing these in standard frameworks often results in massive bundle bloat and rendering failures. For instance, combining Framer Motion animations with CSS `backdrop-filter` triggers a known Chromium/WebKit rendering bug: active transforms create new stacking contexts, making the blur completely drop out. In production, minification steps can aggressively strip WebKit prefixes, rendering critical UI overlays transparent and illegible.',
+      solutionTitle: 'Decoupled Blur Architecture & Physics-Based Motion',
+      solutionText: 'Portfolio 2.0 breaks this paradigm. To solve the backdrop blur issue, I engineered a **Decoupled Motion Architecture**—separating Framer Motion wrappers from static, GPU-accelerated backdrop blur panels (`transform: translateZ(0)`). To keep the site lightweight, I avoided heavy packages (like Tailwind or heavy component libraries) in favor of modular Vanilla CSS variables. The experience is enhanced by a canvas-based neural simulation and a custom cursor with spring-physics delay, which gracefully returns to a predefined cursor dock (`#cursor-dock`) when the mouse exits the browser window.<br/><br/><div class="theme-showcase-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; width: 100%;"><div class="theme-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; padding: 12px; transition: all 0.3s ease;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"><span style="font-family: monospace; font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em;">Dark Theme</span><span style="background: rgba(138, 43, 226, 0.15); color: #c084fc; font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px;">Primary Mode</span></div><img src="/assets/portfolio_dark.jpg" alt="Portfolio Dark Theme" style="width: 100%; border-radius: 6px; aspect-ratio: 16/9; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.05);" /></div><div class="theme-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; padding: 12px; transition: all 0.3s ease;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"><span style="font-family: monospace; font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em;">Light Theme</span><span style="background: rgba(138, 43, 226, 0.15); color: #c084fc; font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px;">Alternate Mode</span></div><img src="/assets/portfolio_light.jpg" alt="Portfolio Light Theme" style="width: 100%; border-radius: 6px; aspect-ratio: 16/9; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.05);" /></div></div>',
       features: [
+        {
+          title: 'Decoupled Stacking Contexts',
+          text: 'Decoupled all Framer Motion components from CSS blur layers. The animation layers are transparent wrappers, while standard static divs handle the hardware-accelerated `-webkit-backdrop-filter` rendering, preventing any layout dropouts.'
+        },
+        {
+          title: 'Custom Cursor & Window-Exit Docking',
+          text: 'A custom canvas-drawn cursor that tracks mouse movement with spring interpolation. When the cursor exits the browser screen, it triggers a custom exit state, flying back to dock inside the navbar navigation target (`#cursor-dock`).'
+        },
         {
           title: 'Mathematical Canvas Simulation',
           text: 'A beautiful interactive particle engine running on an HTML5 canvas, calculating dynamic proximity lines to form a real-time reactive neural-orb constellation.'
         },
         {
-          title: 'Glassmorphic Case Study Drawer',
-          text: 'Instead of simple pages, an elegant glassmorphic drawer slides out with buttery smooth spring physics to present detailed interactive documentation.'
-        },
-        {
-          title: 'Momentum Inertia Physics',
-          text: 'Integrated Lenis scroll engine with linear interpolation to offer smooth scrolling across all devices and platforms, enhancing the overall tactical feel.'
+          title: 'Momentum Scroll & SEO Optimization',
+          text: 'Integrated Lenis scroll engine with linear interpolation to offer smooth scrolling across all devices. Built with zero Cumulative Layout Shift (CLS) and optimized SVG noise textures to give a premium tactile feel while maintaining a near-perfect Google Lighthouse score.'
         }
       ],
       technicalText: 'Developing the portfolio required overcoming standard browser canvas bottlenecking and animation layout shifts.',
       techHighlights: [
         {
-          title: 'Optimized Canvas Animation Loop',
-          text: 'Developed a lightweight mathematical particle engine in Vanilla JS. Proximity calculations are limited dynamically to avoid high CPU/GPU overhead, maintaining a consistent 60 FPS experience.'
+          title: 'Targeted Build Compilation',
+          text: 'Tuned the Vite configuration to target `safari13.1` and `chrome80`, forcing the esbuild minifier to preserve critical `-webkit-` vendor prefixes for all backdrop filters in production.'
         },
         {
-          title: 'Intersection Observer Fallbacks',
-          text: 'Created robust polyfill fallbacks in JavaScript for browsers that do not natively support CSS view-timeline or scroll-driven animation standards.'
+          title: 'Optimized Canvas Animation Loop',
+          text: 'Developed a lightweight mathematical particle engine in Vanilla JS. Proximity calculations are limited dynamically to avoid high CPU/GPU overhead, maintaining a consistent 60 FPS experience.'
         }
       ],
       pipeline: [
@@ -274,19 +282,20 @@ const projectsData = [
         'Lenis initializes scroll timeline bindings',
         'Mathematical particle simulation spawns neural node orb',
         'Framer motion orchestrates fade-in reveals on scroll',
-        'Interactive custom magnetic cursor reacts to hover states'
+        'Interactive custom magnetic cursor reacts to hover states',
+        'Trigger cursor dock animation on mouse-leave events'
       ],
       deepIntegration: [
         {
-          title: 'Modular Pure CSS Tokens',
-          text: 'Built with pure CSS variables for maximum flex control, avoiding massive external libraries and keeping bundle sizes extremely slim for optimal SEO metrics.'
+          title: 'GPU Layer Promotion',
+          text: 'Forced hardware-accelerated layer repaints using `transform: translateZ(0)` to make sure blur rendering is fluid and never drops frames.'
         },
         {
-          title: 'Dynamic Custom Cursor & Magnetic Fields',
-          text: 'A custom cursor with inertia delay that morphs into a glowing ring when hovering over interactive items, reinforcing deep user engagement.'
+          title: 'Modular Pure CSS Tokens',
+          text: 'Built with pure CSS variables for maximum flex control, avoiding massive external libraries and keeping bundle sizes extremely slim for optimal SEO metrics.'
         }
       ],
-      designPhilosophy: 'Design is not just what it looks like, but how it works. By combining complex mathematical animations with clean software patterns, the portfolio serves as an active product showcase rather than a simple CV.',
+      designPhilosophy: 'Design is the translation of performance into beauty. By focusing on tiny details—like property ordering to prevent minifier bugs and decoupling motion layers from filters—we can create rich, futuristic, and premium interactive web applications that run flawlessly on any screen.',
       closingQuote: 'An interactive resume is standard. A digital experience is unforgettable.'
     }
   }

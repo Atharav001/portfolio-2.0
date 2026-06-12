@@ -93,8 +93,8 @@ const CaseStudyViewer = ({ project, onClose }) => {
                       <p>{project.caseStudyDetails.techStack}</p>
                     </div>
                     <div className="overview-item">
-                      <h4>Platform</h4>
-                      <p>{project.caseStudyDetails.platform}</p>
+                      <h4>{project.caseStudyDetails.localLLM ? "Local LLM" : "Platform"}</h4>
+                      <p>{project.caseStudyDetails.localLLM || project.caseStudyDetails.platform}</p>
                     </div>
                   </div>
 
