@@ -234,7 +234,7 @@ const projectsData = [
     description: 'A high-performance creative portfolio featuring canvas-based neural simulations, a decoupled GPU-accelerated glassmorphic UI overlay system, and custom magnetic cursor docking.',
     image: '/assets/portfolio_v2.png',
     readMore: '#',
-    technologies: ['React', 'Framer Motion', 'Vanilla CSS', 'Lenis Scroll', 'Vite'],
+    technologies: ['React', 'Framer Motion', 'Vanilla CSS', 'Lenis Scroll', 'HTML5 Canvas', 'Vite'],
     liveLink: 'https://github.com/Atharav001/portfolio-2.0',
     urlBar: 'github.com/Atharav001/portfolio-2.0',
     tabTag: 'Web',
@@ -251,7 +251,9 @@ const projectsData = [
       features: [
         {
           title: 'Decoupled Stacking Contexts',
-          text: 'Decoupled all Framer Motion components from CSS blur layers. The animation layers are transparent wrappers, while standard static divs handle the hardware-accelerated `-webkit-backdrop-filter` rendering, preventing any layout dropouts.'
+          text: 'Decoupled all Framer Motion components from CSS blur layers. The animation layers are transparent wrappers, while standard static divs handle the hardware-accelerated `-webkit-backdrop-filter` rendering, preventing any layout dropouts.',
+          image: '/assets/portfolio_v2.png',
+          caption: 'Decoupled rendering layout isolates Framer Motion animations from backdrop blur layers.'
         },
         {
           title: 'Custom Cursor & Window-Exit Docking',
@@ -259,11 +261,15 @@ const projectsData = [
         },
         {
           title: 'Mathematical Canvas Simulation',
-          text: 'A beautiful interactive particle engine running on an HTML5 canvas, calculating dynamic proximity lines to form a real-time reactive neural-orb constellation.'
+          text: 'A beautiful interactive particle engine running on an HTML5 canvas, calculating dynamic proximity lines to form a real-time reactive neural-orb constellation.',
+          image: '/assets/portfolio_dark.jpg',
+          caption: 'Mathematical Canvas node structure calculating dynamic proximity limits at 60 FPS.'
         },
         {
           title: 'Momentum Scroll & SEO Optimization',
-          text: 'Integrated Lenis scroll engine with linear interpolation to offer smooth scrolling across all devices. Built with zero Cumulative Layout Shift (CLS) and optimized SVG noise textures to give a premium tactile feel while maintaining a near-perfect Google Lighthouse score.'
+          text: 'Integrated Lenis scroll engine with linear interpolation to offer smooth scrolling across all devices. Built with zero Cumulative Layout Shift (CLS) and optimized SVG noise textures to give a premium tactile feel while maintaining a near-perfect Google Lighthouse score.',
+          image: '/assets/portfolio_light.jpg',
+          caption: 'Lightweight performance layout achieving near-perfect Google Lighthouse score.'
         }
       ],
       technicalText: 'Developing the portfolio required overcoming standard browser canvas bottlenecking and animation layout shifts.',
