@@ -1,6 +1,6 @@
 :root {
   /* Semantic Color System - OLED Black Base */
-  --bg-base: #000000;
+  --bg-base: #0f0f13;
   --bg-surface: #0a0a0a;
   --bg-surface-elevated: #111111;
 
@@ -41,7 +41,7 @@ html {
 }
 
 .light-theme {
-  --bg-base: #f7f7f7;
+  --bg-base: #f8f9fa;
   --bg-surface: #ffffff;
   --bg-surface-elevated: #f0f0f0;
 
