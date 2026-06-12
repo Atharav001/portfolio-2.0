@@ -9,8 +9,8 @@
 
   /* Dark Mode (Default): Deep Obsidian base with premium, sharp diagonal gradients */
   background:
-    radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.22) 0%, transparent 45%),
-    radial-gradient(circle at 10% 90%, rgba(20, 184, 166, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.28) 0%, transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(20, 184, 166, 0.22) 0%, transparent 45%),
     #030303;
 }
 
@@ -18,7 +18,7 @@
 :root.light-theme .animated-framer-bg,
 .light-theme .animated-framer-bg {
   background:
-    radial-gradient(circle at 80% 20%, rgba(67, 56, 202, 0.65) 0%, transparent 70%),
-    radial-gradient(circle at 10% 90%, rgba(2, 132, 199, 0.65) 0%, transparent 70%),
+    radial-gradient(circle at 80% 20%, rgba(67, 56, 202, 0.45) 0%, transparent 60%),
+    radial-gradient(circle at 10% 90%, rgba(2, 132, 199, 0.45) 0%, transparent 60%),
     #f8f9fa;
 }
