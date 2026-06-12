@@ -14,11 +14,12 @@
     #030303;
 }
 
-/* Light Mode: Off-white base with high vibrancy static diagonal gradients */
+/* Light Mode: Off-white base with soft, elegant blended gradients */
 :root.light-theme .animated-framer-bg,
 .light-theme .animated-framer-bg {
   background:
-    radial-gradient(circle at 80% 20%, rgba(67, 56, 202, 0.45) 0%, transparent 60%),
-    radial-gradient(circle at 10% 90%, rgba(2, 132, 199, 0.45) 0%, transparent 60%),
-    #f8f9fa;
+    radial-gradient(circle at 100% 0%, rgba(244, 63, 94, 0.42) 0%, rgba(139, 92, 246, 0.22) 50%, transparent 80%),
+    radial-gradient(circle at 0% 100%, rgba(6, 182, 212, 0.42) 0%, rgba(59, 130, 246, 0.22) 50%, transparent 80%),
+    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 70%),
+    #f7f9fc;
 }
