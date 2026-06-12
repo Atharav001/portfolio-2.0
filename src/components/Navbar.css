@@ -20,8 +20,8 @@
   padding: 0.8rem 2.5rem;
   background: rgba(10, 10, 12, 0.2);
   /* Very transparent so background text shines through */
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   position: relative;
   z-index: 101;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -36,24 +36,24 @@
 :root.light-theme .navbar-wrapper {
   /* High-end translucent frosted glass for light theme base */
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border-color: rgba(0, 0, 0, 0.06);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6), 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
 .navbar-wrapper.scrolled {
   background: rgba(10, 10, 12, 0.4);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 20px 40px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 :root.light-theme .navbar-wrapper.scrolled {
   background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
   border-color: rgba(0, 0, 0, 0.08);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6), 0 20px 40px rgba(0, 0, 0, 0.06);
 }
@@ -199,8 +199,8 @@
   position: fixed;
   inset: 0;
   background: rgba(10, 10, 10, 0.98);
-  backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
   transform: translateZ(0);
   z-index: 90;
   display: flex;

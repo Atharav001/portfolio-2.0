@@ -13,8 +13,8 @@
   position: absolute;
   inset: 0;
   /* Heavily blur the orbs so they look like soft, glowing blobs of light */
-  backdrop-filter: blur(100px);
   -webkit-backdrop-filter: blur(100px);
+  backdrop-filter: blur(100px);
   z-index: -10;
 }
 

@@ -25,12 +25,22 @@ const CaseStudyViewer = ({ project, onClose }) => {
   return (
     <>
       <motion.div 
-        className="case-study-backdrop"
+        className="case-study-backdrop-animator"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.4 }}
-      />
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9999,
+          pointerEvents: 'none',
+          width: '100vw',
+          height: '100vh'
+        }}
+      >
+        <div className="case-study-backdrop" />
+      </motion.div>
       <motion.div 
         className="case-study-overlay"
         data-lenis-prevent="true"

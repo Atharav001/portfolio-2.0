@@ -67,8 +67,8 @@
   border-color: rgba(0, 136, 255, 0.8);
   border-width: 2px;
   box-shadow: 0 0 28px rgba(0, 136, 255, 0.35);
-  backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   mix-blend-mode: normal;
 }
 
