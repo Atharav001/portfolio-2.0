@@ -9,6 +9,7 @@
 
   /* Dark Mode (Default): Deep Obsidian base with premium, sharp diagonal gradients */
   background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 35vmax),
     radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.28) 0%, transparent 45%),
     radial-gradient(circle at 10% 90%, rgba(20, 184, 166, 0.22) 0%, transparent 45%),
     #030303;
