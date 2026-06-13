@@ -17,9 +17,9 @@
 :root.light-theme .animated-framer-bg,
 .light-theme .animated-framer-bg {
   background:
-    radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.16) 0%, transparent 40vmax),
-    radial-gradient(circle at 100% 0%, rgba(67, 56, 202, 0.24) 0%, transparent 55vmax),
-    radial-gradient(circle at 0% 100%, rgba(2, 132, 199, 0.22) 0%, transparent 55vmax),
+    radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.20) 0%, transparent 45vmax),
+    radial-gradient(circle at 100% 0%, rgba(244, 63, 94, 0.40) 0%, transparent 65vmax),
+    radial-gradient(circle at 0% 100%, rgba(2, 132, 199, 0.45) 0%, transparent 65vmax),
     #FAFAFA;
 }
 
@@ -27,9 +27,9 @@
   :root.light-theme .animated-framer-bg,
   .light-theme .animated-framer-bg {
     background:
-      radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.16) 0%, transparent 45vw),
-      radial-gradient(circle at 100% 0%, rgba(67, 56, 202, 0.24) 0%, transparent 60vw),
-      radial-gradient(circle at 0% 100%, rgba(2, 132, 199, 0.22) 0%, transparent 60vw),
+      radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.20) 0%, transparent 50vw),
+      radial-gradient(circle at 100% 0%, rgba(244, 63, 94, 0.40) 0%, transparent 80vw),
+      radial-gradient(circle at 0% 100%, rgba(2, 132, 199, 0.45) 0%, transparent 80vw),
       #FAFAFA;
   }
 }
