@@ -127,6 +127,18 @@
   border-color: var(--text-secondary);
 }
 
+:root.light-theme .btn-secondary,
+.light-theme .btn-secondary {
+  border-color: rgba(18, 18, 18, 0.25);
+  color: var(--text-primary);
+}
+
+:root.light-theme .btn-secondary:hover,
+.light-theme .btn-secondary:hover {
+  background: rgba(18, 18, 18, 0.05);
+  border-color: var(--text-primary);
+}
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: clamp(3rem, 15vw, 4rem);

@@ -41,12 +41,12 @@ html {
 }
 
 .light-theme {
-  --bg-base: #f8f9fa;
+  --bg-base: #FAFAFA;
   --bg-surface: #ffffff;
   --bg-surface-elevated: #f0f0f0;
 
   --text-primary: #121212;
-  --text-secondary: #333333;
+  --text-secondary: #334155;
   --text-muted: #444444;
 
   --accent-primary: #121212;
