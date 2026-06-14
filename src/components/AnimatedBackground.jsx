@@ -4,6 +4,7 @@ import './AnimatedBackground.css';
 export default function AnimatedBackground() {
     const canvasRef = useRef(null);
     const particlesRef = useRef([]);
+    const shootingStarsRef = useRef([]);
     const mouseRef = useRef({ x: -1000, y: -1000 });
     const animationRef = useRef(null);
 
@@ -26,9 +27,10 @@ export default function AnimatedBackground() {
         let repelRects = [];
 
         const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        // Optimized counts for butter-smooth rendering
         const PARTICLE_COUNT = isMobile
-            ? Math.min(12, Math.floor((width * height) / 60000))
-            : Math.min(80, Math.floor((width * height) / 15000));
+            ? Math.min(10, Math.floor((width * height) / 80000))
+            : Math.min(60, Math.floor((width * height) / 20000));
 
         const isLightTheme = document.documentElement.classList.contains('light-theme');
         const darkColors = [
@@ -46,7 +48,6 @@ export default function AnimatedBackground() {
         particlesRef.current = Array.from({ length: PARTICLE_COUNT }, () => {
             const colorIndex = Math.floor(Math.random() * colors.length);
             const colorBase = colors[colorIndex];
-            // Bias spawn X away from the center to clear text region initially
             let spawnX = Math.random() * width;
             if (spawnX > width * 0.25 && spawnX < width * 0.75 && Math.random() < 0.7) {
                 spawnX = Math.random() < 0.5 ? Math.random() * (width * 0.25) : width * 0.75 + Math.random() * (width * 0.25);
@@ -54,16 +55,16 @@ export default function AnimatedBackground() {
             return {
                 x: spawnX,
                 y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.25,
-                vy: (Math.random() - 0.5) * 0.25,
-                radius: Math.random() * 2.0 + (isLightTheme ? 2.8 : 1.2), // thicker bubble-like radius bounds
-                opacity: Math.random() * 0.35 + 0.5, // higher base opacity so dots are clearly visible in light theme
+                vx: (Math.random() - 0.5) * 0.2,
+                vy: (Math.random() - 0.5) * 0.2,
+                radius: Math.random() * 1.5 + (isLightTheme ? 2.2 : 1.0), // optimized size for cleaner look
+                opacity: Math.random() * 0.3 + 0.4,
                 colorIndex: colorIndex,
                 colorBase: colorBase,
             };
         });
 
-        // Setup observer for theme changes to dynamically switch colors only when theme actually toggles
+        // Setup observer for theme changes
         let wasLightTheme = isLightTheme;
         const observer = new MutationObserver(() => {
             const isLight = document.documentElement.classList.contains('light-theme');
@@ -89,8 +90,57 @@ export default function AnimatedBackground() {
             
             const mouse = mouseRef.current;
             const particles = particlesRef.current;
+            const isLight = document.documentElement.classList.contains('light-theme');
 
-            // Throttled query of text blocks to avoid layout thrashing
+            // Spawn shooting stars occasionally
+            const shootingStars = shootingStarsRef.current;
+            if (Math.random() < (isMobile ? 0.003 : 0.008) && shootingStars.length < (isMobile ? 2 : 4)) {
+                const angle = Math.PI / 6 + Math.random() * (Math.PI / 12); // angle of descent (approx 30-45 degrees)
+                const speed = Math.random() * 8 + 6;
+                shootingStars.push({
+                    x: Math.random() * w * 1.2 - w * 0.2,
+                    y: -50,
+                    dx: Math.cos(angle) * speed,
+                    dy: Math.sin(angle) * speed,
+                    length: Math.random() * 80 + 80,
+                    opacity: Math.random() * 0.5 + 0.3,
+                    color: colors[Math.floor(Math.random() * colors.length)]
+                });
+            }
+
+            // Update & Draw shooting stars in background
+            for (let s = shootingStars.length - 1; s >= 0; s--) {
+                const star = shootingStars[s];
+                star.x += star.dx;
+                star.y += star.dy;
+                star.opacity -= 0.005; // gradual fade out
+
+                if (star.opacity <= 0 || star.x > w + 100 || star.y > h + 100) {
+                    shootingStars.splice(s, 1);
+                    continue;
+                }
+
+                // Draw trail with linear gradient
+                const grad = ctx.createLinearGradient(star.x, star.y, star.x - star.dx * (star.length / 10), star.y - star.dy * (star.length / 10));
+                grad.addColorStop(0, star.color + `${star.opacity})`);
+                grad.addColorStop(1, star.color + '0)');
+
+                ctx.beginPath();
+                ctx.moveTo(star.x, star.y);
+                ctx.lineTo(star.x - star.dx * 2, star.y - star.dy * 2);
+                ctx.strokeStyle = star.color + `${star.opacity * 1.2})`;
+                ctx.lineWidth = isLight ? 2.0 : 1.5;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(star.x - star.dx * 2, star.y - star.dy * 2);
+                ctx.lineTo(star.x - star.dx * (star.length / 10), star.y - star.dy * (star.length / 10));
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = isLight ? 1.5 : 1.0;
+                ctx.stroke();
+            }
+
+            // Throttled query of text blocks
             frameCount++;
             if (frameCount % 20 === 0 || repelRects.length === 0) {
                 const elements = document.querySelectorAll(
@@ -130,7 +180,7 @@ export default function AnimatedBackground() {
                 p.vx *= 0.99;
                 p.vy *= 0.99;
 
-                // Repel away from text element boxes dynamically (keeps text readable, avoiding overlaps)
+                // Repel away from text element boxes dynamically
                 for (let r = 0; r < repelRects.length; r++) {
                     const rect = repelRects[r];
                     const pad = 15;
@@ -153,14 +203,12 @@ export default function AnimatedBackground() {
                 p.x += p.vx;
                 p.y += p.vy;
 
-                // Wrap around screen edges dynamically
                 if (p.x < -10) p.x = w + 10;
                 if (p.x > w + 10) p.x = -10;
                 if (p.y < -10) p.y = h + 10;
                 if (p.y > h + 10) p.y = -10;
 
-                // Draw Volumetric smooth glow (radial gradient from r = p.radius to glowRadius - no hard shadow outline)
-                const isLight = document.documentElement.classList.contains('light-theme');
+                // Draw Volumetric smooth glow
                 const glowRadius = p.radius * (isLight ? 2.5 : 3.5);
                 const grad = ctx.createRadialGradient(p.x, p.y, p.radius, p.x, p.y, glowRadius);
                 const glowAlpha = isLight ? p.opacity * 0.35 : p.opacity * 0.15;
@@ -172,7 +220,7 @@ export default function AnimatedBackground() {
                 ctx.fillStyle = grad;
                 ctx.fill();
 
-                // Draw Core Particle (thick, highlighted, solid dot for visibility)
+                // Draw Core Particle
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 const coreAlpha = isLight ? p.opacity * 0.95 : p.opacity;
@@ -186,19 +234,18 @@ export default function AnimatedBackground() {
                     const cdy = p.y - p2.y;
                     const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
                     if (cdist < 120) {
-                        const baseAlpha = isLight ? 0.24 : 0.14;
+                        const baseAlpha = isLight ? 0.20 : 0.10; // Optimized connection opacity
                         const alpha = baseAlpha * (1 - cdist / 120);
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
                         
-                        // Create gradient for connection lines between different colored nodes
                         const grad = ctx.createLinearGradient(p.x, p.y, p2.x, p2.y);
                         grad.addColorStop(0, p.colorBase + `${alpha})`);
                         grad.addColorStop(1, p2.colorBase + `${alpha})`);
 
                         ctx.strokeStyle = grad;
-                        ctx.lineWidth = 0.55;
+                        ctx.lineWidth = 0.45; // slightly thinner for cleaner visuals
                         ctx.stroke();
                     }
                 }
