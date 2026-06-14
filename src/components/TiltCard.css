@@ -47,8 +47,12 @@
    On touch there is no cursor, so the tilt springs stay at centre
    anyway, but perspective can cause layout jank on low-end devices.
    ================================================================ */
-@media (hover: none) {
+@media (hover: none), (max-width: 768px) {
   .tilt-perspective {
     perspective: none;
+  }
+  .tilt-inner, .project-card, .tilt-card {
+    transform: none !important;
+    transition: transform 0.2s ease !important;
   }
 }

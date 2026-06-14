@@ -6,8 +6,8 @@ import './CustomCursor.css';
 const TRAIL_LENGTH = 18;
 
 const CustomCursor = () => {
-  const cursorX = useSpring(-100, { stiffness: 1200, damping: 46 });
-  const cursorY = useSpring(-100, { stiffness: 1200, damping: 46 });
+  const cursorX = useSpring(-100, { stiffness: 1600, damping: 45 });
+  const cursorY = useSpring(-100, { stiffness: 1600, damping: 45 });
 
   const dotX = useMotionValue(-100);
   const dotY = useMotionValue(-100);
@@ -33,6 +33,16 @@ const CustomCursor = () => {
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
+  }, []);
+
+  // ---- Hide native cursor on desktop/fine-pointer devices ----
+  useEffect(() => {
+    if (window.matchMedia('(pointer: fine)').matches) {
+      document.documentElement.classList.add('hide-native-cursor');
+    }
+    return () => {
+      document.documentElement.classList.remove('hide-native-cursor');
+    };
   }, []);
 
   // ---- Dock helper ----
@@ -153,12 +163,9 @@ const CustomCursor = () => {
 
   return (
     <div
+      className="custom-cursor-container"
       style={{
-        position: 'fixed', top: 0, left: 0,
-        width: '100vw', height: '100vh',
-        pointerEvents: 'none', zIndex: 999999,
         opacity: isVisible ? 1 : 0,
-        transition: 'opacity 0.3s ease',
       }}
     >
       {/* ---- Particle trail ---- */}

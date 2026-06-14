@@ -125,9 +125,23 @@
   transition: all 0.25s ease;
   width: fit-content;
   color: var(--text-secondary);
+  background: var(--glass-bg, rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .social-pill:hover {
+  background: var(--text-primary);
+  color: var(--bg-base);
+  border-color: var(--text-primary);
+}
+
+:root.light-theme .social-pill {
+  background: rgba(255, 255, 255, 0.4);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+:root.light-theme .social-pill:hover {
   background: var(--text-primary);
   color: var(--bg-base);
   border-color: var(--text-primary);

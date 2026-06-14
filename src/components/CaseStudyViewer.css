@@ -1,13 +1,24 @@
+.case-study-backdrop-animator {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+}
+
 .case-study-backdrop {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.65);
-  /* Extremely rich obsidian translucent tint */
-  -webkit-backdrop-filter: blur(40px);
-  backdrop-filter: blur(40px);
+  z-index: 50;
+  background: rgba(5, 5, 8, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
   transform: translateZ(0);
   pointer-events: none;
 }
@@ -22,7 +33,7 @@
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 10000;
+  z-index: 50;
   background-color: transparent;
   /* Background blur is handled by the sibling backdrop */
   overflow-y: auto;
@@ -104,10 +115,16 @@
   gap: 8rem;
 }
 
-/* Left Main Content */
 .case-study-content {
   flex: 3;
   max-width: 800px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .case-study-header {
@@ -479,4 +496,57 @@
   color: var(--accent-blue);
   opacity: 0.2;
   font-family: serif;
+}
+
+/* Squeezed overview grid project image preview styles */
+.image-overview-item {
+  cursor: pointer;
+}
+
+.overview-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: #000;
+  margin-top: 0.5rem;
+}
+
+.overview-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.image-overview-item:hover .overview-thumbnail {
+  transform: scale(1.06);
+}
+
+.overview-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-overview-item:hover .overview-image-overlay {
+  opacity: 1;
+}
+
+.view-text {
+  font-size: 0.72rem;
+  color: #fff;
+  font-family: var(--font-mono, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
 }

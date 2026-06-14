@@ -10,13 +10,13 @@ const projectsData = [
     id: 1,
     title: "Scroller's Dashboard",
     date: "February 2025 - March 2025",
-    description: "A high-performance digital wellness application that tracks every single swipe to break the cycle of doom-scrolling through real-time interventions.",
+    description: "A digital wellness platform that breaks the doom-scrolling cycle by tracking usage patterns in real-time and delivering micro-interventions exactly when you need them — turning passive scrolling into conscious engagement.",
     image: "/assets/scrollers_dashboard_mockup.png",
     readMore: "#",
     technologies: ["Native Android", "Kotlin", "AccessibilityService", "Room DB"],
     liveLink: "https://github.com/Atharav001/shortform-usage-sentinel",
     urlBar: "github.com/Atharav001/shortform-usage-sentinel",
-    tabTag: "App",
+    tabTag: "Digital Wellness Platform",
     caseStudy: "#",
     caseStudyDetails: {
       role: "Android Developer & UI/UX Designer",
@@ -93,13 +93,13 @@ const projectsData = [
     id: 2,
     title: "AI Support Triage Agent",
     date: "May 2026",
-    description: "A terminal-based AI support triage agent for the HackerRank Orchestrate hackathon, utilizing local LLMs and RAG to process support tickets with deterministic behavior and local grounding.",
+    description: "An AI-powered support triage system that processes incoming tickets instantly, routes them to the right team with full context, and runs entirely on local models — zero data leaks, zero latency from external APIs.",
     image: "/assets/ai_support_triage.png",
     readMore: "#",
     technologies: ["Python", "Local LLM", "OpenAI", "RAG", "Terminal-based"],
     liveLink: "https://github.com/Atharav001/AI-Support-Triage-Agent",
     urlBar: "github.com/Atharav001/AI-Support-Triage-Agent",
-    tabTag: "Terminal",
+    tabTag: "AI + Support Automation",
     caseStudy: "#",
     caseStudyDetails: {
       role: "AI/Backend Developer",
@@ -160,13 +160,13 @@ const projectsData = [
     id: 3,
     title: "Agentic Deep Research System",
     date: "2026",
-    description: "A production-grade, local-first deep research agent implementing an iterative ReAct reasoning loop across 439 academic papers. Optimized for zero-cost API constraints, running 4x parallel pipelines with local Gemma models.",
+    description: "An edge-first research assistant that automatically synthesizes massive collections of academic papers into comprehensive, fact-checked reports. It runs concurrent query pipelines using local intelligence models to eliminate cloud service fees and protect your data privacy.",
     image: "/assets/deep_research_mockup.png",
     readMore: "#",
     technologies: ["Agentic RAG", "Python", "Local LLMs", "FAISS", "BM25", "Ollama"],
     liveLink: "https://github.com/Atharav001/RAG-Agentic-Deep-Research",
     urlBar: "github.com/Atharav001/RAG-Agentic-Deep-Research",
-    tabTag: "Terminal",
+    tabTag: "AI Research + CLI Tool",
     caseStudy: "#",
     caseStudyDetails: {
       role: "AI & Systems Engineer",
@@ -231,13 +231,13 @@ const projectsData = [
     id: 4,
     title: 'Portfolio 2.0 - Immersive Developer Experience',
     date: 'May 2026',
-    description: 'A high-performance creative portfolio featuring canvas-based neural simulations, a decoupled GPU-accelerated glassmorphic UI overlay system, and custom magnetic cursor docking.',
+    description: 'An immersive interactive portfolio designed to captivate visitors through fluid navigation and high-fidelity visuals. It utilizes custom physics-based cursor interactions, web canvas simulations, and hardware-accelerated animations to deliver a seamless user experience.',
     image: '/assets/portfolio_v2.png',
     readMore: '#',
     technologies: ['React', 'Framer Motion', 'Vanilla CSS', 'Lenis Scroll', 'HTML5 Canvas', 'Vite'],
     liveLink: 'https://github.com/Atharav001/portfolio-2.0',
     urlBar: 'github.com/Atharav001/portfolio-2.0',
-    tabTag: 'Web',
+    tabTag: 'Creative Development + Web App',
     caseStudy: '#',
     caseStudyDetails: {
       role: 'Creative Developer & Frontend Architect',
@@ -395,9 +395,13 @@ const ProjectCardWrapper = ({
             <p className="project-description">
               {project.description}
             </p>
-            <a href={project.readMore} className="read-more-link">
+            <button 
+              onClick={() => setSelectedCaseStudy(project)} 
+              className="read-more-link interactive-tag"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'inline-block' }}
+            >
               ↓ Read more
-            </a>
+            </button>
 
             <div className="technologies-section">
               <h4 className="tech-heading">TECHNOLOGIES</h4>
@@ -451,32 +455,50 @@ const Projects = () => {
 
   return (
     <section id="projects" className="projects-section py-32 px-6 lg:px-16 container mx-auto">
-      <div className="section-heading mb-16">
-        <div className="section-heading-label">
-          <span className="section-number-inline">03</span>
-          <span className="about-label-text">Projects</span>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <div className="section-heading mb-16">
+          <div className="section-heading-label">
+            <span className="section-number-inline">03</span>
+            <span className="about-label-text">Projects</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-heading tracking-tight scroll-reveal">
+            Featured <span className="text-accent underline-effect">Projects</span>.
+          </h2>
+          <p className="text-secondary text-sm font-mono uppercase tracking-widest max-w-2xl scroll-reveal">
+            Highlighting my latest work: AI research, security innovation, and full-stack development.
+          </p>
         </div>
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 font-heading tracking-tight scroll-reveal">
-          Featured <span className="text-accent underline-effect">Projects</span>.
-        </h2>
-        <p className="text-secondary text-sm font-mono uppercase tracking-widest max-w-2xl scroll-reveal">
-          Highlighting my latest work: AI research, security innovation, and full-stack development.
-        </p>
-      </div>
 
-      <div className="projects-list flex flex-col gap-8 md:gap-16">
-        {projectsData.map((project, index) => (
-          <ProjectCardWrapper
-            key={project.id}
-            project={project}
-            index={index}
-            totalProjects={projectsData.length}
-            isDesktop={isDesktop}
-            setSelectedImage={setSelectedImage}
-            setSelectedCaseStudy={setSelectedCaseStudy}
-          />
-        ))}
-      </div>
+        <div className="projects-list flex flex-col gap-8 md:gap-16">
+          {projectsData.map((project, index) => (
+            <motion.div
+              key={project.id || index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{
+                duration: 0.5,
+                ease: "easeOut",
+                delay: Math.min(index * 0.1, 0.4),
+              }}
+            >
+              <ProjectCardWrapper
+                project={project}
+                index={index}
+                totalProjects={projectsData.length}
+                isDesktop={isDesktop}
+                setSelectedImage={setSelectedImage}
+                setSelectedCaseStudy={setSelectedCaseStudy}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Fullscreen Image Modal Overlay */}
       <AnimatePresence>

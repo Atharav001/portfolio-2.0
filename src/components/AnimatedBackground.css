@@ -3,7 +3,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: -3;
   pointer-events: none;
   overflow: hidden;
 
@@ -18,19 +18,19 @@
 :root.light-theme .animated-framer-bg,
 .light-theme .animated-framer-bg {
   background:
-    radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.20) 0%, transparent 45vmax),
-    radial-gradient(circle at 100% 0%, rgba(255, 51, 204, 0.50) 0%, rgba(255, 51, 204, 0.15) 20%, transparent 45vmax),
-    radial-gradient(circle at 0% 100%, rgba(0, 168, 255, 0.50) 0%, rgba(0, 168, 255, 0.15) 20%, transparent 45vmax),
-    #FAFAFA;
+    radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.18) 0%, transparent 45vmax),
+    radial-gradient(circle at 100% 0%, rgba(255, 51, 204, 0.38) 0%, rgba(255, 51, 204, 0.12) 25%, transparent 45vmax),
+    radial-gradient(circle at 0% 100%, rgba(0, 168, 255, 0.38) 0%, rgba(0, 168, 255, 0.12) 25%, transparent 45vmax),
+    #F7F7F9;
 }
 
 @media (max-width: 768px) {
   :root.light-theme .animated-framer-bg,
   .light-theme .animated-framer-bg {
     background:
-      radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.20) 0%, transparent 50vw),
-      radial-gradient(circle at 100% 0%, rgba(255, 51, 204, 0.50) 0%, rgba(255, 51, 204, 0.15) 25%, transparent 60vw),
-      radial-gradient(circle at 0% 100%, rgba(0, 168, 255, 0.50) 0%, rgba(0, 168, 255, 0.15) 25%, transparent 60vw),
-      #FAFAFA;
+      radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.18) 0%, transparent 50vw),
+      radial-gradient(circle at 100% 0%, rgba(255, 51, 204, 0.38) 0%, rgba(255, 51, 204, 0.12) 25%, transparent 60vw),
+      radial-gradient(circle at 0% 100%, rgba(0, 168, 255, 0.38) 0%, rgba(0, 168, 255, 0.12) 25%, transparent 60vw),
+      #F7F7F9;
   }
 }

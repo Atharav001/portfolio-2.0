@@ -1,6 +1,6 @@
 :root {
   /* Semantic Color System - OLED Black Base */
-  --bg-base: #0f0f13;
+  --bg-base: #050505;
   --bg-surface: #0a0a0a;
   --bg-surface-elevated: #111111;
 
@@ -31,6 +31,26 @@
   --max-width: 1400px;
   --border-radius: 24px;
   --transition-smooth: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Typography Hierarchy */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.5rem;     /* 24px */
+  --font-size-2xl: 2rem;      /* 32px */
+  --font-size-3xl: 2.75rem;   /* 44px */
+  --font-size-4xl: 3.5rem;    /* 56px */
+  --font-size-5xl: 4.5rem;    /* 72px */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
 }
 
 html {
@@ -41,7 +61,7 @@ html {
 }
 
 .light-theme {
-  --bg-base: #FAFAFA;
+  --bg-base: #F7F7F9;
   --bg-surface: #ffffff;
   --bg-surface-elevated: #f0f0f0;
 
@@ -71,7 +91,9 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* Hide the default cursor completely across the site */
+}
+
+.hide-native-cursor * {
   cursor: none !important;
 }
 
@@ -87,7 +109,7 @@ html {
 }
 
 body {
-  background-color: var(--bg-base);
+  background: var(--bg-base);
   color: var(--text-primary);
   font-family: var(--font-sans);
   line-height: 1.6;
@@ -168,6 +190,7 @@ section {
   max-width: var(--max-width);
   margin: 0 auto;
   position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {

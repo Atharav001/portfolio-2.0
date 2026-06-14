@@ -22,13 +22,13 @@ const TiltCard = ({ children, className = '', animationProps = {} }) => {
 
   const springCfg = { stiffness: 200, damping: 28, mass: 0.6 };
 
-  // Map normalised position to rotation degrees (max ±7°)
+  // Map normalised position to rotation degrees (max ±3°)
   const rotateX = useSpring(
-    useTransform(mouseY, [0, 1], [7, -7]),
+    useTransform(mouseY, [0, 1], [3, -3]),
     springCfg
   );
   const rotateY = useSpring(
-    useTransform(mouseX, [0, 1], [-7, 7]),
+    useTransform(mouseX, [0, 1], [-3, 3]),
     springCfg
   );
 
@@ -74,13 +74,6 @@ const TiltCard = ({ children, className = '', animationProps = {} }) => {
         {...animationProps}
       >
         {children}
-
-        {/* Specular glare layer — sits above content, pointer-events none */}
-        <motion.div
-          className="tilt-glare"
-          aria-hidden="true"
-          style={{ background: glareBackground, opacity: glareOpacity }}
-        />
       </motion.div>
     </div>
   );

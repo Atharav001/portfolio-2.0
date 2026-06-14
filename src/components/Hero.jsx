@@ -123,7 +123,9 @@ const Hero = () => {
             style={{ x: descX, y: descY }}
             className="hero-description-container"
           >
-            <ArrowDownRight size={32} className="hero-arrow" />
+            <div className="hero-arrow-wrapper">
+              <ArrowDownRight size={18} className="hero-arrow" />
+            </div>
             <p className="hero-description">
               Focused on bridging the gap between traditional software engineering and Agentic AI.
               I build intelligent systems and data-driven applications from the ground up at MIT Bengaluru.

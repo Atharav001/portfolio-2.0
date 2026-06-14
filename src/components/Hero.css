@@ -28,13 +28,23 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 0.5rem 1rem;
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 30px;
   width: fit-content;
   margin-bottom: 2rem;
   color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   /* Establish identity transform so the parallax spring starts from correct position */
   translate: 0px 0px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.03);
+}
+
+:root.light-theme .hero-badge {
+  border-color: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.03);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.02);
 }
 
 
@@ -42,7 +52,7 @@
 .hero-title {
   display: flex;
   flex-direction: column;
-  font-size: clamp(4rem, 12vw, 10rem);
+  font-size: clamp(3.5rem, 10.5vw, 8.5rem);
   line-height: 0.85;
   text-transform: uppercase;
   margin-bottom: 3rem;
@@ -66,23 +76,50 @@
 
 .hero-description-container {
   display: flex;
-  gap: 2rem;
+  align-items: flex-start;
+  gap: 1.5rem;
   max-width: 800px;
   margin-bottom: 4rem;
 }
 
+.hero-arrow-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  transition: all 0.3s ease;
+}
+
+:root.light-theme .hero-arrow-wrapper {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
 .hero-arrow {
   color: var(--text-secondary);
-  flex-shrink: 0;
-  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-description {
   font-family: var(--font-display);
   font-size: clamp(1rem, 2vw, 1.5rem);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.78);
   line-height: 1.5;
-  font-weight: 300;
+  font-weight: 400;
+}
+
+:root.light-theme .hero-description {
+  color: rgba(0, 0, 0, 0.78);
 }
 
 .hero-description strong {
@@ -107,13 +144,17 @@
 }
 
 .btn-primary {
-  background: var(--text-primary);
+  background: rgba(255, 255, 255, 0.94);
   color: var(--bg-base);
   font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  background: #ffffff;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
 .btn-secondary {
@@ -127,32 +168,60 @@
   border-color: var(--text-secondary);
 }
 
-:root.light-theme .btn-secondary,
-.light-theme .btn-secondary {
-  border-color: rgba(18, 18, 18, 0.25);
+:root.light-theme .btn-primary {
+  background: rgba(30, 30, 30, 0.88);
+  color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+:root.light-theme .btn-primary:hover {
+  background: rgba(15, 15, 15, 0.98);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}
+
+:root.light-theme .btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(18, 18, 18, 0.25);
+  box-shadow: none;
+}
+
+:root.light-theme .btn-secondary:hover {
+  background: rgba(18, 18, 18, 0.05);
+  border-color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: none;
   color: var(--text-primary);
 }
 
-:root.light-theme .btn-secondary:hover,
-.light-theme .btn-secondary:hover {
-  background: rgba(18, 18, 18, 0.05);
-  border-color: var(--text-primary);
-}
-
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: clamp(3rem, 15vw, 4rem);
-    margin-bottom: 2rem;
+  .hero-content {
+    align-items: center;
+    text-align: center;
   }
 
-  .hero-description {
-    font-size: clamp(1rem, 5vw, 1.2rem);
+  .hero-title {
+    font-size: clamp(2.2rem, 11vw, 3.0rem);
+    margin-bottom: 2rem;
   }
 
   .hero-description-container {
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
     margin-bottom: 3rem;
+  }
+
+  .hero-description {
+    font-size: clamp(0.9rem, 4.5vw, 1.1rem);
+    text-align: center;
+  }
+
+  .hero-arrow-wrapper {
+    display: none;
   }
 
   .hero-arrow {
@@ -162,6 +231,7 @@
   .hero-actions {
     flex-direction: column;
     width: 100%;
+    gap: 16px;
   }
 
   .btn {

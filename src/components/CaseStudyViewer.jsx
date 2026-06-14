@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, ExternalLink, X } from 'lucide-react';
 import './CaseStudyViewer.css';
 
 const CaseStudyViewer = ({ project, onClose }) => {
+  const [isImgZoomed, setIsImgZoomed] = useState(false);
+
   // Lock body scroll when open
   useEffect(() => {
     if (!project) return;
@@ -30,14 +32,6 @@ const CaseStudyViewer = ({ project, onClose }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.4 }}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 9999,
-          pointerEvents: 'none',
-          width: '100vw',
-          height: '100vh'
-        }}
       >
         <div className="case-study-backdrop" />
       </motion.div>
@@ -76,14 +70,20 @@ const CaseStudyViewer = ({ project, onClose }) => {
             </header>
 
             <article className="case-study-article">
-              {project.image && (
-                <figure className="case-study-hero-img">
-                  <img src={project.image} alt={project.title} />
-                </figure>
-              )}
               {project.caseStudyDetails ? (
                 <>
                   <div id="overview" className="case-study-overview-grid">
+                    {project.image && (
+                      <div className="overview-item image-overview-item interactive-tag" onClick={() => setIsImgZoomed(true)}>
+                        <h4>Project Preview</h4>
+                        <div className="overview-image-wrapper">
+                          <img src={project.image} alt={project.title} className="overview-thumbnail" />
+                          <div className="overview-image-overlay">
+                            <span className="view-text">Click to View</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                     <div className="overview-item">
                       <h4>Role</h4>
                       <p>{project.caseStudyDetails.role}</p>
@@ -260,6 +260,37 @@ const CaseStudyViewer = ({ project, onClose }) => {
           </aside>
         </div>
       </motion.div>
+
+      {/* Fullscreen Image Modal Overlay for Case Study Hero Image */}
+      <AnimatePresence>
+        {isImgZoomed && (
+          <motion.div
+            className="fullscreen-modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsImgZoomed(false)}
+            style={{ zIndex: 10001 }}
+          >
+            <button
+              className="modal-close-btn"
+              onClick={(e) => { e.stopPropagation(); setIsImgZoomed(false); }}
+              aria-label="Close modal"
+            >
+              <X size={24} />
+            </button>
+            <motion.img
+              src={project.image}
+              alt="Fullscreen project preview"
+              className="fullscreen-img"
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

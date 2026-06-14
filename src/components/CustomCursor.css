@@ -2,6 +2,17 @@
    Custom Cursor — dot + ring + particle trail
    ====================================================== */
 
+.custom-cursor-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
 /* ---- Shared base ---- */
 .custom-cursor-dot,
 .custom-cursor-ring,
@@ -16,8 +27,8 @@
 .custom-cursor-dot {
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background-color: var(--cursor-color);
   z-index: 999991;
   transform: translate(-50%, -50%);
@@ -30,13 +41,13 @@
 
 .custom-cursor-dot.hovered {
   /* Expand slightly when over interactive elements — ring does the heavy lifting */
-  width: 11px;
-  height: 11px;
+  width: 9px;
+  height: 9px;
 }
 
 .custom-cursor-dot.clicking {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   transition-duration: 0.08s;
 }
 
@@ -66,7 +77,7 @@
   background-color: rgba(0, 136, 255, 0.12);
   border-color: rgba(0, 136, 255, 0.8);
   border-width: 2px;
-  box-shadow: 0 0 28px rgba(0, 136, 255, 0.35);
+  box-shadow: 0 0 36px rgba(0, 136, 255, 0.55);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   mix-blend-mode: normal;
@@ -118,10 +129,11 @@
 }
 
 /* ---- Mobile: hide everything ---- */
-@media (max-width: 768px) {
+@media (max-width: 768px), (pointer: coarse) {
   .custom-cursor-dot,
   .custom-cursor-ring,
-  .cursor-trail-dot {
-    display: none;
+  .cursor-trail-dot,
+  .custom-cursor-container {
+    display: none !important;
   }
 }
