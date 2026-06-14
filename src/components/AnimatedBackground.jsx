@@ -57,8 +57,8 @@ export default function AnimatedBackground() {
                 y: Math.random() * height,
                 vx: (Math.random() - 0.5) * 0.2,
                 vy: (Math.random() - 0.5) * 0.2,
-                radius: Math.random() * 1.5 + (isLightTheme ? 2.2 : 1.0), // optimized size for cleaner look
-                opacity: Math.random() * 0.3 + 0.4,
+                radius: Math.random() * 2.2 + (isLightTheme ? 3.8 : 2.2), // Increased size of the dots
+                opacity: Math.random() * 0.3 + 0.45,
                 colorIndex: colorIndex,
                 colorBase: colorBase,
             };
