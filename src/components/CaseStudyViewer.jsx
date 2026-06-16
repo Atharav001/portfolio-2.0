@@ -43,6 +43,11 @@ const CaseStudyViewer = ({ project, onClose }) => {
         exit={{ opacity: 0, y: 50 }}
         transition={{ duration: 0.6, cubicBezier: [0.16, 1, 0.3, 1] }}
       >
+        {/* Floating close button for easy return without reloading */}
+        <button onClick={onClose} className="case-study-close-btn" aria-label="Close Case Study">
+          <X size={20} />
+        </button>
+
         {/* Floating gradient orb specifically for the case study header matching the reference image */}
         <div className="case-study-gradient-bg"></div>
 
