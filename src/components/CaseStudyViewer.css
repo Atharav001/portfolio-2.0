@@ -369,7 +369,7 @@
   }
 
   .case-study-nav {
-    padding: 2rem;
+    padding: 6.5rem 2rem 2rem 2rem; /* Pushes the back/live buttons below the top fixed navbar on mobile */
   }
 
   .case-study-title {
