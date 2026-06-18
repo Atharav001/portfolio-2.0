@@ -304,6 +304,80 @@ const projectsData = [
       designPhilosophy: 'Design is the translation of performance into beauty. By focusing on tiny details—like property ordering to prevent minifier bugs and decoupling motion layers from filters—we can create rich, futuristic, and premium interactive web applications that run flawlessly on any screen.',
       closingQuote: 'An interactive resume is standard. A digital experience is unforgettable.'
     }
+  },
+  {
+    id: 5,
+    title: "TabVault: Browser Memory Layer",
+    date: "June 2026",
+    description: "A Manifest V3 browser extension designed to resolve tab clutter and prevent browser crashes. It acts as a zero-latency, local-first persistent memory layer that auto-archives inactive tabs while preserving scroll coordinates, active window indexes, and tab group metadata.",
+    image: "/assets/tabvault_mockup.png",
+    readMore: "#",
+    technologies: ["React 18", "TypeScript", "Vite 6 + CRXJS", "Dexie.js (IndexedDB)", "Zustand 5", "Tailwind CSS 4", "@tanstack/react-virtual"],
+    liveLink: "https://github.com/Atharav001/TabVault-Extension",
+    urlBar: "github.com/Atharav001/TabVault-Extension",
+    tabTag: "Browser Tab Memory Layer",
+    caseStudy: "#",
+    caseStudyDetails: {
+      role: "Lead Extension Architect & Frontend Engineer",
+      techStack: "React 18, TypeScript 5, Vite 6, CRXJS 2.6, Dexie.js 4 (IndexedDB), Zustand 5, Tailwind CSS 4, @tanstack/react-virtual, @dnd-kit/core",
+      platform: "Chromium Browser Extension (MV3)",
+      problemLead: "Modern web workflows routinely cause tab clutter, leading to high RAM consumption and browser slow downs. Yet, closing tabs destroys context, group membership, and active window states. Traditional tab managers act as basic bookmark lists that strip this crucial context and often rely on paid, slow, cloud-based synchronizations that compromise user privacy.",
+      problemTitle: "The Friction of Context Loss & RAM Exhaustion",
+      problemText: "Standard browser extensions fail because they strip metadata like active window indexes, scroll positions, and custom tab groups. When a user restores a tab, they are forced to re-orient themselves on the page. Furthermore, legacy MV2 extensions are deprecated, and popular solutions send private history to cloud servers, introducing latency and security risks. We needed a fully local, zero-latency extension that scales seamlessly to thousands of items without performance decay.",
+      solutionTitle: "Zero-Latency Local Storage & Metadata Injection",
+      solutionText: "TabVault functions as a lightweight, persistent memory layer that runs entirely on the client using IndexedDB (via Dexie.js). Before archiving an inactive tab, TabVault injects content scripts to capture exact scroll coordinates and text previews. It caches page favicons as Base64 to ensure offline reliability. Tabs are restored exactly where they were—safely recreating tab groups and window indexes, recovering up to 95% of browser memory with a sub-150KB gzipped extension footprint.",
+      features: [
+        {
+          title: "Full-Context Restoration",
+          text: "TabVault preserves the exact scroll position (injected via window.scrollTo with a 3-second retry loop), tab group properties (color, title), and restores the tab to its original window index, falling back gracefully if the window was closed.",
+          image: "/assets/tabvault_mockup.png",
+          caption: "TabVault side panel interface in dark mode, showing archived cards and active groups."
+        },
+        {
+          title: "Smart Auto-Archive Prompt",
+          text: "Presents a non-intrusive toast notification before auto-archiving. Users can choose to 'Vault Now', 'Snooze 1hr' (which pushes the active timestamp forward), or 'Dismiss'. Pinned tabs and active audio feeds are strictly ignored.",
+          image: "/assets/tabvault_toast.png",
+          caption: "The smart auto-archive overlay prompting the user to reclaim RAM."
+        },
+        {
+          title: "Premium Dual-Theme Collections",
+          text: "Designed with Arc/Raycast dark graphite aesthetics and Notion light pastel themes. Allows custom collections and supports smooth drag-and-drop organization powered by @dnd-kit.",
+          image: "/assets/tabvault_dashboard.png",
+          caption: "TabVault collections view in light mode, featuring custom icons and clean folder grouping."
+        }
+      ],
+      technicalText: "The codebase is engineered strictly under Manifest V3 parameters, employing asynchronous background workers to manage active states, alarms, and local storage events without UI-blocking loops.",
+      techHighlights: [
+        {
+          title: "MV3 Alarm & Activity Scrapers",
+          text: "Utilizes chrome.storage.local to track active timestamps. When inactive boundaries are breached, background scripts trigger non-intrusive scripting injections for context retrieval."
+        },
+        {
+          title: "Sub-2ms IndexedDB Query Indexing",
+          text: "Implements Dexie.js indices on createdAt and collection fields, ensuring full-text search and filtering executes in less than 2 milliseconds across 10,000+ records."
+        }
+      ],
+      pipeline: [
+        "User tab becomes inactive for over 5 minutes",
+        "Background service worker triggers smart prompt toast",
+        "On confirmation, content scripts scrape scrollY position and text preview",
+        "Favicon is fetched and saved as Base64",
+        "Tab data lands in Dexie.js; browser tab is safely closed",
+        "Restoring the tab injects scroll coordinates and recreates custom groups"
+      ],
+      deepIntegration: [
+        {
+          title: "Virtualized Card Rendering",
+          text: "Integrates @tanstack/react-virtual to restrict DOM nodes to only the visible screen area, preventing rendering lag when navigating massive tab vaults."
+        },
+        {
+          title: "Zustand Atomic Storage",
+          text: "Maintains simple, reactive state management synced across the side panel, popup, and background scripts, eliminating FOUT (Flash of Unstyled Text)."
+        }
+      ],
+      designPhilosophy: "Performance is design. In a landscape saturated with bloated, cloud-dependent extensions, TabVault demonstrates that a local-first browser tool can be ultra-fast, feature-rich, and visually stunning without compromising user privacy.",
+      closingQuote: "A clean workspace is a clean mind. TabVault preserves your digital context seamlessly."
+    }
   }
 ];
 
