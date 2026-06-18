@@ -334,10 +334,10 @@ const projectsData = [
           caption: "TabVault side panel interface in dark mode, showing archived cards and active groups."
         },
         {
-          title: "Smart Auto-Archive Prompt",
-          text: "Presents a non-intrusive toast notification before auto-archiving. Users can choose to 'Vault Now', 'Snooze 1hr' (which pushes the active timestamp forward), or 'Dismiss'. Pinned tabs and active audio feeds are strictly ignored.",
-          image: "/assets/tabvault_toast.png",
-          caption: "The smart auto-archive overlay prompting the user to reclaim RAM."
+          title: "Quick-Action Toolbar Popup",
+          text: "A clean, dropdown action menu triggered from the browser toolbar, enabling users to instantly vault the current tab, window, or all windows. It also features a quick-snapshot trigger, options to open the left side panel, and toggle switch configuration.",
+          image: "/assets/tabvault_popup.png",
+          caption: "The toolbar dropdown popup action menu for fast archiving."
         },
         {
           title: "Premium Dual-Theme Collections",
@@ -358,12 +358,12 @@ const projectsData = [
         }
       ],
       pipeline: [
-        "User tab becomes inactive for over 5 minutes",
-        "Background service worker triggers smart prompt toast",
-        "On confirmation, content scripts scrape scrollY position and text preview",
-        "Favicon is fetched and saved as Base64",
-        "Tab data lands in Dexie.js; browser tab is safely closed",
-        "Restoring the tab injects scroll coordinates and recreates custom groups"
+        "User triggers action via Toolbar Popup or Context Menu",
+        "Background service worker initializes capture",
+        "Content scripts scrape active scrollY coordinates and page text preview",
+        "Tab favicon is converted and saved locally as Base64",
+        "Data is stored in Dexie.js (IndexedDB); the active tab is closed to reclaim RAM",
+        "Restoration recreates the window context, groups, and scrolls to the saved position"
       ],
       deepIntegration: [
         {
