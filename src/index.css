@@ -1,3 +1,5 @@
+@import './tokens.css';
+
 :root {
   /* Semantic Color System - OLED Black Base */
   --bg-base: #050505;
@@ -27,10 +29,24 @@
   --font-heading: 'Syne', 'Inter Variable', system-ui, sans-serif;
   --font-display: 'Space Grotesk', system-ui, sans-serif;
 
-  /* Layout */
+  /* Layout & Spacing (8pt Grid System) */
   --max-width: 1400px;
   --border-radius: 24px;
   --transition-smooth: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+  --space-20: 5rem;    /* 80px */
+  --space-24: 6rem;    /* 96px */
+  --space-32: 8rem;    /* 128px */
 
   /* Typography Hierarchy */
   --font-size-xs: 0.75rem;    /* 12px */
@@ -72,7 +88,7 @@ html {
   --accent-primary: #121212;
   --accent-secondary: #444444;
   --accent-glow: rgba(0, 0, 0, 0.1);
-  --accent-blue: #0084cc;
+  --accent-blue: #005fa3;
 
   --glass-bg: rgba(255, 255, 255, 0.3);
   /* Translucent so blur shows */
@@ -91,6 +107,10 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body, header, nav, section, .glass-panel, .project-card, .timeline-item, .cert-card, .skill-pill, .action-btn, .theme-toggle-btn, .mobile-menu-overlay, .social-pill, .btn-primary, .btn-secondary, .nav-link, .mobile-nav-link, .timeline-item *, .project-card *, .cert-card * {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
 }
 
 .hide-native-cursor * {

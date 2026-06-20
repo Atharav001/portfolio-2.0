@@ -57,7 +57,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
         </button>
         
         <a href={project.liveLink} target="_blank" rel="noreferrer" className="view-live-btn interactive-tag">
-          View Live <ExternalLink size={16} className="ml-1" />
+          View Code <ExternalLink size={16} className="ml-1" />
         </a>
       </nav>
 

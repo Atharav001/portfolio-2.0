@@ -6,13 +6,27 @@ import './Navbar.css';
 const Navbar = () => {
   const [activeTab, setActiveTab] = useState('Home');
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('theme');
+      if (stored) return stored;
+      if (document.documentElement.classList.contains('light-theme')) return 'light';
+    }
+    return 'dark';
+  });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (document.documentElement.classList.contains('light-theme')) {
-      setTheme('light');
+    if (theme === 'light') {
+      document.documentElement.classList.add('light-theme');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.classList.remove('light-theme');
+      localStorage.setItem('theme', 'dark');
     }
+  }, [theme]);
+
+  useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
@@ -24,7 +38,6 @@ const Navbar = () => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Calculate how much of the section is physically visible on the screen
           const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
           if (visibleHeight > maxVisible && visibleHeight > 0) {
             maxVisible = visibleHeight;
@@ -53,13 +66,7 @@ const Navbar = () => {
   }, [isMobileMenuOpen]);
 
   const toggleTheme = () => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('light-theme');
-      setTheme('light');
-    } else {
-      document.documentElement.classList.remove('light-theme');
-      setTheme('dark');
-    }
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
   const toggleMobileMenu = () => {
@@ -154,7 +161,7 @@ const Navbar = () => {
               href={`#${link.toLowerCase()}`}
               className={`mobile-nav-link ${activeTab === link ? 'active' : ''} ${isMobileMenuOpen ? 'fade-in' : ''}`}
               onClick={(e) => scrollToSection(e, link)}
-              style={{ transitionDelay: `${index * 0.1}s` }}
+              style={{ '--stagger-index': index }}
             >
               {link}
             </a>

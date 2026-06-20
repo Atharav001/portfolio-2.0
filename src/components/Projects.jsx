@@ -339,8 +339,8 @@ const projectsData = [
           caption: 'Mathematical Canvas node structure calculating dynamic proximity limits at 60 FPS.'
         },
         {
-          title: 'Momentum Scroll & SEO Optimization',
-          text: 'Integrated Lenis scroll engine with linear interpolation to offer smooth scrolling across all devices. Built with zero Cumulative Layout Shift (CLS) and optimized SVG noise textures to give a premium tactile feel while maintaining a near-perfect Google Lighthouse score.',
+          title: 'Momentum Scroll & Accessibility Optimization',
+          text: 'Integrated Lenis scroll engine with linear interpolation to offer smooth scrolling across all devices. Implemented a zero-FOUC theme sync with localStorage and a blocking head script, while auditing all light-theme elements to exceed WCAG AA contrast standards (minimum 4.5:1 ratio).',
           image: '/assets/portfolio_light.jpg',
           caption: 'Lightweight performance layout achieving near-perfect Google Lighthouse score.'
         }
@@ -563,7 +563,7 @@ const ProjectCardWrapper = ({
 
             <div className="project-actions">
               <a href={project.liveLink} target="_blank" rel="noreferrer" className="action-btn primary interactive-tag">
-                <ExternalLink size={16} /> View Live <ArrowRight size={16} className="ml-1" />
+                <ExternalLink size={16} /> View Code <ArrowRight size={16} className="ml-1" />
               </a>
               <button onClick={() => setSelectedCaseStudy(project)} className="action-btn secondary interactive-tag">
                 <Eye size={16} /> Case Study <ArrowRight size={16} className="ml-1" />

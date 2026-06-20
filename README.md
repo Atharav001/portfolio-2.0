@@ -26,15 +26,16 @@ We support both an immersive Dark mode and a high-contrast Light mode, allowing 
 
 ---
 
-## ✨ Immersive Design Aesthetics & Architecture
+## ✨ Interactive Design Aesthetics & Architecture
 
-Portfolio 2.0 is an active, production-grade creative engineering showcase built with a custom design system and fluid micro-interactions:
+Portfolio 2.0 is an interactive creative engineering showcase highlighting frontend design patterns and agentic AI projects:
 
-*   **Mathematical Node Physics Background (`NeuralOrb.jsx` & `AnimatedBackground.jsx`)**: Spawns an interactive particle simulation loop using HTML5 Canvas. Elements calculate real-time proximity-based vector lines to form a fluid, reactive neural constellation that stays perfectly optimized at 60 FPS.
-*   **Awwwards-Grade Glassmorphism**: Cards utilize custom linear-gradient glowing neon borders combined with heavy `backdrop-filter: blur(20px)` panels, preserving layout speed without bloating package sizes.
+*   **Mathematical Node Physics Background (`NeuralOrb.jsx` & `AnimatedBackground.jsx`)**: Spawns an interactive particle simulation loop using HTML5 Canvas. Elements calculate real-time proximity-based vector lines to form a fluid, reactive neural constellation.
+*   **Glassmorphism Styling**: Cards utilize custom linear-gradient borders combined with `backdrop-filter: blur(20px)` panels.
 *   **Kinetic Momentum Scrolling**: Integrated with [Lenis Scroll](https://github.com/darkroomengineering/lenis) for smooth momentum, coupled with scroll-driven reveal transitions (`.scroll-reveal`) utilizing active IntersectionObserver polyfills for Firefox compatibility.
-*   **Slide-In Case Study Drawer (`CaseStudyViewer.jsx`)**: Immersive, zero-latency project inspection panels powered by Framer Motion's `AnimatePresence` and spring physics.
+*   **Slide-In Case Study Drawer (`CaseStudyViewer.jsx`)**: Responsive project inspection panels powered by Framer Motion's `AnimatePresence` and spring physics.
 *   **Bespoke Custom Cursor (`CustomCursor.jsx`)**: A fluid magnetic mouse tracker that morphs, scales, and glows in response to active CTA elements on the page.
+*   **WCAG AA Compliant Theme System & FOUC Prevention**: Features a dual-theme architecture with persistent theme state in `localStorage` and a blocking inline detection script to prevent Flash of Unstyled Content (FOUC). All light-theme color variables (such as the adjusted `#005fa3` primary blue) are fully optimized to guarantee contrast ratios greater than 4.5:1, meeting strict WCAG AA standards. Color swaps are smoothed out with coordinated global transitions.
 
 ---
 

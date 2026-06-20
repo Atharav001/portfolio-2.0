@@ -18,21 +18,21 @@ const Experience = () => {
   const skillGroups = [
     {
       label: 'Languages',
-      skills: ['Python', 'Java', 'C/C++', 'OOPs'],
+      skills: ['Python', 'Java', 'C/C++', 'JavaScript', 'SQL'],
     },
     {
-      label: 'AI / ML',
-      skills: ['Machine Learning', 'RAG', 'Prompt Engineering', 'Local LLMs'],
+      label: 'AI / ML / Workflows',
+      skills: ['Machine Learning', 'RAG', 'Prompt Engineering', 'Local LLMs & Ollama', 'n8n Automation'],
     },
     {
-      label: 'Tools',
-      skills: ['Antigravity', 'Cursor IDE', 'n8n', 'Ollama', 'Data Visualization', 'Android (Kotlin)'],
+      label: 'Developer Tools & Platforms',
+      skills: ['Git/GitHub', 'Docker', 'Linux', 'Android SDK', 'Data Visualization'],
     },
   ];
 
   const education = [
     {
-      period: '2023 — Present',
+      period: '2025 — Present',
       role: 'B.Tech CSE',
       company: 'Manipal Institute of Technology (MAHE), Bengaluru',
       desc: 'Specialising in AI-driven solutions, autonomous systems, and full-stack development.',
