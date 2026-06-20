@@ -8,14 +8,14 @@ import './Projects.css';
 const projectsData = [
   {
     id: 6,
-    title: "Sentinel: Enterprise AI Claims Pipeline",
+    title: "Two-Step De-Biased Multi-Modal Pipeline",
     date: "June 2026",
     description: "An enterprise-grade, de-biased multi-modal AI pipeline that automates damage claim verification with zero API cost. Built during the HackerRank Orchestrate hackathon, it features a decoupled two-step reasoning architecture that prevents prompt injection and visual anchoring bias, achieving 70% accuracy.",
     image: "/assets/damage_claim_mockup.png",
     readMore: "#",
     technologies: ["Python", "Gemini Flash Lite", "OpenAI SDK", "Pandas", "Token-Bucket Limiter", "Threaded Concurrency"],
-    liveLink: "https://github.com/Atharav001/two-step-debiased-pipeline",
-    urlBar: "github.com/Atharav001/two-step-debiased-pipeline",
+    liveLink: "https://github.com/Atharav001/Two-Step-Debiased-MultiModal-Pipeline",
+    urlBar: "github.com/Atharav001/Two-Step-Debiased-MultiModal-Pipeline",
     tabTag: "Enterprise AI Pipeline",
     caseStudy: "#",
     caseStudyDetails: {
