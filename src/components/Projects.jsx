@@ -47,7 +47,7 @@ const projectsData = [
           text: "The perception model analyzes whether all uploaded photos show the same object. If the claimant submits photos of two different cars or packages, the system flags the claim as 'mismatched_evidence' and rejects it."
         }
       ],
-      technicalText: "The core engineering challenge was maximizing performance and reliability under a zero-cost API budget. The system operates concurrently via a ThreadPoolExecutor with persistent state caching.",
+      technicalText: "The core engineering challenge was maximizing performance and reliability under a zero-cost API budget. The system operates concurrently via a ThreadPoolExecutor with persistent state caching.<br/><br/><h3 style='margin-top: 2rem;'>📊 Performance & Verification Dashboard</h3><p>Through systematic iterations of prompt tuning, structured parsing fallbacks, and rate-limit safety guards, the pipeline achieved massive accuracy improvements over the baseline. The entire operational suite runs on Gemini's free tier with zero API costs, processing batch runs concurrently in under 8 minutes.</p><img src='/assets/damage_claim_performance.png' alt='Performance Dashboard Metrics' style='width: 100%; border-radius: 12px; margin: 1.5rem 0; border: 1px solid rgba(255, 255, 255, 0.08);' />",
       techHighlights: [
         {
           title: "Zero-Cost Enterprise Scale",
