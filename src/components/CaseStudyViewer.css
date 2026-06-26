@@ -636,3 +636,80 @@
   letter-spacing: 0.08em;
   font-weight: 600;
 }
+
+/* Impact & Results Section Styles */
+.impact-section {
+  margin: 5rem 0;
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 3rem 0;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin: 2.5rem 0;
+}
+
+.metric-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+:root.light-theme .metric-item {
+  background: rgba(0, 0, 0, 0.01);
+}
+
+.metric-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-blue);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+.metric-value {
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metric-label {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.case-study-testimonial-block {
+  margin: 3rem 0 1rem;
+  padding: 2rem;
+  background: rgba(0, 200, 255, 0.03);
+  border-left: 4px solid var(--accent-blue);
+  border-radius: 0 16px 16px 0;
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.testimonial-author {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-style: normal;
+}

@@ -129,21 +129,21 @@
 }
 
 .skill-pill {
-  font-family: var(--font-display);
-  padding: 1rem 1.5rem;
-  font-size: 1rem;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 100px;
+  font-family: var(--font-mono, monospace);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
   color: var(--text-primary);
-  transition: all 0.4s ease;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
   user-select: none;
 }
 
 .skill-pill:hover {
-  background: var(--text-primary);
-  color: var(--bg-base);
-  transform: scale(1.05) rotate(-2deg);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
 }
 
 /* Certifications CSS */

@@ -144,7 +144,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
 
                   {project.caseStudyDetails.pipeline && (
                     <div className="pipeline-section">
-                      <h3>The Tracking Lifecycle:</h3>
+                      <h3>The Project Lifecycle:</h3>
                       <div className="pipeline-steps-vertical">
                         {project.caseStudyDetails.pipeline.map((step, index) => (
                           <div key={index} className="pipeline-step">
@@ -165,6 +165,37 @@ const CaseStudyViewer = ({ project, onClose }) => {
                         </div>
                       ))}
                     </div>
+                  )}
+
+                  {/* Impact & Results Section - THIS IS CRITICAL FOR RECRUITERS */}
+                  {project.caseStudyDetails.metrics && (
+                    <section id="impact" className="case-study-section impact-section">
+                      <h2>📊 Impact & Results</h2>
+                      <div className="impact-content">
+                        <div className="metrics-grid">
+                          <div className="metric-item">
+                            <span className="metric-value">{project.caseStudyDetails.metrics.accuracy || "N/A"}</span>
+                            <span className="metric-label">Accuracy / Performance</span>
+                          </div>
+                          <div className="metric-item">
+                            <span className="metric-value">{project.caseStudyDetails.metrics.cost || "N/A"}</span>
+                            <span className="metric-label">Cost Savings</span>
+                          </div>
+                          <div className="metric-item">
+                            <span className="metric-value">{project.caseStudyDetails.metrics.scale || "N/A"}</span>
+                            <span className="metric-label">Scale & Speed</span>
+                          </div>
+                        </div>
+                        {project.caseStudyDetails.testimonial && (
+                          <blockquote className="case-study-testimonial-block">
+                            "{project.caseStudyDetails.testimonial}"
+                            {project.caseStudyDetails.testimonialSource && (
+                              <cite className="testimonial-author">— {project.caseStudyDetails.testimonialSource}</cite>
+                            )}
+                          </blockquote>
+                        )}
+                      </div>
+                    </section>
                   )}
 
                   <h2 id="design">💡 Design Philosophy & Takeaways</h2>
@@ -250,6 +281,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
                     <li key="solution"><a href="#solution" onClick={(e) => { e.preventDefault(); document.getElementById('solution').scrollIntoView({ behavior: 'smooth' }); }}>The Solution</a></li>
                     <li key="features"><a href="#features" onClick={(e) => { e.preventDefault(); document.getElementById('features').scrollIntoView({ behavior: 'smooth' }); }}>Key Features</a></li>
                     <li key="technical"><a href="#technical" onClick={(e) => { e.preventDefault(); document.getElementById('technical').scrollIntoView({ behavior: 'smooth' }); }}>Technical Details</a></li>
+                    <li key="impact"><a href="#impact" onClick={(e) => { e.preventDefault(); document.getElementById('impact').scrollIntoView({ behavior: 'smooth' }); }}>Impact & Results</a></li>
                     <li key="design"><a href="#design" onClick={(e) => { e.preventDefault(); document.getElementById('design').scrollIntoView({ behavior: 'smooth' }); }}>Design Philosophy</a></li>
                   </>
                 ) : (

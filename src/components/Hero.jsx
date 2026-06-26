@@ -1,29 +1,167 @@
-import React, { useCallback, useRef, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ArrowDownRight } from 'lucide-react';
+import React, { useCallback, useRef, useEffect, useState } from 'react';
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Play, RefreshCw, AlertCircle, CheckCircle } from 'lucide-react';
 import { useTextScramble } from '../hooks/useTextScramble';
 import './Hero.css';
 
+// --- Pipeline Demo Component ---
+const PipelineDemo = () => {
+  const [step, setStep] = useState(0);
+  const [logs, setLogs] = useState([]);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const intervalRef = useRef(null);
+
+  const stepsInfo = [
+    { title: "Claim Ingest", desc: "Claims CSV loaded", color: "#888" },
+    { title: "Blind VLM", desc: "Extracting visual facts only", color: "#3b82f6" },
+    { title: "Smart Gate", desc: "Validating facts integrity", color: "#10b981" },
+    { title: "Adjudication", desc: "Evaluating LLM policy rules", color: "#8b5cf6" },
+    { title: "Structured Verdict", desc: "CSV output generated", color: "#ec4899" }
+  ];
+
+  const logDatabase = [
+    [
+      "📥 [INGEST] Claim ID: #4802-V received.",
+      "📥 [INGEST] Claimant Narrative: 'Cracked bumper from parking gate.'",
+      "📥 [INGEST] Loading damage_bumper.jpg..."
+    ],
+    [
+      "🔍 [VLM] Running Blind Perception node...",
+      "🔍 [VLM] Analysis: Bumper scratch detected. No structural crack found.",
+      "🔍 [VLM] Ignored claimant text to prevent anchoring bias."
+    ],
+    [
+      "⚡ [GATE] Smart Gate running quality audit...",
+      "⚡ [GATE] Image resolution: 1200x900px (PASS).",
+      "⚡ [GATE] Fact integrity: Complete JSON facts compiled."
+    ],
+    [
+      "⚖️ [JUDGE] Adjudicating claims policy locally...",
+      "⚖️ [JUDGE] Comparing: Bumper Scratch vs. Bumper Replacement Policy.",
+      "⚖️ [JUDGE] Rule Match: Replacement requires >30% structural damage."
+    ],
+    [
+      "📊 [VERDICT] Structured JSON formatted.",
+      "🔴 [VERDICT] Outcome: Claim Rejected (Anchoring Mismatch).",
+      "💾 [VERDICT] CSV output synchronized: Zero API costs accrued."
+    ]
+  ];
+
+  const runNextStep = useCallback(() => {
+    setStep((prevStep) => {
+      const nextStep = (prevStep + 1) % 5;
+      
+      // Update logs list
+      setLogs((prevLogs) => {
+        const nextLogs = [...prevLogs, ...logDatabase[prevStep]];
+        // Limit to last 6 log lines
+        if (nextLogs.length > 6) {
+          return nextLogs.slice(nextLogs.length - 6);
+        }
+        return nextLogs;
+      });
+
+      return nextStep;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isPlaying) {
+      intervalRef.current = setInterval(runNextStep, 2600);
+    } else {
+      clearInterval(intervalRef.current);
+    }
+    return () => clearInterval(intervalRef.current);
+  }, [isPlaying, runNextStep]);
+
+  const handleReset = () => {
+    setStep(0);
+    setLogs(["🔄 Pipeline reset to initial state. Waiting..."]);
+  };
+
+  return (
+    <div className="pipeline-demo-container">
+      <div className="pipeline-demo-header">
+        <div className="pipeline-header-left">
+          <div className="pipeline-status-pulse"></div>
+          <span className="pipeline-header-title">AI Pipeline Live Simulator</span>
+        </div>
+        <div className="pipeline-controls">
+          <button 
+            className="pipeline-btn" 
+            onClick={() => setIsPlaying(!isPlaying)}
+            title={isPlaying ? "Pause" : "Play"}
+          >
+            {isPlaying ? "Pause" : "Simulate"}
+          </button>
+          <button className="pipeline-btn" onClick={handleReset} title="Reset">
+            <RefreshCw size={12} />
+          </button>
+        </div>
+      </div>
+
+      {/* Nodes Map */}
+      <div className="pipeline-nodes">
+        {stepsInfo.map((s, idx) => {
+          const isActive = idx === step;
+          const isDone = idx < step;
+          return (
+            <div key={idx} className={`pipeline-node-wrapper ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}>
+              <div className="pipeline-node-dot" style={{ '--node-color': s.color }}>
+                {isDone ? <CheckCircle size={12} /> : idx + 1}
+              </div>
+              <div className="pipeline-node-info">
+                <span className="node-title">{s.title}</span>
+                <span className="node-desc">{s.desc}</span>
+              </div>
+              {idx < 4 && <div className="pipeline-edge-connector"></div>}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Simulated Console Log */}
+      <div className="pipeline-console">
+        <div className="console-title-bar">
+          <span className="console-dot red"></span>
+          <span className="console-dot yellow"></span>
+          <span className="console-dot green"></span>
+          <span className="console-filename">debiased_pipeline.log</span>
+        </div>
+        <div className="console-body">
+          {logs.length === 0 ? (
+            <div className="console-placeholder">Initializing pipeline logs... Click 'Simulate' or wait.</div>
+          ) : (
+            logs.map((log, idx) => (
+              <div key={idx} className="console-line">
+                <span className="console-timestamp">[{new Date().toLocaleTimeString()}]</span> {log}
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- Main Hero Component ---
 const Hero = () => {
   // --- Mouse Parallax Setup ---
-  // Raw mouse position normalised to [-0.5, 0.5]
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const idleTimeoutRef = useRef(null);
 
-  // Smooth spring followers — low stiffness so the motion feels heavy and cinematic
   const springX = useSpring(mouseX, { stiffness: 50, damping: 18, restDelta: 0.001 });
   const springY = useSpring(mouseY, { stiffness: 50, damping: 18, restDelta: 0.001 });
 
-  // Each "layer" moves at a different rate — creates the illusion of real Z-depth
   const badgeX  = useTransform(springX, [-0.5, 0.5], [-8, 8]);
   const badgeY  = useTransform(springY, [-0.5, 0.5], [-4, 4]);
 
-  const title1X = useTransform(springX, [-0.5, 0.5], [-20, 20]);   // ATHARAV — mid depth
+  const title1X = useTransform(springX, [-0.5, 0.5], [-20, 20]);
   const title1Y = useTransform(springY, [-0.5, 0.5], [-10, 10]);
 
-  const title2X = useTransform(springX, [-0.5, 0.5], [-40, 40]);   // NARANG — closest to viewer
-  const title2Y = useTransform(springY, [-0.5, 0.5], [-20, 20]);
+  const title2X = useTransform(springX, [-0.5, 0.5], [-30, 30]);
+  const title2Y = useTransform(springY, [-0.5, 0.5], [-15, 15]);
 
   const descX   = useTransform(springX, [-0.5, 0.5], [-10, 10]);
   const descY   = useTransform(springY, [-0.5, 0.5], [-5, 5]);
@@ -53,12 +191,9 @@ const Hero = () => {
     };
   }, []);
 
-  // --- Text Scramble ---
-  // Each line resolves independently with a slight delay offset
   const scramble1 = useTextScramble('ATHARAV', { delay: 350, speed: 35, framesPerChar: 8 });
   const scramble2 = useTextScramble('NARANG',  { delay: 650, speed: 35, framesPerChar: 8 });
 
-  // --- Framer Motion entrance variants (preserved from original) ---
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -78,68 +213,72 @@ const Hero = () => {
 
   return (
     <section className="hero-section" id="home" onMouseMove={handleMouseMove}>
-      {/* Perspective wrapper — gives the whole section a 3D stage */}
       <div className="hero-3d-scene">
         <motion.div
-          className="hero-content"
+          className="hero-grid"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {/* Badge — slowest layer */}
-          <motion.div
-            variants={itemVariants}
-            style={{ x: badgeX, y: badgeY }}
-            className="hero-badge"
-          >
-            <span>Available to work globally</span>
-          </motion.div>
-
-          {/* Title — two lines at different parallax depths */}
-          <motion.h1
-            variants={itemVariants}
-            className="hero-title"
-            aria-label="ATHARAV NARANG"
-          >
-            <motion.span
-              className="hero-title-line"
-              style={{ x: title1X, y: title1Y }}
-              aria-hidden="true"
+          {/* Left Column: Information */}
+          <div className="hero-content">
+            <motion.div
+              variants={itemVariants}
+              style={{ x: badgeX, y: badgeY }}
+              className="hero-badge"
             >
-              {scramble1}
-            </motion.span>
-            <motion.span
-              className="hero-title-line"
-              style={{ x: title2X, y: title2Y }}
-              aria-hidden="true"
+              <span className="status-dot"></span>
+              <span>Open to Summer 2026 AI Engineering Internships</span>
+            </motion.div>
+
+            <motion.h1
+              variants={itemVariants}
+              className="hero-title"
+              aria-label="ATHARAV NARANG"
             >
-              {scramble2}
-            </motion.span>
-          </motion.h1>
+              <motion.span
+                className="hero-title-line"
+                style={{ x: title1X, y: title1Y }}
+                aria-hidden="true"
+              >
+                {scramble1}
+              </motion.span>
+              <motion.span
+                className="hero-title-line hero-role-title"
+                style={{ x: title2X, y: title2Y }}
+                aria-hidden="true"
+              >
+                {scramble2}
+                <span className="role-subheading">AI Systems Explorer</span>
+              </motion.span>
+            </motion.h1>
 
-          {/* Description — subtle depth */}
-          <motion.div
+            <motion.div
+              variants={itemVariants}
+              style={{ x: descX, y: descY }}
+              className="hero-description-container"
+            >
+              <p className="hero-description">
+                I build software and explore AI architectures, experimenting with local LLMs and optimizing agentic pipelines.
+              </p>
+            </motion.div>
+
+            <motion.div variants={itemVariants} className="hero-actions">
+              <a href="#projects" className="btn btn-primary magnetic-btn">
+                See projects <ArrowRight size={18} style={{ marginLeft: '8px' }} />
+              </a>
+              <a href="/resume.pdf" className="btn btn-secondary" download>
+                Download Resume (PDF)
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Interactive Pipeline Graphic */}
+          <motion.div 
+            className="hero-visual"
             variants={itemVariants}
-            style={{ x: descX, y: descY }}
-            className="hero-description-container"
           >
-            <div className="hero-arrow-wrapper">
-              <ArrowDownRight size={18} className="hero-arrow" />
-            </div>
-            <p className="hero-description">
-              Focused on bridging the gap between traditional software engineering and Agentic AI.
-              I build intelligent systems and data-driven applications from the ground up at MIT Bengaluru.
-            </p>
-          </motion.div>
-
-          {/* CTA buttons — no parallax, they feel grounded */}
-          <motion.div variants={itemVariants} className="hero-actions">
-            <a href="#projects" className="btn btn-primary magnetic-btn">
-              View Projects
-            </a>
-            <a href="#contact" className="btn btn-secondary">
-              Get in touch
-            </a>
+            <PipelineDemo />
           </motion.div>
         </motion.div>
       </div>

@@ -75,6 +75,8 @@
   transform-origin: top center;
   display: flex;
   justify-content: center;
+  container-type: inline-size;
+  container-name: card-container;
 }
 
 .project-card {
@@ -304,11 +306,27 @@
 .tech-badge {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
   font-size: 0.8rem;
   color: var(--text-primary);
   transition: background 0.2s;
+}
+
+.project-status-tag {
+  display: inline-block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  margin-left: 0.75rem;
+  vertical-align: middle;
 }
 
 :root.light-theme .tech-badge {
@@ -410,7 +428,7 @@
   cursor: default;
 }
 
-@media (max-width: 992px) {
+@container card-container (max-width: 992px) {
   .project-card {
     flex-direction: column;
     padding: 1.5rem;
