@@ -113,9 +113,6 @@ body, header, nav, section, .glass-panel, .project-card, .timeline-item, .cert-c
   transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
 }
 
-.hide-native-cursor * {
-  cursor: none !important;
-}
 
 /* Custom Selection */
 ::selection {
@@ -282,4 +279,82 @@ section {
       translate: 0 0;
     }
   }
+}
+
+/* =================================================================
+   Theme Transition (View Transitions API Support) & Global A11y Rules
+   ================================================================= */
+
+/* Smooth cross-fade between themes (2026 pattern) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+}
+
+/* Transition color properties on theme change (fallback for browsers without View Transitions) */
+:root {
+  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease;
+}
+
+/* Respect reduced motion — instant swap, no animation */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Keyboard Navigation visible focus outline (WCAG 2.4.7) */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 3px solid var(--accent-blue, #00c8ff);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(0, 200, 255, 0.25);
+  border-radius: 4px;
+}
+
+/* Skip link styling for keyboard navigation */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 2rem;
+  background: var(--bg-surface-elevated, #111);
+  color: var(--text-primary, #fff);
+  border: 1px solid var(--glass-border);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  z-index: 100000;
+  font-family: var(--font-display);
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: top 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skip-link:focus-visible {
+  top: 2rem;
+}
+
+/* Tactile button press feedback */
+.btn:active, .action-btn:active, .theme-toggle-btn:active, .mobile-menu-btn:active {
+  transform: scale(0.98);
+}
+.btn:disabled, .action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Hide native cursor when custom cursor class is active on HTML */
+.hide-native-cursor,
+.hide-native-cursor * {
+  cursor: none !important;
 }

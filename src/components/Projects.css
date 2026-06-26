@@ -51,7 +51,7 @@
 @media (min-width: 993px) {
   .projects-list {
     /* Normal compact spacing - no massive gaps */
-    gap: 80px;
+    gap: var(--space-20);
   }
 }
 

@@ -7,24 +7,42 @@ const Navbar = () => {
   const [activeTab, setActiveTab] = useState('Home');
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('theme');
-      if (stored) return stored;
-      if (document.documentElement.classList.contains('light-theme')) return 'light';
+    if (typeof document !== 'undefined') {
+      return document.documentElement.dataset.theme || 'dark';
     }
     return 'dark';
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (theme === 'light') {
-      document.documentElement.classList.add('light-theme');
-      localStorage.setItem('theme', 'light');
+    const mq = window.matchMedia('(prefers-color-scheme: light)');
+    const handler = (e) => {
+      if (!localStorage.getItem('theme')) {
+        const next = e.matches ? 'light' : 'dark';
+        document.documentElement.classList.toggle('light-theme', next === 'light');
+        document.documentElement.dataset.theme = next;
+        setTheme(next);
+      }
+    };
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    const applyTheme = () => {
+      document.documentElement.classList.toggle('light-theme', next === 'light');
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem('theme', next);
+      setTheme(next);
+    };
+
+    if (document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.startViewTransition(applyTheme);
     } else {
-      document.documentElement.classList.remove('light-theme');
-      localStorage.setItem('theme', 'dark');
+      applyTheme();
     }
-  }, [theme]);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,28 +64,42 @@ const Navbar = () => {
         }
       }
 
-      if (current && current !== activeTab) {
+      if (current) {
         setActiveTab(current);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeTab]);
+    // Use Lenis scroll if available, otherwise window scroll
+    const lenis = window.__lenis;
+    if (lenis) {
+      lenis.on('scroll', handleScroll);
+    } else {
+      window.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (lenis) {
+        lenis.off('scroll', handleScroll);
+      } else {
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   useEffect(() => {
-    // Lock body scroll when mobile menu is open
+    const lenis = window.__lenis;
     if (isMobileMenuOpen) {
+      if (lenis) lenis.stop();
       document.body.style.overflow = 'hidden';
     } else {
+      if (lenis) lenis.start();
       document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      if (lenis) lenis.start();
+      document.body.style.overflow = '';
+    };
   }, [isMobileMenuOpen]);
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -82,15 +114,21 @@ const Navbar = () => {
     const targetId = link === 'Home' ? 'home' : link.toLowerCase();
     const element = document.getElementById(targetId);
     if (element) {
-      window.scrollTo({
-        top: element.offsetTop,
-        behavior: 'smooth'
-      });
+      const lenis = window.__lenis;
+      if (lenis) {
+        lenis.scrollTo(`#${targetId}`);
+      } else {
+        window.scrollTo({
+          top: element.getBoundingClientRect().top + window.scrollY - 80,
+          behavior: 'smooth'
+        });
+      }
     }
   };
 
   return (
     <header className="navbar-container">
+      <a href="#about" className="skip-link">Skip to main content</a>
       <motion.div 
         className="navbar-animator"
         initial={{ top: -100, opacity: 0 }}
@@ -109,11 +147,11 @@ const Navbar = () => {
         </div>
 
         {/* Center: Navigation Links */}
-        <nav className="navbar-links-section">
+        <nav className="navbar-links-section" aria-label="Primary navigation">
           {links.map((link) => (
             <a
               key={link}
-              href={`#${link.toLowerCase()}`}
+              href={`#${link === 'Home' ? 'home' : link.toLowerCase()}`}
               className={`nav-link interactive-tag ${activeTab === link ? 'active' : ''}`}
               onClick={(e) => scrollToSection(e, link)}
             >
@@ -122,7 +160,7 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* Right Side: Actions (Cursor Dock, Theme Toggle, & Mobile Burger) */}
+        {/* Right Side: Actions (Theme Toggle & Mobile Burger) */}
         <div className="navbar-actions-section">
           {/* Target for the cursor to fly back to when it exits the window screen */}
           <div id="cursor-dock" className="cursor-dock"></div>
@@ -130,7 +168,8 @@ const Navbar = () => {
           <button
             className="theme-toggle-btn interactive-tag"
             onClick={toggleTheme}
-            aria-label="Toggle theme"
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-pressed={theme === 'light'}
           >
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
@@ -139,7 +178,9 @@ const Navbar = () => {
           <button
             className="mobile-menu-btn interactive-tag"
             onClick={toggleMobileMenu}
-            aria-label="Toggle mobile menu"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu-nav"
           >
             <div className={`burger-icon ${isMobileMenuOpen ? 'open' : ''}`}>
               <span></span>
@@ -153,12 +194,16 @@ const Navbar = () => {
       </motion.div>
 
       {/* Mobile Overlay Menu */}
-      <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
+      <div 
+        id="mobile-menu-nav" 
+        className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}
+        aria-label="Mobile navigation"
+      >
         <nav className="mobile-nav-links">
           {links.map((link, index) => (
             <a
               key={link}
-              href={`#${link.toLowerCase()}`}
+              href={`#${link === 'Home' ? 'home' : link.toLowerCase()}`}
               className={`mobile-nav-link ${activeTab === link ? 'active' : ''} ${isMobileMenuOpen ? 'fade-in' : ''}`}
               onClick={(e) => scrollToSection(e, link)}
               style={{ '--stagger-index': index }}

@@ -6,10 +6,16 @@ import './CaseStudyViewer.css';
 const CaseStudyViewer = ({ project, onClose }) => {
   const [isImgZoomed, setIsImgZoomed] = useState(false);
 
-  // Lock body scroll when open
+  // Lock body scroll and root Lenis scrolling when open
   useEffect(() => {
     if (!project) return;
+    const lenis = window.__lenis;
+    if (lenis) lenis.stop();
     document.body.style.overflow = 'hidden';
+
+    // Hash routing deep link support
+    const originalHash = window.location.hash;
+    window.history.replaceState(null, '', `#project-${project.id}`);
     
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -17,10 +23,21 @@ const CaseStudyViewer = ({ project, onClose }) => {
     
     window.addEventListener('keydown', handleKeyDown);
     return () => {
+      if (lenis) lenis.start();
       document.body.style.overflow = '';
+      window.history.replaceState(null, '', originalHash || '#projects');
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [project, onClose]);
+
+  const handleTocClick = (e, targetId) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      // Smooth scroll within the overlay container scroll bounds
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   if (!project) return null;
 
@@ -276,20 +293,20 @@ const CaseStudyViewer = ({ project, onClose }) => {
               <ul className="contents-list">
                 {project.caseStudyDetails ? (
                   <>
-                    <li key="overview"><a href="#overview" onClick={(e) => { e.preventDefault(); document.getElementById('overview').scrollIntoView({ behavior: 'smooth' }); }}>Overview</a></li>
-                    <li key="problem"><a href="#problem" onClick={(e) => { e.preventDefault(); document.getElementById('problem').scrollIntoView({ behavior: 'smooth' }); }}>The Problem</a></li>
-                    <li key="solution"><a href="#solution" onClick={(e) => { e.preventDefault(); document.getElementById('solution').scrollIntoView({ behavior: 'smooth' }); }}>The Solution</a></li>
-                    <li key="features"><a href="#features" onClick={(e) => { e.preventDefault(); document.getElementById('features').scrollIntoView({ behavior: 'smooth' }); }}>Key Features</a></li>
-                    <li key="technical"><a href="#technical" onClick={(e) => { e.preventDefault(); document.getElementById('technical').scrollIntoView({ behavior: 'smooth' }); }}>Technical Details</a></li>
-                    <li key="impact"><a href="#impact" onClick={(e) => { e.preventDefault(); document.getElementById('impact').scrollIntoView({ behavior: 'smooth' }); }}>Impact & Results</a></li>
-                    <li key="design"><a href="#design" onClick={(e) => { e.preventDefault(); document.getElementById('design').scrollIntoView({ behavior: 'smooth' }); }}>Design Philosophy</a></li>
+                    <li key="overview"><a href="#overview" onClick={(e) => handleTocClick(e, 'overview')}>Overview</a></li>
+                    <li key="problem"><a href="#problem" onClick={(e) => handleTocClick(e, 'problem')}>The Problem</a></li>
+                    <li key="solution"><a href="#solution" onClick={(e) => handleTocClick(e, 'solution')}>The Solution</a></li>
+                    <li key="features"><a href="#features" onClick={(e) => handleTocClick(e, 'features')}>Key Features</a></li>
+                    <li key="technical"><a href="#technical" onClick={(e) => handleTocClick(e, 'technical')}>Technical Details</a></li>
+                    <li key="impact"><a href="#impact" onClick={(e) => handleTocClick(e, 'impact')}>Impact & Results</a></li>
+                    <li key="design"><a href="#design" onClick={(e) => handleTocClick(e, 'design')}>Design Philosophy</a></li>
                   </>
                 ) : (
                   <>
-                    <li key="overview"><a href="#overview" onClick={(e) => { e.preventDefault(); document.getElementById('overview').scrollIntoView({ behavior: 'smooth' }); }}>Overview</a></li>
-                    <li key="technical"><a href="#technical" onClick={(e) => { e.preventDefault(); document.getElementById('technical').scrollIntoView({ behavior: 'smooth' }); }}>Architecture</a></li>
-                    <li key="features"><a href="#features" onClick={(e) => { e.preventDefault(); document.getElementById('features').scrollIntoView({ behavior: 'smooth' }); }}>Generation Pipeline</a></li>
-                    <li key="conclusion"><a href="#conclusion" onClick={(e) => { e.preventDefault(); document.getElementById('conclusion').scrollIntoView({ behavior: 'smooth' }); }}>Conclusion</a></li>
+                    <li key="overview"><a href="#overview" onClick={(e) => handleTocClick(e, 'overview')}>Overview</a></li>
+                    <li key="technical"><a href="#technical" onClick={(e) => handleTocClick(e, 'technical')}>Architecture</a></li>
+                    <li key="features"><a href="#features" onClick={(e) => handleTocClick(e, 'features')}>Generation Pipeline</a></li>
+                    <li key="conclusion"><a href="#conclusion" onClick={(e) => handleTocClick(e, 'conclusion')}>Conclusion</a></li>
                   </>
                 )}
               </ul>

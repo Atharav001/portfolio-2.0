@@ -4,11 +4,18 @@
     <meta charset="UTF-8" />
     <script>
       (function() {
-        const storedTheme = localStorage.getItem('theme');
-        if (storedTheme === 'light') {
-          document.documentElement.classList.add('light-theme');
-        } else if (storedTheme === 'dark') {
-          document.documentElement.classList.remove('light-theme');
+        try {
+          var stored = localStorage.getItem('theme');
+          var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+          var theme = stored || (prefersLight ? 'light' : 'dark');
+          if (theme === 'light') {
+            document.documentElement.classList.add('light-theme');
+          } else {
+            document.documentElement.classList.remove('light-theme');
+          }
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {
+          document.documentElement.dataset.theme = 'dark';
         }
       })();
     </script>

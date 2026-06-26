@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Lenis from 'lenis';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring, useReducedMotion } from 'framer-motion';
 import './index.css';
 
 // Components
@@ -40,7 +40,14 @@ function App() {
     restDelta: 0.001
   });
 
+  const shouldReduceMotion = useReducedMotion();
+
   useEffect(() => {
+    if (shouldReduceMotion) {
+      document.documentElement.style.scrollBehavior = 'auto';
+      return;
+    }
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -49,18 +56,35 @@ function App() {
       smooth: true,
       smoothTouch: false,
       touchMultiplier: 2,
+      anchors: true,
     });
 
+    window.__lenis = lenis;
+
+    let rafId;
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(rafId);
+      } else {
+        rafId = requestAnimationFrame(raf);
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
+      window.__lenis = null;
+      document.removeEventListener('visibilitychange', onVisibilityChange);
     };
-  }, []);
+  }, [shouldReduceMotion]);
 
   // IntersectionObserver fallback for .scroll-reveal in Firefox
   // (native scroll-driven animations not yet supported there)

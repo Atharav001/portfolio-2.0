@@ -674,12 +674,12 @@ const Projects = () => {
           {projectsData.map((project, index) => (
             <motion.div
               key={project.id || index}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{
-                duration: 0.5,
-                ease: "easeOut",
+                duration: 0.8,
+                ease: [0.16, 1, 0.3, 1],
                 delay: Math.min(index * 0.1, 0.4),
               }}
             >
