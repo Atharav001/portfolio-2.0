@@ -26,8 +26,8 @@
 
   /* Typography - Fluid & Variable Fonts */
   --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
-  --font-heading: 'Syne', 'Inter Variable', system-ui, sans-serif;
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-heading: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --font-display: 'Inter Variable', 'Inter', system-ui, sans-serif;
 
   /* Layout & Spacing (8pt Grid System) */
   --max-width: 1400px;

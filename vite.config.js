@@ -11,7 +11,16 @@ export default defineConfig({
       output: {
         entryFileNames: 'assets/[name]-v2-[hash].js',
         chunkFileNames: 'assets/[name]-v2-[hash].js',
-        assetFileNames: 'assets/[name]-v2-[hash].[ext]'
+        assetFileNames: 'assets/[name]-v2-[hash].[ext]',
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('framer-motion')) return 'framer';
+            if (id.includes('lenis')) return 'lenis';
+            if (id.includes('react') || id.includes('scheduler')) return 'react';
+            if (id.includes('lucide-react')) return 'icons';
+            return 'vendor';
+          }
+        }
       }
     }
   }

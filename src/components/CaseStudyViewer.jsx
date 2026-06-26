@@ -223,57 +223,9 @@ const CaseStudyViewer = ({ project, onClose }) => {
                   </blockquote>
                 </>
               ) : (
-                <>
-                  <p id="overview" className="intro-text">
-                    {project.description}
-                  </p>
-
-                  <h2>The Vision Behind The Project</h2>
-                  <p>
-                    The digital content landscape is evolving rapidly. Content creators, marketers, and developers all need high-quality data workflows, but traditional pipelines are expensive and time-consuming. This project was born from a simple question: What if anyone could automate professional-quality tasks in minutes?
-                  </p>
-
-                  {/* SCREENSHOT PLACEHOLDER 1 */}
-                  <figure className="case-study-hero-img placeholder-screenshot">
-                    <div className="screenshot-inner-bounds">
-                      <span className="placeholder-text">Screenshot: Upload Vision / Dashboard Interface</span>
-                    </div>
-                  </figure>
-
-                  <h2 id="technical">Technical Architecture</h2>
-                  <p>
-                    Building this platform has been an incredible journey through the cutting edge of AI synthesis and robust web development architectures. 
-                  </p>
-                  
-                  <ul className="tech-stack-list">
-                    {project.technologies.map((tech, i) => (
-                      <li key={i}>{tech}</li>
-                    ))}
-                  </ul>
-
-                  <h3 id="features">Simplified Generation Pipeline</h3>
-                  <p>The core of the logic scales flawlessly across these critical steps:</p>
-
-                  <div className="pipeline-steps">
-                    <h4>Step 1: Face Detection & Alignment</h4>
-                    <p>Ensuring semantic accuracy through specialized vector mappings.</p>
-                    
-                    {/* SCREENSHOT PLACEHOLDER 2 */}
-                    <figure className="case-study-hero-img placeholder-screenshot">
-                      <div className="screenshot-inner-bounds">
-                        <span className="placeholder-text">Screenshot: Detection Nodes / Code Snippet</span>
-                      </div>
-                    </figure>
-
-                    <h4>Step 2: Audio Analysis & Expression</h4>
-                    <p>Binding audio transcription and syncing directly to synthesized visual layers.</p>
-                  </div>
-
-                  <h3 id="conclusion">Conclusion</h3>
-                  <p>
-                    Whether you're an engineer looking to scale output or a business needing custom logic layers, this architecture makes the most complex logic pipelines accessible to everyone. Visit the repository or live site to interact directly with the systems built.
-                  </p>
-                </>
+                <div className="case-study-empty">
+                  <p>Case study content coming soon. <a href={project.github}>View the repository →</a></p>
+                </div>
               )}
 
               <hr className="article-divider" />
