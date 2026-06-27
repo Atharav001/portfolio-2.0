@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ExternalLink, X } from 'lucide-react';
 import DOMPurify from 'dompurify';
 import './CaseStudyViewer.css';
