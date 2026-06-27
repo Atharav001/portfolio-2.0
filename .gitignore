@@ -7,6 +7,19 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Environment and secret files
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+secrets.json
+config/local.*
+*.pem
+*.key
+*.p12
+
+# Build files
 node_modules
 dist
 dist-ssr

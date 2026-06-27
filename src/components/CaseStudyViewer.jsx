@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ExternalLink, X } from 'lucide-react';
+import DOMPurify from 'dompurify';
 import './CaseStudyViewer.css';
 
 const CaseStudyViewer = ({ project, onClose }) => {
@@ -125,10 +126,10 @@ const CaseStudyViewer = ({ project, onClose }) => {
                   </p>
 
                   <h2 id="problem">🧠 The Problem: {project.caseStudyDetails.problemTitle}</h2>
-                  <div dangerouslySetInnerHTML={{ __html: project.caseStudyDetails.problemText }} />
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.caseStudyDetails.problemText) }} />
 
                   <h2 id="solution">💡 The Solution: {project.caseStudyDetails.solutionTitle}</h2>
-                  <div dangerouslySetInnerHTML={{ __html: project.caseStudyDetails.solutionText }} />
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.caseStudyDetails.solutionText) }} />
 
                   <div id="features">
                     {project.caseStudyDetails.features && project.caseStudyDetails.features.map((feature, index) => (
@@ -146,7 +147,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
                   </div>
 
                   <h2 id="technical">🛠️ Technical Implementation</h2>
-                  <div dangerouslySetInnerHTML={{ __html: project.caseStudyDetails.technicalText }} />
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.caseStudyDetails.technicalText) }} />
 
                   {project.caseStudyDetails.techHighlights && (
                     <div className="tech-highlights">
@@ -216,7 +217,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
                   )}
 
                   <h2 id="design">💡 Design Philosophy & Takeaways</h2>
-                  <div dangerouslySetInnerHTML={{ __html: project.caseStudyDetails.designPhilosophy }} />
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.caseStudyDetails.designPhilosophy) }} />
 
                   <blockquote className="case-study-quote">
                     "{project.caseStudyDetails.closingQuote}"
