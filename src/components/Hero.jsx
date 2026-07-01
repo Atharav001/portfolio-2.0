@@ -213,9 +213,9 @@ const Hero = () => {
 
   const handleResumeClick = (e) => {
     e.preventDefault();
-    window.open('/resume.pdf', '_blank');
+    window.open('/Atharv Narang.pdf', '_blank');
     const link = document.createElement('a');
-    link.href = '/resume.pdf';
+    link.href = '/Atharv Narang.pdf';
     link.download = 'Atharv Narang.pdf';
     document.body.appendChild(link);
     link.click();
@@ -279,7 +279,7 @@ const Hero = () => {
                 See projects <ArrowRight size={18} style={{ marginLeft: '8px' }} />
               </a>
               <a 
-                href="/resume.pdf" 
+                href="/Atharv Narang.pdf" 
                 className="btn btn-secondary" 
                 onClick={handleResumeClick}
                 target="_blank"
