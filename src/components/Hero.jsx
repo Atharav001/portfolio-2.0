@@ -211,6 +211,17 @@ const Hero = () => {
     },
   };
 
+  const handleResumeClick = (e) => {
+    e.preventDefault();
+    window.open('/resume.pdf', '_blank');
+    const link = document.createElement('a');
+    link.href = '/resume.pdf';
+    link.download = 'Atharav_Narang_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <section className="hero-section" id="home" onMouseMove={handleMouseMove}>
       <div className="hero-3d-scene">
@@ -267,7 +278,13 @@ const Hero = () => {
               <a href="#projects" className="btn btn-primary magnetic-btn">
                 See projects <ArrowRight size={18} style={{ marginLeft: '8px' }} />
               </a>
-              <a href="/resume.pdf" className="btn btn-secondary" download>
+              <a 
+                href="/resume.pdf" 
+                className="btn btn-secondary" 
+                onClick={handleResumeClick}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Download Resume (PDF)
               </a>
             </motion.div>
