@@ -216,7 +216,7 @@ const Hero = () => {
     window.open('/resume.pdf', '_blank');
     const link = document.createElement('a');
     link.href = '/resume.pdf';
-    link.download = 'Atharav_Narang_Resume.pdf';
+    link.download = 'Atharv Narang.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
