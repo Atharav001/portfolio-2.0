@@ -4,11 +4,17 @@
   z-index: -3;
   pointer-events: none;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 0%, var(--bg-accent-2) 0%, transparent 60%), var(--bg-base);
+  background: 
+    radial-gradient(circle at 20% -10%, var(--bg-accent-1) 0%, transparent 50%),
+    radial-gradient(circle at 80% -10%, var(--bg-accent-2) 0%, transparent 50%),
+    var(--bg-base);
 }
 
 @media (max-width: 768px) {
   .animated-framer-bg {
-    background: radial-gradient(circle at 50% 0%, var(--bg-accent-2) 0%, transparent 60%), var(--bg-base);
+    background: 
+      radial-gradient(circle at 30% -10%, var(--bg-accent-1) 0%, transparent 60%),
+      radial-gradient(circle at 70% -10%, var(--bg-accent-2) 0%, transparent 60%),
+      var(--bg-base);
   }
 }
