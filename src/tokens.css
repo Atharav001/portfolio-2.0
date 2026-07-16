@@ -33,11 +33,11 @@
 
   /* --- Aurora UI Color Tokens --- */
   --bg-accent-1-dark: rgba(255, 255, 255, 0.03);
-  --bg-accent-2-dark: rgba(139, 92, 246, 0.28);
-  --bg-accent-3-dark: rgba(20, 184, 166, 0.22);
-  --bg-accent-1-light: rgba(99, 102, 241, 0.18);
-  --bg-accent-2-light: rgba(255, 51, 204, 0.32);
-  --bg-accent-3-light: rgba(0, 168, 255, 0.32);
+  --bg-accent-2-dark: rgba(0, 200, 255, 0.10);
+  --bg-accent-3-dark: rgba(0, 200, 255, 0.06);
+  --bg-accent-1-light: rgba(0, 95, 163, 0.08);
+  --bg-accent-2-light: rgba(0, 95, 163, 0.06);
+  --bg-accent-3-light: rgba(0, 95, 163, 0.04);
 
   /* --- Z-Index Tokens --- */
   --z-background: -10;

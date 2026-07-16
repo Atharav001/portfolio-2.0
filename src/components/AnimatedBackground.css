@@ -4,31 +4,11 @@
   z-index: -3;
   pointer-events: none;
   overflow: hidden;
-  background:
-    radial-gradient(circle at var(--glow-1-x, 50%) var(--glow-1-y, 0%), var(--bg-accent-1) 0%, transparent 35vmax),
-    radial-gradient(circle at var(--glow-2-x, 90%) var(--glow-2-y, 10%), var(--bg-accent-2) 0%, transparent 45%),
-    radial-gradient(circle at var(--glow-3-x, 10%) var(--glow-3-y, 90%), var(--bg-accent-3) 0%, transparent 45%),
-    var(--bg-base);
-  animation: aurora-drift 32s ease-in-out infinite alternate;
-}
-
-
-@keyframes aurora-drift {
-  0%   { --glow-1-x: 50%; --glow-2-x: 90%; --glow-3-x: 10%; }
-  50%  { --glow-1-x: 45%; --glow-2-x: 82%; --glow-3-x: 18%; }
-  100% { --glow-1-x: 55%; --glow-2-x: 95%; --glow-3-x: 5%;  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animated-framer-bg { animation: none; }
+  background: radial-gradient(circle at 50% 0%, var(--bg-accent-1) 0%, transparent 60%), var(--bg-base);
 }
 
 @media (max-width: 768px) {
   .animated-framer-bg {
-    background:
-      radial-gradient(circle at var(--glow-1-x, 50%) var(--glow-1-y, 0%), var(--bg-accent-1) 0%, transparent 50vmax),
-      radial-gradient(circle at var(--glow-2-x, 90%) var(--glow-2-y, 10%), var(--bg-accent-2) 0%, transparent 60vmax),
-      radial-gradient(circle at var(--glow-3-x, 10%) var(--glow-3-y, 90%), var(--bg-accent-3) 0%, transparent 60vmax),
-      var(--bg-base);
+    background: radial-gradient(circle at 50% 0%, var(--bg-accent-1) 0%, transparent 60%), var(--bg-base);
   }
 }
