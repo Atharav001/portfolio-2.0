@@ -6,6 +6,10 @@
   --bg-surface: #0a0a0a;
   --bg-surface-elevated: #111111;
 
+  --bg-accent-1: var(--bg-accent-1-dark);
+  --bg-accent-2: var(--bg-accent-2-dark);
+  --bg-accent-3: var(--bg-accent-3-dark);
+
   --text-primary: #ffffff;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
@@ -74,12 +78,17 @@ html {
   scroll-behavior: auto;
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .light-theme {
   --bg-base: #F7F7F9;
   --bg-surface: #ffffff;
   --bg-surface-elevated: #f0f0f0;
+
+  --bg-accent-1: var(--bg-accent-1-light);
+  --bg-accent-2: var(--bg-accent-2-light);
+  --bg-accent-3: var(--bg-accent-3-light);
 
   --text-primary: #121212;
   --text-secondary: #334155;
@@ -134,6 +143,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 #root {
@@ -193,7 +203,7 @@ button {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: -5;
+  z-index: var(--z-background);
   background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');
   opacity: 0.015;
   /* Radically smoother compared to default */
@@ -207,7 +217,7 @@ section {
   max-width: var(--max-width);
   margin: 0 auto;
   position: relative;
-  z-index: 1;
+  z-index: var(--z-base);
 }
 
 @media (max-width: 768px) {
@@ -333,7 +343,7 @@ section {
   border: 1px solid var(--glass-border);
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  z-index: 100000;
+  z-index: var(--z-max);
   font-family: var(--font-display);
   font-weight: 600;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);

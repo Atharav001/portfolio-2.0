@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   margin: 0 auto;
-  z-index: 20;
+  z-index: var(--z-overlay);
   width: 90vw;
   /* Extremely wide navigation bar to ensure massive empty spacing */
   max-width: 1800px;
@@ -22,7 +22,7 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   position: relative;
-  z-index: 101;
+  z-index: var(--z-overlay);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 22px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -323,20 +323,25 @@
   }
 
   .theme-toggle-btn {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .theme-toggle-btn svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
 
   .mobile-menu-btn {
     display: flex;
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
   }
 
   .burger-icon {

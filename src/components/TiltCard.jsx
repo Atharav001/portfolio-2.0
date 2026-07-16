@@ -1,3 +1,10 @@
+/**
+ * TiltCard.jsx
+ * 
+ * A reusable 3D perspective tilt wrapper that tracks cursor position
+ * and applies smooth rotateX/rotateY transforms plus a specular glare highlight.
+ * Designed to gracefully degrade on touch/mobile devices via CSS fallbacks.
+ */
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import './TiltCard.css';
@@ -73,6 +80,10 @@ const TiltCard = ({ children, className = '', animationProps = {} }) => {
         style={{ rotateX, rotateY }}
         {...animationProps}
       >
+        <motion.div
+          className="tilt-glare"
+          style={{ opacity: glareOpacity, background: glareBackground }}
+        />
         {children}
       </motion.div>
     </div>

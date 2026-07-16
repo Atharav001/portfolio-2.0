@@ -1,103 +1,75 @@
-# Atharav Narang | Portfolio 2.0 🌐
+<div align="center">
 
-> Immersive 3D & interactive software developer experience highlighting engineering expertise in Agentic AI, local LLMs, and high-performance frontend interfaces.
+# Hi, I'm Atharav 👋
 
-[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white)](https://vitejs.dev/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
-[![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![Lenis](https://img.shields.io/badge/Lenis_Scroll-111111?style=for-the-badge)](https://github.com/darkroomengineering/lenis)
+**CS undergrad building AI systems that go beyond demos — RAG pipelines, agentic workflows, and multimodal verification tools.**
 
----
+[![Portfolio](https://img.shields.io/badge/Portfolio-atharav001n.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://atharav001n.vercel.app)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/atharav-narang-132b74273)
 
-## 🎨 Project Preview & Theme Modes
-
-We support both an immersive Dark mode and a high-contrast Light mode, allowing users to toggle between two distinct premium layouts.
-
-<p align="center">
-  <img src="./public/assets/portfolio_v2.png" width="800" alt="Portfolio 2.0 Combined Mockup" />
-</p>
-
-### Custom Theme Showcase
-
-| Dark Mode (Default) | Light Mode (Alternate) |
-| :---: | :---: |
-| <img src="./public/assets/portfolio_dark.jpg" width="400" alt="Portfolio Dark Theme" /> | <img src="./public/assets/portfolio_light.jpg" width="400" alt="Portfolio Light Theme" /> |
+</div>
 
 ---
 
-## ✨ Interactive Design Aesthetics & Architecture
+### About Me
 
-Portfolio 2.0 is an interactive creative engineering showcase highlighting frontend design patterns and agentic AI projects:
+ I'm a first-year Computer Science student at MIT Bengaluru (MAHE), currently deep in the weeds of retrieval systems, agentic architectures, and the unglamorous work of making AI pipelines actually reliable — not just accurate on a good day.
 
-*   **Mathematical Node Physics Background (`NeuralOrb.jsx` & `AnimatedBackground.jsx`)**: Spawns an interactive particle simulation loop using HTML5 Canvas. Elements calculate real-time proximity-based vector lines to form a fluid, reactive neural constellation.
-*   **Glassmorphism Styling**: Cards utilize custom linear-gradient borders combined with `backdrop-filter: blur(20px)` panels.
-*   **Kinetic Momentum Scrolling**: Integrated with [Lenis Scroll](https://github.com/darkroomengineering/lenis) for smooth momentum, coupled with scroll-driven reveal transitions (`.scroll-reveal`) utilizing active IntersectionObserver polyfills for Firefox compatibility.
-*   **Slide-In Case Study Drawer (`CaseStudyViewer.jsx`)**: Responsive project inspection panels powered by Framer Motion's `AnimatePresence` and spring physics.
-*   **Bespoke Custom Cursor (`CustomCursor.jsx`)**: A fluid magnetic mouse tracker that morphs, scales, and glows in response to active CTA elements on the page.
-*   **WCAG AA Compliant Theme System & FOUC Prevention**: Features a dual-theme architecture with persistent theme state in `localStorage` and a blocking inline detection script to prevent Flash of Unstyled Content (FOUC). All light-theme color variables (such as the adjusted `#005fa3` primary blue) are fully optimized to guarantee contrast ratios greater than 4.5:1, meeting strict WCAG AA standards. Color swaps are smoothed out with coordinated global transitions.
+Most of what I build starts from the same annoyance: AI demos that look great until you push on them. So I spend a lot of time on the boring-but-critical parts — ablation studies, confidence gating, fallback logic — the stuff that decides whether a system survives contact with real inputs.
 
----
-
-## 🛠️ Tech Stack & Dependencies
-
-*   **Core Framework**: React 18 / Vite (Lightning-fast HMR builds)
-*   **Animation**: Framer Motion (State-driven physics transitions)
-*   **Smooth Scroll**: Lenis Scroll (Linear momentum)
-*   **Styling**: Pure CSS Custom Properties (Structured CSS variables)
-*   **Vector Assets**: Lucide React
+- 🔭 Currently building multi-agent research and verification pipelines
+- 🌱 Learning the internals of retrieval — hybrid search, reranking, and evaluation at scale
+- 💬 Always up for a conversation about RAG architecture, agent design, or why your eval numbers are lying to you
+- 📍 Based in Bengaluru, India
 
 ---
 
-## 📂 Project Directory Breakdown
+### Projects I'm Proud Of
 
-```text
-├── public/
-│   ├── assets/              # App case study mockup images
-│   │   ├── portfolio_v2.png # Generated Portfolio 2.0 preview mockup
-│   │   └── ...              # Other featured project assets
-├── src/
-│   ├── components/          # React layout elements
-│   │   ├── NeuralOrb.jsx    # WebGL/Canvas neural-net particle engine
-│   │   ├── Projects.jsx     # Main featured project lists & descriptions
-│   │   ├── CaseStudyViewer  # High-fidelity project document viewer
-│   │   ├── CustomCursor.jsx # Interactive magnetic mouse cursor
-│   │   ├── Hero.jsx         # Splash landing text with animated titles
-│   │   └── Navbar.jsx       # Smooth-linked glassmorphic nav bar
-│   ├── index.css            # Global CSS variables & token architecture
-│   ├── App.jsx              # App orchestration & scroll layout wrappers
-│   └── main.jsx             # React DOM entry point
-```
+**[Autonomous Multi-Agent Research RAG Framework](https://github.com/Atharav001/RAG-Agentic-Deep-Research)**
+A research assistant that doesn't just retrieve — it reasons about what it retrieved. Combines FAISS and BM25 in a hybrid setup with cross-encoder reranking, and runs parallel ablations across 7 configurations to find what actually works instead of guessing.
+> Accuracy: 0.65 → 0.78 · Faithfulness: 0.70 → 0.82 · Evaluation time cut by 70%
+
+**[Two-Step De-biased Multimodal Verification Pipeline](https://github.com/Atharav001/Two-Step-Debiased-MultiModal-Pipeline)**
+Built for automated damage claim verification using Gemini Flash Lite. The key idea: separate blind perception from adjudication, so the model describes what it sees before it's allowed to judge it — cutting down on the confirmation bias that sinks most single-pass VLM pipelines.
+> Accuracy: 30% → 65% by restructuring the decision flow, not just the prompt
+
+**[AI Support Triage Agent](https://github.com/Atharav001/AI-Support-Triage-Agent)**
+A support agent that knows when *not* to answer. Confidence-gated retrieval over 774 documents with deterministic fallbacks, so it hands off gracefully instead of hallucinating a confident wrong answer.
+
+**[Shortform Usage Sentinel](https://github.com/Atharav001/shortform-usage-sentinel)**
+An Android tool that tracks Instagram/YouTube short-form usage through structural UI detection and physics-based debouncing — no accessibility-API shortcuts, just careful signal processing.
 
 ---
 
-## 🚀 Getting Started Locally
+### Tech I Work With
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/Atharav001/portfolio-2.0.git
-cd portfolio-2.0
-```
+<div align="left">
 
-### 2. Install Project Dependencies
-```bash
-npm install
-```
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![FAISS](https://img.shields.io/badge/FAISS-4285F4?style=flat-square&logo=meta&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
 
-### 3. Start Development Server
-Run Vite's lightning-fast local development server:
-```bash
-npm run dev
-```
-
-### 4. Build for Production
-Create an optimized production bundle:
-```bash
-npm run build
-```
+</div>
 
 ---
 
-## 📝 License & Attribution
+<div align="center">
 
-Designed and engineered with passion by **Atharav Narang** (MIT Bengaluru, MAHE BLR). All rights reserved.
+<img height="165em" src="https://github-readme-stats.vercel.app/api?username=Atharav001&show_icons=true&theme=default&hide_border=true&count_private=true" />
+<img height="165em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Atharav001&layout=compact&hide_border=true" />
+
+</div>
+
+---
+
+<div align="center">
+
+*Currently exploring internship opportunities in AI/ML — reach out if you're building something interesting.*
+
+</div>

@@ -12,17 +12,17 @@ const CustomCursor = () => {
   const dotX = useMotionValue(-100);
   const dotY = useMotionValue(-100);
 
-  const [isHovering, setIsHovering]   = useState(false);
-  const [isDocked, setIsDocked]       = useState(true);
-  const [isVisible, setIsVisible]     = useState(false);
-  const [isClicking, setIsClicking]   = useState(false);
-  const [isMobile, setIsMobile]       = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [isDocked, setIsDocked] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Trail: array of { x, y, id } snapshots of past cursor positions
-  const [trail, setTrail]             = useState([]);
-  const trailIdRef                    = useRef(0);
-  const posRef                        = useRef({ x: -100, y: -100 });
-  const isHoveringRef                 = useRef(false);
+  const [trail, setTrail] = useState([]);
+  const trailIdRef = useRef(0);
+  const posRef = useRef({ x: -100, y: -100 });
+  const isHoveringRef = useRef(false);
 
   // Keep isHovering in a ref so the rAF loop can read it without stale closures
   useEffect(() => { isHoveringRef.current = isHovering; }, [isHovering]);
@@ -49,9 +49,9 @@ const CustomCursor = () => {
   const updateDockPosition = useCallback(() => {
     const dock = document.getElementById('cursor-dock');
     if (dock) {
-      const rect   = dock.getBoundingClientRect();
-      const tx     = rect.left + rect.width / 2;
-      const ty     = rect.top  + rect.height / 2;
+      const rect = dock.getBoundingClientRect();
+      const tx = rect.left + rect.width / 2;
+      const ty = rect.top + rect.height / 2;
       dotX.set(tx); dotY.set(ty);
       cursorX.set(tx); cursorY.set(ty);
       setIsVisible(true);
@@ -135,24 +135,24 @@ const CustomCursor = () => {
     };
 
     const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp   = () => setIsClicking(false);
+    const handleMouseUp = () => setIsClicking(false);
 
-    window.addEventListener('mousemove',  handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
-    window.addEventListener('mouseover',  handleMouseOver);
-    window.addEventListener('mousedown',  handleMouseDown);
-    window.addEventListener('mouseup',    handleMouseUp);
+    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
 
     const t = setTimeout(() => { if (isCurrentlyDocked) updateDockPosition(); }, 200);
 
     return () => {
-      window.removeEventListener('mousemove',  handleMouseMove);
+      window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
-      window.removeEventListener('mouseover',  handleMouseOver);
-      window.removeEventListener('mousedown',  handleMouseDown);
-      window.removeEventListener('mouseup',    handleMouseUp);
+      window.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
       clearTimeout(t);
     };
   }, [isMobile, isVisible, dotX, dotY, cursorX, cursorY, updateDockPosition]);
@@ -171,19 +171,19 @@ const CustomCursor = () => {
       {/* ---- Particle trail ---- */}
       {!isDocked && trail.map((p, i) => {
         // i=0 is oldest, i=trail.length-1 is newest
-        const denom   = Math.max(1, trail.length - 1);
-        const age     = i / denom;   // 0=oldest → 1=newest
-        const opacity  = age * 0.55;
-        const size     = age * (p.isHovering ? 6 : 3.5);
+        const denom = Math.max(1, trail.length - 1);
+        const age = i / denom;   // 0=oldest → 1=newest
+        const opacity = age * 0.55;
+        const size = age * (p.isHovering ? 6 : 3.5);
         return (
           <div
             key={p.id}
             className={`cursor-trail-dot${p.isHovering ? ' trail-hover' : ''}`}
             style={{
               left: p.x,
-              top:  p.y,
-              width:   Math.max(1, size),
-              height:  Math.max(1, size),
+              top: p.y,
+              width: Math.max(1, size),
+              height: Math.max(1, size),
               opacity,
             }}
           />

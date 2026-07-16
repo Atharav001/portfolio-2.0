@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
+  min-height: 100dvh;
   padding-top: 15vh; /* Increased to avoid overlap with fixed navbar */
   padding-bottom: 5vh;
 }

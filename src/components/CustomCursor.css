@@ -1,140 +1,141 @@
-
 /* ======================================================
    Custom Cursor — dot + ring + particle trail
    ====================================================== */
 
 .custom-cursor-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 9999;
-  transition: opacity 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
 }
 
 /* ---- Shared base ---- */
 .custom-cursor-dot,
 .custom-cursor-ring,
 .cursor-trail-dot {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  will-change: transform;
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
 }
 
 /* ---- Main dot ---- */
 .custom-cursor-dot {
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  background-color: var(--cursor-color);
-  z-index: 999991;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: var(--cursor-blend);
-  transition:
-    width  0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.2s;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background-color: var(--cursor-color);
+    z-index: 999991;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: var(--cursor-blend);
+    transition:
+        width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.2s;
 }
 
 .custom-cursor-dot.hovered {
-  /* Expand slightly when over interactive elements — ring does the heavy lifting */
-  width: 9px;
-  height: 9px;
+    /* Expand slightly when over interactive elements — ring does the heavy lifting */
+    width: 9px;
+    height: 9px;
 }
 
 .custom-cursor-dot.clicking {
-  width: 4px;
-  height: 4px;
-  transition-duration: 0.08s;
+    width: 4px;
+    height: 4px;
+    transition-duration: 0.08s;
 }
 
 /* ---- Outer ring ---- */
 .custom-cursor-ring {
-  top: 0;
-  left: 0;
-  width: 48px;
-  height: 48px;
-  border: 2px solid var(--cursor-ring-color);
-  z-index: 999990;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: var(--cursor-blend);
-  transition:
-    width  0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.3s,
-    border-color     0.3s,
-    border-width     0.3s,
-    opacity          0.3s,
-    box-shadow       0.3s;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--cursor-ring-color);
+    z-index: 999990;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: var(--cursor-blend);
+    transition:
+        width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.3s,
+        border-color 0.3s,
+        border-width 0.3s,
+        opacity 0.3s,
+        box-shadow 0.3s;
 }
 
 .custom-cursor-ring.hovered {
-  width: 78px;
-  height: 78px;
-  background-color: rgba(0, 136, 255, 0.12);
-  border-color: rgba(0, 136, 255, 0.8);
-  border-width: 2px;
-  box-shadow: 0 0 36px rgba(0, 136, 255, 0.55);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  mix-blend-mode: normal;
+    width: 78px;
+    height: 78px;
+    background-color: rgba(0, 136, 255, 0.12);
+    border-color: rgba(0, 136, 255, 0.8);
+    border-width: 2px;
+    box-shadow: 0 0 36px rgba(0, 136, 255, 0.55);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    mix-blend-mode: normal;
 }
 
 .custom-cursor-ring.clicking {
-  width: 36px;
-  height: 36px;
-  opacity: 0.6;
-  transition-duration: 0.1s;
+    width: 36px;
+    height: 36px;
+    opacity: 0.6;
+    transition-duration: 0.1s;
 }
 
 .custom-cursor-ring.docked {
-  border-color: var(--cursor-color);
-  opacity: 0.5;
-  width: 32px;
-  height: 32px;
-  border-width: 2px;
-  background-color: transparent;
-  mix-blend-mode: normal;
+    border-color: var(--cursor-color);
+    opacity: 0.5;
+    width: 32px;
+    height: 32px;
+    border-width: 2px;
+    background-color: transparent;
+    mix-blend-mode: normal;
 }
 
 /* ---- Particle trail dots ---- */
 .cursor-trail-dot {
-  top: 0;
-  left: 0;
-  /* Default: plain trailing dot matching cursor colour */
-  background-color: var(--cursor-color);
-  mix-blend-mode: var(--cursor-blend);
-  /* Exact pixel positioning — no transform offset needed */
-  transform: translate(-50%, -50%);
-  z-index: 999989;
-  /* No transition — opacity/size are set inline each frame */
+    top: 0;
+    left: 0;
+    /* Default: plain trailing dot matching cursor colour */
+    background-color: var(--cursor-color);
+    mix-blend-mode: var(--cursor-blend);
+    /* Exact pixel positioning — no transform offset needed */
+    transform: translate(-50%, -50%);
+    z-index: 999989;
+    /* No transition — opacity/size are set inline each frame */
 }
 
 /* When trail passes over interactive element: turn accent blue */
 .cursor-trail-dot.trail-hover {
-  background-color: rgba(0, 136, 255, 0.9);
-  mix-blend-mode: normal;
+    background-color: rgba(0, 136, 255, 0.9);
+    mix-blend-mode: normal;
 }
 
 /* ---- Light theme adjustments ---- */
 :root.light-theme .cursor-trail-dot {
-  background-color: #000000;
+    background-color: #000000;
 }
 
 :root.light-theme .cursor-trail-dot.trail-hover {
-  background-color: rgba(0, 100, 220, 0.8);
+    background-color: rgba(0, 100, 220, 0.8);
 }
 
 /* ---- Mobile: hide everything ---- */
-@media (max-width: 768px), (pointer: coarse) {
-  .custom-cursor-dot,
-  .custom-cursor-ring,
-  .cursor-trail-dot,
-  .custom-cursor-container {
-    display: none !important;
-  }
+@media (max-width: 768px),
+(pointer: coarse) {
+
+    .custom-cursor-dot,
+    .custom-cursor-ring,
+    .cursor-trail-dot,
+    .custom-cursor-container {
+        display: none !important;
+    }
 }

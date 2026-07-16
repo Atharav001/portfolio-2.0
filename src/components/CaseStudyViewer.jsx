@@ -1,3 +1,11 @@
+/**
+ * CaseStudyViewer.jsx
+ * 
+ * Renders the detailed case study manuscript for projects.
+ * Uses Decoupled Motion Architecture to separate Framer Motion animation wrappers
+ * from the static, GPU-accelerated backdrop blur panels (transform: translateZ(0)).
+ * Includes hash routing deep link support and responsive TOC.
+ */
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ExternalLink, X } from 'lucide-react';
@@ -100,7 +108,14 @@ const CaseStudyViewer = ({ project, onClose }) => {
                       <div className="overview-item image-overview-item interactive-tag" onClick={() => setIsImgZoomed(true)}>
                         <h4>Project Preview</h4>
                         <div className="overview-image-wrapper">
-                          <img src={project.image} alt={project.title} className="overview-thumbnail" />
+                          <picture style={{ display: 'block', width: '100%', height: '100%' }}>
+                            <source
+                              srcSet={`/assets/optimized/${project.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}-mobile.webp 800w, /assets/optimized/${project.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}.webp 1600w`}
+                              sizes="(max-width: 768px) 90vw, 45vw"
+                              type="image/webp"
+                            />
+                            <img src={`/assets/optimized/${project.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}.jpg`} alt={project.title} className="overview-thumbnail" />
+                          </picture>
                           <div className="overview-image-overlay">
                             <span className="view-text">Click to View</span>
                           </div>
@@ -138,7 +153,14 @@ const CaseStudyViewer = ({ project, onClose }) => {
                         <p>{feature.text}</p>
                         {feature.image && (
                           <figure className="case-study-img-container">
-                            <img src={feature.image} alt={feature.title} />
+                            <picture>
+                              <source
+                                srcSet={`/assets/optimized/${feature.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}-mobile.webp 800w, /assets/optimized/${feature.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}.webp 1600w`}
+                                sizes="(max-width: 768px) 90vw, 45vw"
+                                type="image/webp"
+                              />
+                              <img src={`/assets/optimized/${feature.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}.jpg`} alt={feature.title} />
+                            </picture>
                             {feature.caption && <figcaption>{feature.caption}</figcaption>}
                           </figure>
                         )}
@@ -286,15 +308,22 @@ const CaseStudyViewer = ({ project, onClose }) => {
             >
               <X size={24} />
             </button>
-            <motion.img
-              src={project.image}
-              alt="Fullscreen project preview"
-              className="fullscreen-img"
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.95 }}
-              onClick={(e) => e.stopPropagation()}
-            />
+            <picture style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <source
+                srcSet={`/assets/optimized/${project.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}-mobile.webp 800w, /assets/optimized/${project.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}.webp 1600w`}
+                sizes="90vw"
+                type="image/webp"
+              />
+              <motion.img
+                src={`/assets/optimized/${project.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}.jpg`}
+                alt="Fullscreen project preview"
+                className="fullscreen-img"
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.95 }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </picture>
           </motion.div>
         )}
       </AnimatePresence>

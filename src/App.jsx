@@ -12,6 +12,7 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import AnimatedBackground from './components/AnimatedBackground';
+import GrainOverlay from './components/GrainOverlay';
 
 // Reusable animated section divider
 const SectionDivider = () => (
@@ -112,15 +113,17 @@ function App() {
 
   return (
     <>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <motion.div 
-        style={{ scaleX, transformOrigin: '0%', backgroundColor: 'var(--text-primary)', height: '2px', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100000 }} 
+        style={{ scaleX, transformOrigin: '0%', backgroundColor: 'var(--text-primary)', height: '2px', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 'var(--z-max)' }} 
       />
       <div className="noise-overlay"></div>
       <AnimatedBackground />
+      <GrainOverlay />
       <CustomCursor />
       <Navbar />
 
-      <main>
+      <main id="main-content">
           <Hero />
           <SectionDivider />
           <About />

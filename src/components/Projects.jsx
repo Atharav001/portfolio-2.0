@@ -49,6 +49,8 @@ const ProjectCardWrapper = ({
 
   const scale = isDesktop ? scaleTransform : 1;
   const opacity = isDesktop ? opacityTransform : 1;
+  
+  const imgBase = project.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '');
 
   return (
     <div
@@ -88,7 +90,14 @@ const ProjectCardWrapper = ({
               <div className="browser-tab"><Eye size={12} className="mr-1" /> {project.tabTag}</div>
             </div>
             <div className="browser-content">
-              <img src={project.image} alt={project.title} className="project-img" loading="lazy" />
+              <picture>
+                <source
+                  srcSet={`/assets/optimized/${imgBase}-mobile.webp 800w, /assets/optimized/${imgBase}.webp 1600w`}
+                  sizes="(max-width: 768px) 90vw, 45vw"
+                  type="image/webp"
+                />
+                <img src={`/assets/optimized/${imgBase}.jpg`} alt={project.title} className="project-img" loading="lazy" />
+              </picture>
 
               {/* Hover Reveal: Click to View */}
               <div className="image-hover-overlay">
@@ -150,14 +159,18 @@ const ProjectCardWrapper = ({
 const Projects = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState(null);
-  const [isDesktop, setIsDesktop] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(min-width: 993px)').matches;
+    }
+    return true;
+  });
 
   // Monitor media queries to disable sticky/scale logic on mobile safely
   useEffect(() => {
     const mediaQuery = window.matchMedia('(min-width: 993px)');
     const handleMediaChange = (e) => setIsDesktop(e.matches);
     
-    setIsDesktop(mediaQuery.matches);
     mediaQuery.addEventListener('change', handleMediaChange);
     return () => mediaQuery.removeEventListener('change', handleMediaChange);
   }, []);
@@ -235,15 +248,22 @@ const Projects = () => {
             >
               <X size={24} />
             </button>
-            <motion.img
-              src={selectedImage}
-              alt="Fullscreen expanded project"
-              className="fullscreen-img"
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.95 }}
-              onClick={(e) => e.stopPropagation()}
-            />
+            <picture style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <source
+                srcSet={`/assets/optimized/${selectedImage.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}-mobile.webp 800w, /assets/optimized/${selectedImage.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}.webp 1600w`}
+                sizes="90vw"
+                type="image/webp"
+              />
+              <motion.img
+                src={`/assets/optimized/${selectedImage.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}.jpg`}
+                alt="Fullscreen expanded project"
+                className="fullscreen-img"
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.95 }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </picture>
           </motion.div>
         )}
       </AnimatePresence>

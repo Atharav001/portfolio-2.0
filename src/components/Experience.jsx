@@ -164,11 +164,19 @@ const Experience = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <button className="cert-modal-close" onClick={() => setShowJavaCert(false)}>×</button>
-              <img 
-                src="/assets/ibm_java_certificate.png" 
-                alt="IBM SkillsBuild JAVA Certificate" 
-                className="cert-modal-image"
-              />
+              <picture>
+                <source
+                  srcSet="/assets/optimized/ibm_java_certificate-mobile.webp 800w, /assets/optimized/ibm_java_certificate.webp 1600w"
+                  sizes="(max-width: 768px) 90vw, 45vw"
+                  type="image/webp"
+                />
+                <img 
+                  src="/assets/optimized/ibm_java_certificate.jpg" 
+                  alt="IBM SkillsBuild JAVA Certificate" 
+                  className="cert-modal-image"
+                  loading="lazy"
+                />
+              </picture>
               <div className="cert-modal-footer">
                 <h3>IBM SkillsBuild JAVA Certificate</h3>
                 <p>Successfully completed Java programming certification powered by IBM SkillsBuild.</p>

@@ -5,47 +5,47 @@ import { useTextScramble } from '../hooks/useTextScramble';
 import './Hero.css';
 
 // --- Pipeline Demo Component ---
+const stepsInfo = [
+  { title: "Claim Ingest", desc: "Claims CSV loaded", color: "#888" },
+  { title: "Blind VLM", desc: "Extracting visual facts only", color: "#3b82f6" },
+  { title: "Smart Gate", desc: "Validating facts integrity", color: "#10b981" },
+  { title: "Adjudication", desc: "Evaluating LLM policy rules", color: "#8b5cf6" },
+  { title: "Structured Verdict", desc: "CSV output generated", color: "#ec4899" }
+];
+
+const logDatabase = [
+  [
+    "📥 [INGEST] Claim ID: #4802-V received.",
+    "📥 [INGEST] Claimant Narrative: 'Cracked bumper from parking gate.'",
+    "📥 [INGEST] Loading damage_bumper.jpg..."
+  ],
+  [
+    "🔍 [VLM] Running Blind Perception node...",
+    "🔍 [VLM] Analysis: Bumper scratch detected. No structural crack found.",
+    "🔍 [VLM] Confidence score: 0.94"
+  ],
+  [
+    "🛡️ [GATE] Evaluating claimant narrative vs VLM facts...",
+    "🛡️ [GATE] CONFLICT DETECTED: Narrative claims 'crack', VLM found 'scratch'.",
+    "🛡️ [GATE] Routing to deep review node."
+  ],
+  [
+    "⚖️ [LLM] Applying auto policy clauses...",
+    "⚖️ [LLM] Rule 4b: Surface scratches < 3 inches covered under comprehensive.",
+    "⚖️ [LLM] Decision: Approve partial payout. Reject full bumper replacement."
+  ],
+  [
+    "✅ [OUTPUT] Verdict generated.",
+    "✅ [OUTPUT] Appending row to batch_verdicts.csv...",
+    "✅ [OUTPUT] Awaiting next claim."
+  ]
+];
+
 const PipelineDemo = () => {
   const [step, setStep] = useState(0);
   const [logs, setLogs] = useState([]);
   const [isPlaying, setIsPlaying] = useState(true);
   const intervalRef = useRef(null);
-
-  const stepsInfo = [
-    { title: "Claim Ingest", desc: "Claims CSV loaded", color: "#888" },
-    { title: "Blind VLM", desc: "Extracting visual facts only", color: "#3b82f6" },
-    { title: "Smart Gate", desc: "Validating facts integrity", color: "#10b981" },
-    { title: "Adjudication", desc: "Evaluating LLM policy rules", color: "#8b5cf6" },
-    { title: "Structured Verdict", desc: "CSV output generated", color: "#ec4899" }
-  ];
-
-  const logDatabase = [
-    [
-      "📥 [INGEST] Claim ID: #4802-V received.",
-      "📥 [INGEST] Claimant Narrative: 'Cracked bumper from parking gate.'",
-      "📥 [INGEST] Loading damage_bumper.jpg..."
-    ],
-    [
-      "🔍 [VLM] Running Blind Perception node...",
-      "🔍 [VLM] Analysis: Bumper scratch detected. No structural crack found.",
-      "🔍 [VLM] Ignored claimant text to prevent anchoring bias."
-    ],
-    [
-      "⚡ [GATE] Smart Gate running quality audit...",
-      "⚡ [GATE] Image resolution: 1200x900px (PASS).",
-      "⚡ [GATE] Fact integrity: Complete JSON facts compiled."
-    ],
-    [
-      "⚖️ [JUDGE] Adjudicating claims policy locally...",
-      "⚖️ [JUDGE] Comparing: Bumper Scratch vs. Bumper Replacement Policy.",
-      "⚖️ [JUDGE] Rule Match: Replacement requires >30% structural damage."
-    ],
-    [
-      "📊 [VERDICT] Structured JSON formatted.",
-      "🔴 [VERDICT] Outcome: Claim Rejected (Anchoring Mismatch).",
-      "💾 [VERDICT] CSV output synchronized: Zero API costs accrued."
-    ]
-  ];
 
   const runNextStep = useCallback(() => {
     setStep((prevStep) => {
@@ -63,7 +63,7 @@ const PipelineDemo = () => {
 
       return nextStep;
     });
-  }, []);
+  }, [logDatabase]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -213,10 +213,10 @@ const Hero = () => {
 
   const handleResumeClick = (e) => {
     e.preventDefault();
-    window.open('/Atharv Narang.pdf', '_blank');
+    window.open('/Atharav_Narang_Resume.pdf', '_blank');
     const link = document.createElement('a');
-    link.href = '/Atharv Narang.pdf';
-    link.download = 'Atharv Narang.pdf';
+    link.href = '/Atharav_Narang_Resume.pdf';
+    link.download = 'Atharav_Narang_Resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -279,7 +279,7 @@ const Hero = () => {
                 See projects <ArrowRight size={18} style={{ marginLeft: '8px' }} />
               </a>
               <a 
-                href="/Atharv Narang.pdf" 
+                href="/Atharav_Narang_Resume.pdf" 
                 className="btn btn-secondary" 
                 onClick={handleResumeClick}
                 target="_blank"

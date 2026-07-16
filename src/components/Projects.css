@@ -219,10 +219,6 @@
   transition: opacity 0.3s ease;
 }
 
-.project-image-container:hover .image-hover-overlay {
-  opacity: 1;
-}
-
 .click-to-view-badge {
   display: flex;
   flex-direction: column;
@@ -234,8 +230,24 @@
   transition: transform 0.3s ease;
 }
 
-.project-image-container:hover .click-to-view-badge {
-  transform: translateY(0);
+@media (hover: hover) and (pointer: fine) {
+  .project-image-container:hover .image-hover-overlay,
+  .project-image-container:hover .click-to-view-badge {
+    opacity: 1;
+  }
+  .project-image-container:hover .click-to-view-badge {
+    transform: translateY(0);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .image-hover-overlay,
+  .click-to-view-badge {
+    opacity: 1;
+  }
+  .click-to-view-badge {
+    transform: translateY(0);
+  }
 }
 
 /* RIGHT: info */
