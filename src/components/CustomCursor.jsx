@@ -18,9 +18,9 @@ const CustomCursor = () => {
   const [isClicking, setIsClicking] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Trail: array of { x, y, id } snapshots of past cursor positions
-  const [trail, setTrail] = useState([]);
-  const trailIdRef = useRef(0);
+  // Trail: array of { x, y } snapshots of past cursor positions managed outside React state
+  const trailRefs = useRef([]);
+  const trailData = useRef(Array.from({ length: TRAIL_LENGTH }, () => ({ x: -100, y: -100, isHovering: false })));
   const posRef = useRef({ x: -100, y: -100 });
   const isHoveringRef = useRef(false);
 
@@ -74,14 +74,33 @@ const CustomCursor = () => {
       const { x, y } = posRef.current;
       if (x < 0 || y < 0) return; // don't seed trail before first move
 
-      setTrail(prev => {
-        const next = [
-          ...prev,
-          { x, y, id: trailIdRef.current++, isHovering: isHoveringRef.current }
-        ];
-        // Cap to TRAIL_LENGTH
-        return next.length > TRAIL_LENGTH ? next.slice(next.length - TRAIL_LENGTH) : next;
-      });
+      // Shift trail data
+      trailData.current.shift();
+      trailData.current.push({ x, y, isHovering: isHoveringRef.current });
+
+      // Mutate DOM
+      const denom = Math.max(1, TRAIL_LENGTH - 1);
+      for (let i = 0; i < TRAIL_LENGTH; i++) {
+        const p = trailData.current[i];
+        const dom = trailRefs.current[i];
+        if (!dom) continue;
+        
+        const age = i / denom;
+        const opacity = age * 0.55;
+        const size = age * (p.isHovering ? 6 : 3.5);
+        
+        dom.style.left = `${p.x}px`;
+        dom.style.top = `${p.y}px`;
+        dom.style.width = `${Math.max(1, size)}px`;
+        dom.style.height = `${Math.max(1, size)}px`;
+        dom.style.opacity = opacity;
+        
+        if (p.isHovering) {
+            dom.classList.add('trail-hover');
+        } else {
+            dom.classList.remove('trail-hover');
+        }
+      }
     };
 
     rafId = requestAnimationFrame(loop);
@@ -112,7 +131,9 @@ const CustomCursor = () => {
         isCurrentlyDocked = true;
         setIsDocked(true);
         updateDockPosition();
-        setTrail([]);
+        for (let i = 0; i < TRAIL_LENGTH; i++) {
+          if (trailRefs.current[i]) trailRefs.current[i].style.opacity = '0';
+        }
       }
     };
 
@@ -169,26 +190,18 @@ const CustomCursor = () => {
       }}
     >
       {/* ---- Particle trail ---- */}
-      {!isDocked && trail.map((p, i) => {
-        // i=0 is oldest, i=trail.length-1 is newest
-        const denom = Math.max(1, trail.length - 1);
-        const age = i / denom;   // 0=oldest → 1=newest
-        const opacity = age * 0.55;
-        const size = age * (p.isHovering ? 6 : 3.5);
-        return (
+      {Array.from({ length: TRAIL_LENGTH }).map((_, i) => (
           <div
-            key={p.id}
-            className={`cursor-trail-dot${p.isHovering ? ' trail-hover' : ''}`}
+            key={`trail-${i}`}
+            ref={(el) => (trailRefs.current[i] = el)}
+            className="cursor-trail-dot"
             style={{
-              left: p.x,
-              top: p.y,
-              width: Math.max(1, size),
-              height: Math.max(1, size),
-              opacity,
+              left: -100,
+              top: -100,
+              opacity: 0,
             }}
           />
-        );
-      })}
+      ))}
 
       {/* ---- Main dot ---- */}
       <motion.div
