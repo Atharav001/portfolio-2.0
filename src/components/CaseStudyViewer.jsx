@@ -159,7 +159,7 @@ const CaseStudyViewer = ({ project, onClose }) => {
                                 sizes="(max-width: 768px) 90vw, 45vw"
                                 type="image/webp"
                               />
-                              <img src={`/assets/optimized/${feature.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}.jpg`} alt={feature.title} />
+                              <img src={`/assets/optimized/${feature.image.split('/').pop().replace(/\.(png|jpe?g)$/i, '')}.jpg`} alt={feature.title} loading="lazy" />
                             </picture>
                             {feature.caption && <figcaption>{feature.caption}</figcaption>}
                           </figure>
