@@ -44,8 +44,36 @@ const Navbar = () => {
       return;
     }
 
-    // Option 5: Morph Cross-fade (handled entirely by CSS animations)
-    document.startViewTransition(applyTheme);
+    // Option 4: Corner Burst
+    const x = window.innerWidth;
+    const y = 0;
+
+    // Radius to cover the farthest corner of the viewport
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    const transition = document.startViewTransition(applyTheme);
+
+    transition.ready.then(() => {
+      const isDarkToLight = next === 'light';
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration: 600,
+          easing: isDarkToLight
+            ? 'cubic-bezier(0.4, 0, 0.2, 1)'
+            : 'cubic-bezier(0.0, 0.0, 0.2, 1)',
+          pseudoElement: '::view-transition-new(root)',
+        }
+      );
+    });
   };
 
   useEffect(() => {
