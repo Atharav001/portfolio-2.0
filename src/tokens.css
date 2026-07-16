@@ -35,8 +35,8 @@
   --bg-accent-1-dark: rgba(79, 70, 229, 0.25);   /* Indigo/Violet */
   --bg-accent-2-dark: rgba(6, 182, 212, 0.22);   /* Cyan/Teal */
   --bg-accent-3-dark: rgba(0, 200, 255, 0.06);   
-  --bg-accent-1-light: rgba(167, 139, 250, 0.30); /* Soft Lavender */
-  --bg-accent-2-light: rgba(253, 186, 116, 0.35); /* Soft Peach/Apricot */
+  --bg-accent-1-light: rgba(99, 102, 241, 0.45); /* Rich Indigo */
+  --bg-accent-2-light: rgba(244, 63, 94, 0.40);  /* Rich Rose */
   --bg-accent-3-light: rgba(0, 95, 163, 0.04);
 
   /* --- Z-Index Tokens --- */
