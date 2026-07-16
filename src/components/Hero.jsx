@@ -214,8 +214,8 @@ const Hero = () => {
   const handleResumeClick = (e) => {
     e.preventDefault();
     const link = document.createElement('a');
-    link.href = '/Atharav_Narang_Resume.pdf';
-    link.download = 'Atharav_Narang_Resume.pdf';
+    link.href = '/Atharav Narang.pdf';
+    link.download = 'Atharav Narang.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -238,7 +238,7 @@ const Hero = () => {
               className="hero-badge"
             >
               <span className="status-dot"></span>
-              <span>Open to Summer 2026 AI Engineering Internships</span>
+              <span>Available for Software & AI Engineering Internships</span>
             </motion.div>
 
             <motion.h1
@@ -278,7 +278,7 @@ const Hero = () => {
                 See projects <ArrowRight size={18} style={{ marginLeft: '8px' }} />
               </a>
               <a 
-                href="/Atharav_Narang_Resume.pdf" 
+                href="/Atharav Narang.pdf" 
                 className="btn btn-secondary" 
                 onClick={handleResumeClick}
                 target="_blank"
