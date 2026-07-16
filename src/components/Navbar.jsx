@@ -44,11 +44,9 @@ const Navbar = () => {
       return;
     }
 
-    // Get click coordinates from the button (fall back to center of button if no event)
-    const btn = e.currentTarget;
-    const rect = btn.getBoundingClientRect();
-    const x = Math.round(rect.left + rect.width / 2);
-    const y = Math.round(rect.top + rect.height / 2);
+    // Option 4: Corner Burst - Always expand from top-right corner
+    const x = window.innerWidth;
+    const y = 0;
 
     // Radius to cover the farthest corner of the viewport
     const endRadius = Math.hypot(
