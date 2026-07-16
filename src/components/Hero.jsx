@@ -213,7 +213,6 @@ const Hero = () => {
 
   const handleResumeClick = (e) => {
     e.preventDefault();
-    window.open('/Atharav_Narang_Resume.pdf', '_blank');
     const link = document.createElement('a');
     link.href = '/Atharav_Narang_Resume.pdf';
     link.download = 'Atharav_Narang_Resume.pdf';
