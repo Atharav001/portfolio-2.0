@@ -1,21 +1,23 @@
 /* ============================================
    VIEW TRANSITIONS — Theme Toggle Animations
-   Option 1 (active): Circular Reveal from button
+   Option 5 (active): Morph Cross-fade
    ============================================ */
 
-/* 1. Suppress the default cross-fade so our WAAPI animation controls everything */
-::view-transition-old(root),
+::view-transition-old(root) {
+  animation: fade-out-morph 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
 ::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+  animation: fade-in-morph 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* 2. Old snapshot sits behind; the new theme is clipped into view by JS */
-::view-transition-old(root) {
-  z-index: 1;
+@keyframes fade-out-morph {
+  0% { opacity: 1; transform: scale(1); filter: blur(0px); }
+  100% { opacity: 0; transform: scale(0.98); filter: blur(10px); }
 }
-::view-transition-new(root) {
-  z-index: 9999;
+
+@keyframes fade-in-morph {
+  0% { opacity: 0; transform: scale(1.02); filter: blur(10px); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0px); }
 }
 
 /* 3. Icon spin animation on the toggle button */
