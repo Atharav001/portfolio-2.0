@@ -28,7 +28,7 @@ const Navbar = () => {
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = (e) => {
     const next = theme === 'dark' ? 'light' : 'dark';
     const applyTheme = () => {
       document.documentElement.classList.toggle('light-theme', next === 'light');
@@ -37,11 +37,46 @@ const Navbar = () => {
       setTheme(next);
     };
 
-    if (document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.startViewTransition(applyTheme);
-    } else {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!document.startViewTransition || reducedMotion) {
       applyTheme();
+      return;
     }
+
+    // Get click coordinates from the button (fall back to center of button if no event)
+    const btn = e.currentTarget;
+    const rect = btn.getBoundingClientRect();
+    const x = Math.round(rect.left + rect.width / 2);
+    const y = Math.round(rect.top + rect.height / 2);
+
+    // Radius to cover the farthest corner of the viewport
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    const transition = document.startViewTransition(applyTheme);
+
+    transition.ready.then(() => {
+      const isDarkToLight = next === 'light';
+      // Reveal the *new* theme by expanding a circle from button origin
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration: 600,
+          easing: isDarkToLight
+            ? 'cubic-bezier(0.4, 0, 0.2, 1)'
+            : 'cubic-bezier(0.0, 0.0, 0.2, 1)',
+          pseudoElement: '::view-transition-new(root)',
+        }
+      );
+    });
   };
 
   useEffect(() => {
