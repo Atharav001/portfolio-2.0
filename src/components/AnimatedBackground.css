@@ -4,11 +4,11 @@
   z-index: -3;
   pointer-events: none;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 0%, var(--bg-accent-1) 0%, transparent 60%), var(--bg-base);
+  background: radial-gradient(circle at 50% 0%, var(--bg-accent-2) 0%, transparent 60%), var(--bg-base);
 }
 
 @media (max-width: 768px) {
   .animated-framer-bg {
-    background: radial-gradient(circle at 50% 0%, var(--bg-accent-1) 0%, transparent 60%), var(--bg-base);
+    background: radial-gradient(circle at 50% 0%, var(--bg-accent-2) 0%, transparent 60%), var(--bg-base);
   }
 }
