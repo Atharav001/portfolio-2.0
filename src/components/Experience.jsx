@@ -4,12 +4,19 @@ import './Experience.css';
 
 const Experience = () => {
   const ref = useRef(null);
+  const timelineRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   });
 
+  const { scrollYProgress: timelineScroll } = useScroll({
+    target: timelineRef,
+    offset: ["start center", "end center"]
+  });
+
   const [showJavaCert, setShowJavaCert] = useState(false);
+  const [showSpaceLabCert, setShowSpaceLabCert] = useState(false);
   const [hoveredMl, setHoveredMl] = useState(false);
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
@@ -31,6 +38,12 @@ const Experience = () => {
   ];
 
   const education = [
+    {
+      period: 'Summer 2026',
+      role: 'Space Science & Systems Intern',
+      company: 'India Space Lab',
+      desc: 'Completed hands-on projects and training in Advanced Drone Technology, CanSat & CubeSat Satellite Programs, Rocketry Science, and Remote Sensing & GIS.',
+    },
     {
       period: '2025 — Present',
       role: 'B.Tech CSE',
@@ -60,9 +73,21 @@ const Experience = () => {
           {/* Left Column: Journey / Education only */}
           <motion.div style={{ y: y1 }} className="experience-column">
             <h3 className="column-title">Journey</h3>
-            <div className="timeline">
+            <div className="timeline" ref={timelineRef}>
+              <div className="timeline-line-container">
+                <div className="timeline-line-track" />
+                <motion.div 
+                  className="timeline-line-progress" 
+                  style={{ scaleY: timelineScroll }}
+                />
+              </div>
               {education.map((item, i) => (
                 <div key={i} className="timeline-item">
+                  <div className="timeline-dot-container">
+                    <div className="timeline-dot-outer">
+                      <div className="timeline-dot-inner" />
+                    </div>
+                  </div>
                   <div className="timeline-period">{item.period}</div>
                   <h4 className="timeline-role">{item.role}</h4>
                   <div className="timeline-company">{item.company}</div>
@@ -96,6 +121,18 @@ const Experience = () => {
                 Certifications
               </span>
               <div className="certifications-list">
+
+                <div 
+                  className="cert-card space-lab interactive-tag" 
+                  onClick={() => setShowSpaceLabCert(true)}
+                  title="Click to view certificate"
+                >
+                  <div className="cert-badge space-tech">Space Tech</div>
+                  <div className="cert-info">
+                    <h4 className="cert-name">India Space Lab Summer Internship</h4>
+                    <span className="cert-action-hint">Click to view certificate</span>
+                  </div>
+                </div>
                 
                 <div 
                   className="cert-card ibm-java interactive-tag" 
@@ -145,8 +182,56 @@ const Experience = () => {
         </div>
       </motion.div>
 
-      {/* Lightbox Certificate Modal */}
+      {/* Lightbox Certificate Modals */}
       <AnimatePresence>
+        {showSpaceLabCert && (
+          <motion.div 
+            className="cert-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowSpaceLabCert(false)}
+          >
+            <motion.div 
+              className="cert-modal-content"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="cert-modal-close" onClick={() => setShowSpaceLabCert(false)}>×</button>
+              <picture>
+                <source
+                  srcSet="/assets/optimized/india_space_lab_certificate-mobile.webp 800w, /assets/optimized/india_space_lab_certificate.webp 1600w"
+                  sizes="(max-width: 768px) 90vw, 45vw"
+                  type="image/webp"
+                />
+                <img 
+                  src="/assets/optimized/india_space_lab_certificate.jpg" 
+                  alt="India Space Lab Internship Certificate" 
+                  className="cert-modal-image"
+                  loading="lazy"
+                />
+              </picture>
+              <div className="cert-modal-footer">
+                <div className="cert-modal-footer-header">
+                  <h3>India Space Lab Summer Internship</h3>
+                  <a 
+                    href="/assets/india_space_lab_certificate.pdf" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="view-pdf-btn"
+                  >
+                    View Original PDF
+                  </a>
+                </div>
+                <p>Summer Internship & Technical Training Program 2026. Specialised in Advanced Drone Technology, CanSat & CubeSat Satellite Programs, Rocketry Science, Remote Sensing & GIS, and Disaster Management.</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
         {showJavaCert && (
           <motion.div 
             className="cert-modal-overlay"
