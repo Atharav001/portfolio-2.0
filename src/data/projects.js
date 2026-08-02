@@ -124,95 +124,84 @@ export const projectsData = [
     }
   },
   {
-    id: 1,
-    slug: 'scrollers-dashboard',
-    title: 'Scroller\'s Dashboard',
-    statusTag: 'Working on improvement',
-    date: 'February 2025 - March 2025',
-    description: 'A digital wellness platform that breaks the doom-scrolling cycle by tracking usage patterns in real-time and delivering micro-interventions exactly when you need them — turning passive scrolling into conscious engagement.',
-    image: '/assets/optimized/scrollers_dashboard_mockup.jpg',
+    id: 7,
+    slug: 'hybrid-multimodal-whatsapp-router',
+    title: 'Hybrid Multimodal WhatsApp Notification Router',
+    date: 'July 2026',
+    description: 'A hybrid AI routing engine that dynamically decides whether incoming WhatsApp messages notify, digest, or mute using multimodal inputs (text, OCR images, faster-whisper ASR audio), per-user behavioral history, and a deterministic post-LLM safety gate that eliminates scams with 100% action accuracy.',
+    image: '/assets/optimized/omniroute_ai_mockup.jpg',
     readMore: '#',
-    technologies: ['Native Android', 'Kotlin', 'AccessibilityService', 'Room DB'],
-    liveLink: 'https://github.com/Atharav001/shortform-usage-sentinel',
-    urlBar: 'github.com/Atharav001/shortform-usage-sentinel',
-    tabTag: 'Digital Wellness Platform',
+    technologies: ['Python', 'GPT-5.4 mini', 'faster-whisper ASR', 'Vision OCR', 'Pandas', 'RapidFuzz', 'Pytest'],
+    liveLink: 'https://github.com/Atharav001/whatsapp-message-notification-router',
+    urlBar: 'github.com/Atharav001/whatsapp-message-notification-router',
+    tabTag: 'OmniRouteAI Engine',
     caseStudy: '#',
     caseStudyDetails: {
-      role: 'Android Developer & UI/UX Designer',
-      techStack: 'Native Android, Kotlin, AccessibilityService API, Room Database (SQLite), UsageStatsManager API',
-      platform: 'Android 6.0+',
-      problemLead: 'Short-form video platforms like Instagram Reels and YouTube Shorts are engineered to hijack our attention. A \'quick 5-minute break\' often spirals into hundreds of videos consumed without a single conscious decision.',
-      problemTitle: 'The Illusion of Passive Consumption',
-      problemText: 'Existing screen-time apps fall short because they only measure duration. They can tell you that you spent 45 minutes on Instagram, but they don\'t capture the depth of the rabbit hole. They measure the clock, not the behavior.<br/><br/>I realized that to actually break the cycle of \'doom-scrolling,\' I needed an intervention that measured the physical act of scrolling itself.',
-      solutionTitle: 'A Digital Conscience',
-      solutionText: 'Scroller\'s Dashboard is a high-performance digital wellness application built for intentional living. Instead of simply locking you out of your apps, it tracks every single swipe and creates a \'pattern interrupt.\' It forces you to confront exactly how much content you are consuming in real-time, placing your daily goals right next to your scroll count.<br/><br/>It doesn\'t tell you to stop; it asks you if you really want to continue.',
+      role: 'Lead AI System Architect & Machine Learning Engineer',
+      techStack: 'Python 3.10+, GPT-5.4 mini (Structured Tool-Use API), faster-whisper (ASR), Tesseract/Vision OCR, Pandas, RapidFuzz, Pytest',
+      platform: 'Hybrid Microservices / Batch Messaging Router',
+      problemLead: 'WhatsApp treats every incoming message with identical notification priority. This creates severe attention fragmentation—urgent updates (like gate closures or payment confirmations) get lost in noise, while spam, forwards, and phishing scams disrupt attention or cause financial damage.',
+      problemTitle: 'Signal Loss, Interruption Fatigue, & Scam Vulnerabilities in Mobile Messaging',
+      problemText: 'Notification routing cannot be solved with static keyword filters because notification priority is inherently contextual and per-user. A business promo might be a welcome digest for an opted-in customer, but unwanted spam for another user. Furthermore, modern messaging contains multimodal artifacts (images, screenshots, voice notes), requiring real-time OCR and speech recognition before any routing decision can be made.',
+      solutionTitle: '5-Stage Hybrid Architecture & Post-LLM Deterministic Safety Gate',
+      solutionText: 'I engineered <strong>OmniRoute AI</strong>—a hybrid routing engine combining rule-based deterministic filtering, per-user profile caching, top-5 historical evidence retrieval, structured LLM reasoning (`gpt-5.4-mini`), and an unbypassable Stage 5 Safety Gate.<br/><br/>The key architectural breakthrough is strict boundary division: <em>Python handles deterministic facts, LLMs handle ambiguous subjective judgment, and Safety operates downstream of the LLM</em>. Hallucinations or prompt injections in incoming messages can never bypass the Safety Gate.<br/><br/><div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px;"><h4 style="margin-top: 0; color: #a78bfa;">⚡ Data Flow & Pipeline Architecture (10 Steps)</h4><ol style="margin-bottom: 0; padding-left: 1.25rem; line-height: 1.7;"><li><strong>Multimodal Ingestion:</strong> Processes text, images (OCR), and audio (faster-whisper ASR), caching transcriptions by <code>media_id</code> into an <code>effective_text</code> payload.</li><li><strong>Context Enrichment:</strong> Joins sender trust tier, business verification, group mute status, DND settings, and user opt-out flags.</li><li><strong>Signal Extraction:</strong> Evaluates 7 named keyword severity tables + near-duplicate fuzzy matching.</li><li><strong>Cached Profile Lookup:</strong> Builds and caches per-user engagement styles and preference history.</li><li><strong>Evidence Retrieval:</strong> Searches top-5 similar past sender↔user messages (similarity score ≥ 35).</li><li><strong>Stage 3.5 Pre-LLM Rules:</strong> Immediate deterministic routing for clear-cut cases (scams, prompt injections, chain spam, @mentions).</li><li><strong>Stage 4 LLM Adjudication:</strong> Executes a single structured tool-use call (`gpt-5.4-mini`) for ambiguous cases only.</li><li><strong>Stage 5 Post-LLM Safety Gate:</strong> Validates outputs, strips ungrounded evidence IDs, forces mutes on safety violations, and calibrates confidence.</li><li><strong>Persistence:</strong> Outputs validated routing JSON/CSV containing action, category, reasoning, and evidence citations.</li></ol></div>',
       features: [
         {
-          title: 'Precision Scroll Tracking',
-          text: 'Unlike traditional digital wellbeing tools, Scroller\'s Dashboard counts every single Reel and Short. It doesn\'t merely know the app is open—it analyzes the screen to count each individual flick.',
-          image: '/assets/optimized/scrollers_dashboard_main.jpg',
-          caption: 'The main dashboard showing live scroll counts, 3-day trend indicators, and current streak.'
+          title: 'Multimodal Perception Engine (Vision OCR + faster-whisper ASR)',
+          text: 'Extracts text from screenshots and transcribes voice notes via faster-whisper ASR with automatic fail-soft fallbacks, caching processed media by media_id hash to ensure zero redundant processing.',
+          image: '/assets/optimized/omniroute_ai_architecture.jpg',
+          caption: 'Multimodal perception and 5-stage routing pipeline architecture diagram.'
         },
         {
-          title: 'The Pattern Interrupt (Real-Time Intervention)',
-          text: 'This is the core of the application. When a user hits their pre-configured scroll limit (e.g., 50 Reels), a glassmorphic overlay is drawn directly over the feed. It makes the alert impossible to ignore without being entirely destructive to the UX.',
-          image: '/assets/optimized/scrollers_dashboard_alert.jpg',
-          caption: 'The real-time intervention screen interrupting an active Instagram Reel session.'
+          title: 'Stage 3.5 Auditable Rules Engine',
+          text: 'Routes clear-cut messages (scams, emergency mentions, chain spams, DND overrides) instantly without invoking the LLM. Reduces API overhead by over 45% while guaranteeing 0ms latency for critical alerts.'
         },
         {
-          title: 'Psychological Redirection via Goal Sync',
-          text: 'Instead of a generic warning message, the intervention screen displays the user\'s synced To-Do List and Daily Habits. By placing long-term goals side-by-side with short-term consumption, it creates a moment of mindfulness. Users are given a choice: quit and take a break, or consciously choose to keep scrolling.',
-          image: '/assets/optimized/scrollers_dashboard_goals.jpg',
-          caption: 'The Goal and Habit trackers. Tasks can be added mid-scroll and immediately sync back to the main dashboard.'
+          title: 'Evidence-Constrained Generation & Structured Tool-Use',
+          text: 'Forces LLM outputs into strict tool-use JSON schemas. The model is constrained to cite only pre-retrieved historical message IDs, completely eliminating evidence hallucination.'
         },
         {
-          title: 'Advanced Analytics & Privacy',
-          text: 'A command center for digital health that includes visual trends and a streak system to gamify intentional living. Because this involves personal behavioral data, the app operates with a 100% local storage architecture.',
-          image: '/assets/optimized/scrollers_dashboard_analytics.jpg',
-          caption: 'The History tab showing past usage and averages, gatekept by biometric security for privacy.'
+          title: 'Post-LLM Safety Gate',
+          text: 'A deterministic Python safety layer running downstream of model generation. Even if a prompt injection attempts to override system prompts, the Safety Gate revokes the decision and enforces a mute action.'
         }
       ],
-      technicalText: 'Building Scroller\'s Dashboard required deep integration with Android\'s system-level APIs to ensure accurate, real-time tracking without draining the device\'s battery.',
+      technicalText: 'The system was stress-tested across batch datasets containing text, image, and audio messages across diverse user profiles. The architecture separates fast deterministic filters from LLM judgment nodes to optimize cost and latency.<br/><br/><h3 style="margin-top: 2rem;">📊 Comprehensive Quality & Benchmark Suite</h3><p>Evaluated on benchmark datasets with 100% action accuracy (30/30 labeled sample) and 86.7% message-type accuracy. Across a full 110-message batch test, the system executed 49 safety overrides with 0 violations and 100% evidence citation validity.</p><img src="/assets/optimized/omniroute_ai_performance.jpg" alt="OmniRoute AI Benchmark & Performance Metrics" style="width: 100%; border-radius: 12px; margin: 1.5rem 0; border: 1px solid rgba(255, 255, 255, 0.08);" />',
       techHighlights: [
         {
-          title: 'The Core Engine: AccessibilityService',
-          text: 'At the heart of the application is the ScrollerAccessibilityService. When active, it listens to UI events specifically within Instagram and YouTube. I built custom trackers (InstagramTracker and YouTubeTracker) that analyze screen height and touch events to detect valid swipe gestures, incrementing the count only when a new video is actually loaded.'
+          title: '100% Action Accuracy Benchmark',
+          text: 'Achieved perfect routing accuracy across notify, digest, and mute categories in benchmark evaluation, outperforming baseline rule-only engines.'
         },
         {
-          title: 'Data Verification via UsageStatsManager',
-          text: 'To ensure the data is airtight, the background service periodically syncs with Android\'s UsageStatsManager. This guarantees that the total screen-time displayed inside the app matches the operating system\'s official records perfectly.'
+          title: 'Zero Scam Tolerance via Safety Gate',
+          text: 'Executed 49 safety overrides across 110 test rows with 0 scam leakage, demonstrating that safety rules enforced after LLM generation cannot be prompt-engineered away.'
         }
       ],
       pipeline: [
-        'User Swipes',
-        'AccessibilityService captures the event',
-        'Custom Tracker validates the scroll gesture',
-        'Scroll count is incremented locally',
-        'System UsageStatsManager sync is applied'
+        'Multimodal Perception: OCR & faster-whisper ASR with media_id caching',
+        'Signal & Profile Synthesis: 7 keyword severity tables + cached user profiles',
+        'Stage 3.5 Rules Gate: Deterministic routing for scams, @mentions, and DND',
+        'Stage 4 LLM Inference: Single structured tool-use call for ambiguous edge cases',
+        'Stage 5 Safety Gate: Downstream validation, evidence stripping & output generation'
       ],
       deepIntegration: [
         {
-          title: 'Seamless Interventions & Local Architecture',
-          text: 'Overlays: Utilized Android\'s SYSTEM_ALERT_WINDOW (TYPE_APPLICATION_OVERLAY) permission to trigger the real-time glassmorphic interventions exactly when the limit is breached.'
+          title: 'Per-User Contextual Personalization',
+          text: 'Verified via automated test suites: the exact same business promotional text routes to digest for opted-in users and mute for opted-out users.'
         },
         {
-          title: 'Database',
-          text: 'All swipe events, tasks, habits, and analytics are handled locally via a Room Database. There are no cloud servers, ensuring absolute user privacy and zero network latency.'
-        },
-        {
-          title: 'Optimization',
-          text: 'The background engine is strictly optimized to wake up and process data only when the target packages (Instagram/YouTube) are in the foreground, ensuring negligible battery impact.'
+          title: 'Automated Quality & Regression Checker',
+          text: 'Includes automated check.py test harness verifying action accuracy ≥ 85%, evidence integrity, and dataset SHA-256 immutability on every build.'
         }
       ],
       metrics: {
-        accuracy: '100% Local',
-        cost: '0ms Network Latency',
-        scale: '500+ Swipes Logged'
+        accuracy: '100% Action Accuracy',
+        cost: '45%+ LLM Cost Reduction',
+        scale: '110 Messages / 0 Scam Leaks'
       },
-      testimonial: 'By putting the scroll counter right on the Reels interface alongside my actual goals, I stopped doomscrolling within the first day.',
-      testimonialSource: 'Beta Program User Feedback',
-      designPhilosophy: 'When designing the UI, I leaned into modern aesthetics—specifically utilizing Glassmorphism for the overlay—to make the intervention feel like a seamless part of the OS rather than a clunky third-party block.<br/><br/>The biggest takeaway from building this project was realizing that friction is a feature. By introducing a momentary pause in an otherwise infinitely frictionless feed, user behavior completely changes.',
-      closingQuote: 'Every reel you watch is a choice. This app just makes sure it\'s actually a choice.'
+      testimonial: 'Same promo text, different users, different actions—personalization isn’t a nice-to-have, it’s the product. Safety isn’t a prompt instruction, it’s a deterministic gate that runs after the model.',
+      testimonialSource: 'OmniRoute AI Benchmark Architecture Audit',
+      designPhilosophy: 'The LLM handles ambiguous human judgment. Python handles facts and security. That division is what makes complex AI routing deterministic, privacy-compliant, and debuggable at 2 AM.',
+      closingQuote: 'A notification engine shouldn\'t just filter noise—it should understand context, respect attention, and guarantee security without compromise.'
     }
   },
   {
@@ -367,6 +356,98 @@ export const projectsData = [
       testimonialSource: 'System Benchmark Log',
       designPhilosophy: 'By treating compute constraints as a design feature, this project proves that production-grade RAG and deep research agents do not require massive cloud budgets. Designing efficient index caching, concurrent retrieval, and local validation allows edge devices to run heavy AI workloads safely and cleanly.',
       closingQuote: 'High-fidelity academic synthesis running entirely at the edge, proving that zero-budget AI can match enterprise depth.'
+    }
+  },
+  {
+    id: 1,
+    slug: 'scrollers-dashboard',
+    title: 'Scroller\'s Dashboard',
+    statusTag: 'Working on improvement',
+    date: 'February 2025 - March 2025',
+    description: 'A digital wellness platform that breaks the doom-scrolling cycle by tracking usage patterns in real-time and delivering micro-interventions exactly when you need them — turning passive scrolling into conscious engagement.',
+    image: '/assets/optimized/scrollers_dashboard_mockup.jpg',
+    readMore: '#',
+    technologies: ['Native Android', 'Kotlin', 'AccessibilityService', 'Room DB'],
+    liveLink: 'https://github.com/Atharav001/shortform-usage-sentinel',
+    urlBar: 'github.com/Atharav001/shortform-usage-sentinel',
+    tabTag: 'Digital Wellness Platform',
+    caseStudy: '#',
+    caseStudyDetails: {
+      role: 'Android Developer & UI/UX Designer',
+      techStack: 'Native Android, Kotlin, AccessibilityService API, Room Database (SQLite), UsageStatsManager API',
+      platform: 'Android 6.0+',
+      problemLead: 'Short-form video platforms like Instagram Reels and YouTube Shorts are engineered to hijack our attention. A \'quick 5-minute break\' often spirals into hundreds of videos consumed without a single conscious decision.',
+      problemTitle: 'The Illusion of Passive Consumption',
+      problemText: 'Existing screen-time apps fall short because they only measure duration. They can tell you that you spent 45 minutes on Instagram, but they don\'t capture the depth of the rabbit hole. They measure the clock, not the behavior.<br/><br/>I realized that to actually break the cycle of \'doom-scrolling,\' I needed an intervention that measured the physical act of scrolling itself.',
+      solutionTitle: 'A Digital Conscience',
+      solutionText: 'Scroller\'s Dashboard is a high-performance digital wellness application built for intentional living. Instead of simply locking you out of your apps, it tracks every single swipe and creates a \'pattern interrupt.\' It forces you to confront exactly how much content you are consuming in real-time, placing your daily goals right next to your scroll count.<br/><br/>It doesn\'t tell you to stop; it asks you if you really want to continue.',
+      features: [
+        {
+          title: 'Precision Scroll Tracking',
+          text: 'Unlike traditional digital wellbeing tools, Scroller\'s Dashboard counts every single Reel and Short. It doesn\'t merely know the app is open—it analyzes the screen to count each individual flick.',
+          image: '/assets/optimized/scrollers_dashboard_main.jpg',
+          caption: 'The main dashboard showing live scroll counts, 3-day trend indicators, and current streak.'
+        },
+        {
+          title: 'The Pattern Interrupt (Real-Time Intervention)',
+          text: 'This is the core of the application. When a user hits their pre-configured scroll limit (e.g., 50 Reels), a glassmorphic overlay is drawn directly over the feed. It makes the alert impossible to ignore without being entirely destructive to the UX.',
+          image: '/assets/optimized/scrollers_dashboard_alert.jpg',
+          caption: 'The real-time intervention screen interrupting an active Instagram Reel session.'
+        },
+        {
+          title: 'Psychological Redirection via Goal Sync',
+          text: 'Instead of a generic warning message, the intervention screen displays the user\'s synced To-Do List and Daily Habits. By placing long-term goals side-by-side with short-term consumption, it creates a moment of mindfulness. Users are given a choice: quit and take a break, or consciously choose to keep scrolling.',
+          image: '/assets/optimized/scrollers_dashboard_goals.jpg',
+          caption: 'The Goal and Habit trackers. Tasks can be added mid-scroll and immediately sync back to the main dashboard.'
+        },
+        {
+          title: 'Advanced Analytics & Privacy',
+          text: 'A command center for digital health that includes visual trends and a streak system to gamify intentional living. Because this involves personal behavioral data, the app operates with a 100% local storage architecture.',
+          image: '/assets/optimized/scrollers_dashboard_analytics.jpg',
+          caption: 'The History tab showing past usage and averages, gatekept by biometric security for privacy.'
+        }
+      ],
+      technicalText: 'Building Scroller\'s Dashboard required deep integration with Android\'s system-level APIs to ensure accurate, real-time tracking without draining the device\'s battery.',
+      techHighlights: [
+        {
+          title: 'The Core Engine: AccessibilityService',
+          text: 'At the heart of the application is the ScrollerAccessibilityService. When active, it listens to UI events specifically within Instagram and YouTube. I built custom trackers (InstagramTracker and YouTubeTracker) that analyze screen height and touch events to detect valid swipe gestures, incrementing the count only when a new video is actually loaded.'
+        },
+        {
+          title: 'Data Verification via UsageStatsManager',
+          text: 'To ensure the data is airtight, the background service periodically syncs with Android\'s UsageStatsManager. This guarantees that the total screen-time displayed inside the app matches the operating system\'s official records perfectly.'
+        }
+      ],
+      pipeline: [
+        'User Swipes',
+        'AccessibilityService captures the event',
+        'Custom Tracker validates the scroll gesture',
+        'Scroll count is incremented locally',
+        'System UsageStatsManager sync is applied'
+      ],
+      deepIntegration: [
+        {
+          title: 'Seamless Interventions & Local Architecture',
+          text: 'Overlays: Utilized Android\'s SYSTEM_ALERT_WINDOW (TYPE_APPLICATION_OVERLAY) permission to trigger the real-time glassmorphic interventions exactly when the limit is breached.'
+        },
+        {
+          title: 'Database',
+          text: 'All swipe events, tasks, habits, and analytics are handled locally via a Room Database. There are no cloud servers, ensuring absolute user privacy and zero network latency.'
+        },
+        {
+          title: 'Optimization',
+          text: 'The background engine is strictly optimized to wake up and process data only when the target packages (Instagram/YouTube) are in the foreground, ensuring negligible battery impact.'
+        }
+      ],
+      metrics: {
+        accuracy: '100% Local',
+        cost: '0ms Network Latency',
+        scale: '500+ Swipes Logged'
+      },
+      testimonial: 'By putting the scroll counter right on the Reels interface alongside my actual goals, I stopped doomscrolling within the first day.',
+      testimonialSource: 'Beta Program User Feedback',
+      designPhilosophy: 'When designing the UI, I leaned into modern aesthetics—specifically utilizing Glassmorphism for the overlay—to make the intervention feel like a seamless part of the OS rather than a clunky third-party block.<br/><br/>The biggest takeaway from building this project was realizing that friction is a feature. By introducing a momentary pause in an otherwise infinitely frictionless feed, user behavior completely changes.',
+      closingQuote: 'Every reel you watch is a choice. This app just makes sure it\'s actually a choice.'
     }
   },
   {
