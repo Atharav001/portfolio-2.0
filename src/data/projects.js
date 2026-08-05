@@ -150,7 +150,7 @@ export const projectsData = [
           title: 'Multimodal Perception Engine (Vision OCR + faster-whisper ASR)',
           text: 'Extracts text from screenshots and transcribes voice notes via faster-whisper ASR with automatic fail-soft fallbacks, caching processed media by media_id hash to ensure zero redundant processing.',
           image: '/assets/optimized/omniroute_ai_architecture.jpg',
-          caption: 'Multimodal perception and 5-stage routing pipeline architecture diagram.'
+          caption: 'Multimodal perception and 6-stage routing pipeline architecture diagram.'
         },
         {
           title: 'Stage 3.5 Auditable Rules Engine',
