@@ -21,7 +21,7 @@ const Contact = () => {
           </div>
 
           {/* Big title */}
-          <h2 className="contact-huge-title scroll-reveal">
+          <h2 className="contact-huge-title">
             LET'S <br />
             <span className="outline-text">COLLABORATE</span>
           </h2>

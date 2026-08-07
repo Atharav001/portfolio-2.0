@@ -119,7 +119,7 @@ html {
 }
 
 body, header, nav, section, .glass-panel, .project-card, .timeline-item, .cert-card, .skill-pill, .action-btn, .theme-toggle-btn, .mobile-menu-overlay, .social-pill, .btn-primary, .btn-secondary, .nav-link, .mobile-nav-link, .timeline-item *, .project-card *, .cert-card * {
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 

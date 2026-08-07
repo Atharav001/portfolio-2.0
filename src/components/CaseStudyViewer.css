@@ -694,6 +694,14 @@
   letter-spacing: 0.05em;
 }
 
+.results-note {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-style: italic;
+}
+
 .case-study-testimonial-block {
   margin: 3rem 0 1rem;
   padding: 2rem;

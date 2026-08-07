@@ -1,15 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import './Experience.css';
 
 const Experience = () => {
-  const ref = useRef(null);
   const timelineRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
   const { scrollYProgress: timelineScroll } = useScroll({
     target: timelineRef,
     offset: ["start center", "end center"]
@@ -17,10 +11,6 @@ const Experience = () => {
 
   const [showJavaCert, setShowJavaCert] = useState(false);
   const [showSpaceLabCert, setShowSpaceLabCert] = useState(false);
-  const [hoveredMl, setHoveredMl] = useState(false);
-
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   const skillGroups = [
     {
@@ -52,12 +42,8 @@ const Experience = () => {
     },
   ];
 
-  const handleMlClick = () => {
-    window.open('https://www.deeplearning.ai/specializations/machine-learning', '_blank', 'noopener,noreferrer');
-  };
-
   return (
-    <section id="experience" className="experience-section" ref={ref}>
+    <section id="experience" className="experience-section">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -66,18 +52,17 @@ const Experience = () => {
       >
         <div className="section-header">
           <span className="section-number-inline">02</span>
-          <h2 className="section-title scroll-reveal">BACKGROUND</h2>
+          <h2 className="section-title">BACKGROUND</h2>
         </div>
 
         <div className="experience-grid">
-          {/* Left Column: Journey / Education only */}
-          <motion.div style={{ y: y1 }} className="experience-column">
+          <div className="experience-column">
             <h3 className="column-title">Journey</h3>
             <div className="timeline" ref={timelineRef}>
               <div className="timeline-line-container">
                 <div className="timeline-line-track" />
-                <motion.div 
-                  className="timeline-line-progress" 
+                <motion.div
+                  className="timeline-line-progress"
                   style={{ scaleY: timelineScroll }}
                 />
               </div>
@@ -95,10 +80,9 @@ const Experience = () => {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right Column: Core Capabilities AND Certifications */}
-          <motion.div style={{ y: y2 }} className="experience-column">
+          <div className="experience-column">
             <h3 className="column-title">Core Capabilities</h3>
             <div className="skills-groups">
               {skillGroups.map((group) => (
@@ -115,15 +99,14 @@ const Experience = () => {
               ))}
             </div>
 
-            {/* Compact Certifications Section placed directly under Capabilities */}
             <div className="certifications-section-sidebar">
-              <span className="skill-group-label" style={{ display: 'block', marginTop: '3.5rem', marginBottom: '1.25rem' }}>
+              <span className="skill-group-label certifications-label">
                 Certifications
               </span>
               <div className="certifications-list">
 
-                <div 
-                  className="cert-card space-lab interactive-tag" 
+                <div
+                  className="cert-card space-lab interactive-tag"
                   onClick={() => setShowSpaceLabCert(true)}
                   title="Click to view certificate"
                 >
@@ -133,9 +116,9 @@ const Experience = () => {
                     <span className="cert-action-hint">Click to view certificate</span>
                   </div>
                 </div>
-                
-                <div 
-                  className="cert-card ibm-java interactive-tag" 
+
+                <div
+                  className="cert-card ibm-java interactive-tag"
                   onClick={() => setShowJavaCert(true)}
                   title="Click to view certificate"
                 >
@@ -146,53 +129,35 @@ const Experience = () => {
                   </div>
                 </div>
 
-                <div 
-                  className="cert-card ml-specialization interactive-tag"
-                  onMouseEnter={() => setHoveredMl(true)}
-                  onMouseLeave={() => setHoveredMl(false)}
-                  onClick={handleMlClick}
-                >
+                <div className="cert-card ml-specialization cert-card-in-progress">
                   <div className="cert-badge deeplearning">deeplearning.ai</div>
                   <div className="cert-info">
                     <h4 className="cert-name">Machine Learning Specialisation</h4>
+                    <span className="cert-status-badge">In progress</span>
                     <div className="cert-subcourses">
                       <span className="subcourse">Supervised Machine Learning</span>
                       <span className="subcourse">Advanced Learning Algorithms</span>
                       <span className="subcourse">Unsupervised, Recommenders, RL</span>
                     </div>
-                    
-                    <AnimatePresence>
-                      {hoveredMl && (
-                        <motion.div 
-                          initial={{ opacity: 0, y: 5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 5 }}
-                          className="cert-membership-notice"
-                        >
-                          ⚠️ Some certificates might not be available due to Membership plans. Click to view details.
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </div>
                 </div>
 
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
 
-      {/* Lightbox Certificate Modals */}
       <AnimatePresence>
         {showSpaceLabCert && (
-          <motion.div 
+          <motion.div
             className="cert-modal-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setShowSpaceLabCert(false)}
           >
-            <motion.div 
+            <motion.div
               className="cert-modal-content"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -207,9 +172,9 @@ const Experience = () => {
                   sizes="(max-width: 768px) 90vw, 45vw"
                   type="image/webp"
                 />
-                <img 
-                  src="/assets/optimized/india_space_lab_certificate.jpg" 
-                  alt="India Space Lab Internship Certificate" 
+                <img
+                  src="/assets/optimized/india_space_lab_certificate.jpg"
+                  alt="India Space Lab Internship Certificate"
                   className="cert-modal-image"
                   loading="lazy"
                 />
@@ -217,10 +182,10 @@ const Experience = () => {
               <div className="cert-modal-footer">
                 <div className="cert-modal-footer-header">
                   <h3>India Space Lab Summer Internship</h3>
-                  <a 
-                    href="/assets/india_space_lab_certificate.pdf" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    href="/assets/india_space_lab_certificate.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="view-pdf-btn"
                   >
                     View Original PDF
@@ -233,14 +198,14 @@ const Experience = () => {
         )}
 
         {showJavaCert && (
-          <motion.div 
+          <motion.div
             className="cert-modal-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setShowJavaCert(false)}
           >
-            <motion.div 
+            <motion.div
               className="cert-modal-content"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -255,9 +220,9 @@ const Experience = () => {
                   sizes="(max-width: 768px) 90vw, 45vw"
                   type="image/webp"
                 />
-                <img 
-                  src="/assets/optimized/ibm_java_certificate.jpg" 
-                  alt="IBM SkillsBuild JAVA Certificate" 
+                <img
+                  src="/assets/optimized/ibm_java_certificate.jpg"
+                  alt="IBM SkillsBuild JAVA Certificate"
                   className="cert-modal-image"
                   loading="lazy"
                 />

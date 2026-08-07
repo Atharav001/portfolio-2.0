@@ -12,6 +12,19 @@ import { ArrowLeft, ExternalLink, X } from 'lucide-react';
 import DOMPurify from 'dompurify';
 import './CaseStudyViewer.css';
 
+/** @param {Array<{label: string, value: string}> | {accuracy?: string, cost?: string, scale?: string}} metrics */
+const normalizeMetrics = (metrics) => {
+  if (!metrics) return [];
+  if (Array.isArray(metrics)) {
+    return metrics.filter((item) => item?.label && item?.value);
+  }
+  return [
+    metrics.accuracy && { label: 'Accuracy / Performance', value: metrics.accuracy },
+    metrics.cost && { label: 'Cost', value: metrics.cost },
+    metrics.scale && { label: 'Scale & Speed', value: metrics.scale },
+  ].filter(Boolean);
+};
+
 const CaseStudyViewer = ({ project, onClose }) => {
   const [isImgZoomed, setIsImgZoomed] = useState(false);
 
@@ -49,6 +62,9 @@ const CaseStudyViewer = ({ project, onClose }) => {
   };
 
   if (!project) return null;
+
+  const details = project.caseStudyDetails;
+  const metricItems = details ? normalizeMetrics(details.metrics) : [];
 
   return (
     <>
@@ -96,12 +112,11 @@ const CaseStudyViewer = ({ project, onClose }) => {
                 <span>Atharav Narang</span>
                 <span className="separator">/</span>
                 <span>{project.date}</span>
-                <span className="read-time">5 min read</span>
               </div>
             </header>
 
             <article className="case-study-article">
-              {project.caseStudyDetails ? (
+              {details ? (
                 <>
                   <div id="overview" className="case-study-overview-grid">
                     {project.image && (
@@ -124,30 +139,30 @@ const CaseStudyViewer = ({ project, onClose }) => {
                     )}
                     <div className="overview-item">
                       <h4>Role</h4>
-                      <p>{project.caseStudyDetails.role}</p>
+                      <p>{details.role}</p>
                     </div>
                     <div className="overview-item">
                       <h4>Tech Stack</h4>
-                      <p>{project.caseStudyDetails.techStack}</p>
+                      <p>{details.techStack}</p>
                     </div>
                     <div className="overview-item">
-                      <h4>{project.caseStudyDetails.localLLM ? "Local LLM" : "Platform"}</h4>
-                      <p>{project.caseStudyDetails.localLLM || project.caseStudyDetails.platform}</p>
+                      <h4>{details.localLLM ? "Local LLM" : "Platform"}</h4>
+                      <p>{details.localLLM || details.platform}</p>
                     </div>
                   </div>
 
                   <p className="intro-text">
-                    {project.caseStudyDetails.problemLead}
+                    {details.problemLead}
                   </p>
 
-                  <h2 id="problem">🧠 The Problem: {project.caseStudyDetails.problemTitle}</h2>
-                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.caseStudyDetails.problemText) }} />
+                  <h2 id="problem">The Problem: {details.problemTitle}</h2>
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(details.problemText) }} />
 
-                  <h2 id="solution">💡 The Solution: {project.caseStudyDetails.solutionTitle}</h2>
-                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.caseStudyDetails.solutionText) }} />
+                  <h2 id="solution">The Solution: {details.solutionTitle}</h2>
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(details.solutionText) }} />
 
                   <div id="features">
-                    {project.caseStudyDetails.features && project.caseStudyDetails.features.map((feature, index) => (
+                    {details.features && details.features.map((feature, index) => (
                       <div key={index} className="feature-section">
                         <h3>{index + 1}. {feature.title}</h3>
                         <p>{feature.text}</p>
@@ -168,12 +183,12 @@ const CaseStudyViewer = ({ project, onClose }) => {
                     ))}
                   </div>
 
-                  <h2 id="technical">🛠️ Technical Implementation</h2>
-                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.caseStudyDetails.technicalText) }} />
+                  <h2 id="technical">Technical Implementation</h2>
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(details.technicalText) }} />
 
-                  {project.caseStudyDetails.techHighlights && (
+                  {details.techHighlights && (
                     <div className="tech-highlights">
-                      {project.caseStudyDetails.techHighlights.map((highlight, index) => (
+                      {details.techHighlights.map((highlight, index) => (
                         <div key={index} className="tech-highlight-item">
                           <h4>{highlight.title}</h4>
                           <p>{highlight.text}</p>
@@ -182,11 +197,11 @@ const CaseStudyViewer = ({ project, onClose }) => {
                     </div>
                   )}
 
-                  {project.caseStudyDetails.pipeline && (
+                  {details.pipeline && (
                     <div className="pipeline-section">
                       <h3>The Project Lifecycle:</h3>
                       <div className="pipeline-steps-vertical">
-                        {project.caseStudyDetails.pipeline.map((step, index) => (
+                        {details.pipeline.map((step, index) => (
                           <div key={index} className="pipeline-step">
                             <span className="step-number">{index + 1}</span>
                             <span className="step-text">{step}</span>
@@ -196,9 +211,9 @@ const CaseStudyViewer = ({ project, onClose }) => {
                     </div>
                   )}
 
-                  {project.caseStudyDetails.deepIntegration && (
+                  {details.deepIntegration && (
                     <div className="deep-integration">
-                      {project.caseStudyDetails.deepIntegration.map((item, index) => (
+                      {details.deepIntegration.map((item, index) => (
                         <div key={index} className="integration-item">
                           <h4>{item.title}</h4>
                           <p>{item.text}</p>
@@ -207,43 +222,37 @@ const CaseStudyViewer = ({ project, onClose }) => {
                     </div>
                   )}
 
-                  {/* Impact & Results Section - THIS IS CRITICAL FOR RECRUITERS */}
-                  {project.caseStudyDetails.metrics && (
+                  {metricItems.length > 0 && (
                     <section id="impact" className="case-study-section impact-section">
-                      <h2>📊 Impact & Results</h2>
+                      <h2>Results</h2>
                       <div className="impact-content">
                         <div className="metrics-grid">
-                          <div className="metric-item">
-                            <span className="metric-value">{project.caseStudyDetails.metrics.accuracy || "N/A"}</span>
-                            <span className="metric-label">Accuracy / Performance</span>
-                          </div>
-                          <div className="metric-item">
-                            <span className="metric-value">{project.caseStudyDetails.metrics.cost || "N/A"}</span>
-                            <span className="metric-label">Cost Savings</span>
-                          </div>
-                          <div className="metric-item">
-                            <span className="metric-value">{project.caseStudyDetails.metrics.scale || "N/A"}</span>
-                            <span className="metric-label">Scale & Speed</span>
-                          </div>
+                          {metricItems.map((item, index) => (
+                            <div key={index} className="metric-item">
+                              <span className="metric-value">{item.value}</span>
+                              <span className="metric-label">{item.label}</span>
+                            </div>
+                          ))}
                         </div>
-                        {project.caseStudyDetails.testimonial && (
-                          <blockquote className="case-study-testimonial-block">
-                            "{project.caseStudyDetails.testimonial}"
-                            {project.caseStudyDetails.testimonialSource && (
-                              <cite className="testimonial-author">— {project.caseStudyDetails.testimonialSource}</cite>
-                            )}
-                          </blockquote>
+                        {details.resultsNote && (
+                          <p className="results-note">{details.resultsNote}</p>
                         )}
                       </div>
                     </section>
                   )}
 
-                  <h2 id="design">💡 Design Philosophy & Takeaways</h2>
-                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.caseStudyDetails.designPhilosophy) }} />
+                  {details.designPhilosophy && (
+                    <>
+                      <h2 id="design">Design Notes</h2>
+                      <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(details.designPhilosophy) }} />
+                    </>
+                  )}
 
-                  <blockquote className="case-study-quote">
-                    "{project.caseStudyDetails.closingQuote}"
-                  </blockquote>
+                  {details.closingQuote && (
+                    <blockquote className="case-study-quote">
+                      "{details.closingQuote}"
+                    </blockquote>
+                  )}
                 </>
               ) : (
                 <div className="case-study-empty">
@@ -266,15 +275,19 @@ const CaseStudyViewer = ({ project, onClose }) => {
             <div className="sticky-contents">
               <h4 className="contents-heading">CONTENTS</h4>
               <ul className="contents-list">
-                {project.caseStudyDetails ? (
+                {details ? (
                   <>
                     <li key="overview"><a href="#overview" onClick={(e) => handleTocClick(e, 'overview')}>Overview</a></li>
                     <li key="problem"><a href="#problem" onClick={(e) => handleTocClick(e, 'problem')}>The Problem</a></li>
                     <li key="solution"><a href="#solution" onClick={(e) => handleTocClick(e, 'solution')}>The Solution</a></li>
                     <li key="features"><a href="#features" onClick={(e) => handleTocClick(e, 'features')}>Key Features</a></li>
                     <li key="technical"><a href="#technical" onClick={(e) => handleTocClick(e, 'technical')}>Technical Details</a></li>
-                    <li key="impact"><a href="#impact" onClick={(e) => handleTocClick(e, 'impact')}>Impact & Results</a></li>
-                    <li key="design"><a href="#design" onClick={(e) => handleTocClick(e, 'design')}>Design Philosophy</a></li>
+                    {metricItems.length > 0 && (
+                      <li key="impact"><a href="#impact" onClick={(e) => handleTocClick(e, 'impact')}>Results</a></li>
+                    )}
+                    {details.designPhilosophy && (
+                      <li key="design"><a href="#design" onClick={(e) => handleTocClick(e, 'design')}>Design Notes</a></li>
+                    )}
                   </>
                 ) : (
                   <>

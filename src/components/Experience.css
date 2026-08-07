@@ -1,12 +1,12 @@
 .experience-section {
-  padding-top: 10rem;
-  padding-bottom: 10rem;
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
 }
 
 .section-header {
   border-bottom: 1px solid var(--glass-border);
-  padding-bottom: 2rem;
-  margin-bottom: 5rem;
+  padding-bottom: 1.5rem;
+  margin-bottom: 3rem;
   display: flex;
   align-items: baseline;
   gap: 1.5rem;
@@ -42,13 +42,13 @@
 .experience-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8rem;
+  gap: 3.5rem;
 }
 
 @media (max-width: 900px) {
   .experience-grid {
     grid-template-columns: 1fr;
-    gap: 4rem;
+    gap: 2.5rem;
   }
 }
 
@@ -56,7 +56,7 @@
   font-family: var(--font-display);
   font-size: 1.5rem;
   color: var(--text-secondary);
-  margin-bottom: 3rem;
+  margin-bottom: 1.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -64,7 +64,7 @@
 .timeline {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 2rem;
   position: relative;
   padding-left: 3.5rem;
 }
@@ -167,7 +167,7 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 16px;
-  padding: 2.2rem;
+  padding: 1.5rem;
   transition: all 0.3s ease;
 }
 
@@ -198,7 +198,7 @@
 }
 
 .timeline-role {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   margin-bottom: 0.5rem;
 }
 
@@ -369,6 +369,41 @@
   position: absolute;
   left: 0.1rem;
   color: var(--accent-secondary, #c084fc);
+}
+
+.certifications-label {
+  display: block;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.cert-card-in-progress {
+  cursor: default;
+}
+
+.cert-card-in-progress:hover {
+  transform: none;
+  border-color: var(--glass-border, rgba(255, 255, 255, 0.08));
+  background: var(--glass-bg, rgba(255, 255, 255, 0.03));
+  box-shadow: none;
+}
+
+.cert-card-in-progress:hover::before {
+  opacity: 0;
+}
+
+.cert-status-badge {
+  align-self: flex-start;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.25);
 }
 
 .cert-membership-notice {

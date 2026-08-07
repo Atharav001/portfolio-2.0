@@ -48,25 +48,9 @@
   position: relative;
 }
 
-@media (min-width: 993px) {
-  .projects-list {
-    /* Normal compact spacing - no massive gaps */
-    gap: var(--space-20);
-  }
-}
-
 .project-card-wrapper {
   width: 100%;
   position: relative;
-}
-
-@media (min-width: 993px) {
-  .project-card-wrapper {
-    position: sticky;
-    display: flex;
-    justify-content: center;
-    /* top offset is set inline dynamically in React */
-  }
 }
 
 .project-card-inner-container {
