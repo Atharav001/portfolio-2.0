@@ -259,7 +259,7 @@ const Hero = () => {
               className="hero-badge"
             >
               <span className="status-dot"></span>
-              <span>Available for Software & AI Engineering Internships</span>
+              <span>Available for Software Engineering Internships</span>
             </motion.div>
 
             <motion.h1
@@ -280,7 +280,7 @@ const Hero = () => {
                 aria-hidden="true"
               >
                 {scramble2}
-                <span className="role-subheading">AI Systems Explorer</span>
+                <span className="role-subheading">B.Tech Computer Science</span>
               </motion.span>
             </motion.h1>
 
@@ -290,7 +290,7 @@ const Hero = () => {
               className="hero-description-container"
             >
               <p className="hero-description">
-                I build software and explore AI architectures, experimenting with local LLMs and optimizing agentic pipelines.
+                Second-year B.Tech CSE student at Manipal Institute of Technology. I build software projects—ML pipelines, Android apps, and web tools—and learn by shipping.
               </p>
             </motion.div>
 

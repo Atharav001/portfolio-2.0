@@ -198,6 +198,107 @@
   font-weight: 500;
 }
 
+.case-study-section-block {
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.case-study-section-block:last-of-type {
+  border-bottom: none;
+}
+
+.case-study-section-label {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+  margin-bottom: 1.5rem;
+}
+
+.case-study-summary {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.case-study-subheading {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: var(--text-primary);
+  margin: 0 0 1.25rem;
+  font-weight: 600;
+}
+
+.case-study-prose {
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.case-study-prose h3,
+.case-study-prose h4 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  margin: 2rem 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.case-study-prose p {
+  margin-bottom: 1.25rem;
+}
+
+.case-study-prose img {
+  width: 100%;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  border: 1px solid var(--glass-border);
+  display: block;
+}
+
+.case-study-prose ol,
+.case-study-prose ul {
+  margin: 1rem 0 1.5rem 1.25rem;
+  line-height: 1.7;
+}
+
+.feature-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.feature-index {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.pipeline-heading {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin: 2rem 0 1rem;
+}
+
+.case-study-takeaway {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--accent-blue);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0 8px 8px 0;
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
 .case-study-article h2 {
   font-family: var(--font-heading);
   font-size: 2rem;
@@ -469,7 +570,15 @@
 }
 
 .feature-section {
-  margin: 5rem 0;
+  margin: 2.5rem 0 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.feature-section:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
 }
 
 .case-study-img-container {

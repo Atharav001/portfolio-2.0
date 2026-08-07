@@ -27,8 +27,8 @@ const About = () => {
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: true, margin: '-80px' }}
             >
-              Building and learning at the<br />
-              <span className="about-statement-accent">AI frontier.</span>
+              Building software as a<br />
+              <span className="about-statement-accent">CS student.</span>
             </motion.h2>
 
             <motion.p
@@ -38,9 +38,9 @@ const About = () => {
               transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: true, margin: '-80px' }}
             >
-              I am a second-year B.Tech Computer Science student at Manipal Institute of Technology, Bengaluru. I am a tech enthusiast who learns by building—local LLMs, Android apps, browser extensions, and the occasional hackathon pipeline.
+              I am a second-year B.Tech Computer Science student at Manipal Institute of Technology, Bengaluru. I am a tech enthusiast who learns by building—local LLMs, Android apps, browser extensions, and hackathon projects.
               <br /><br />
-              Most of my work sits at the intersection of AI systems and software engineering: RAG with FAISS and BM25, agentic workflows, and tools that run locally instead of relying on paid APIs. I pick up new stacks when a project needs them and ship until it works.
+              My work spans ML pipelines, RAG systems, and full-stack software. I focus on projects I can actually run and measure—local models, clear benchmarks, and working code on GitHub.
             </motion.p>
 
             <div className="about-tools-container">
