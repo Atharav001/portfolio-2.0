@@ -23,7 +23,7 @@
   width: 100%;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1.25fr 0.75fr;
     gap: 4rem;
@@ -239,9 +239,16 @@
   letter-spacing: 0.05em;
 }
 
-/* --- Pipeline Simulator Graphic --- */
+/* --- Pipeline Simulator Graphic (laptop/desktop only) --- */
 .hero-visual {
+  display: none;
   width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .hero-visual {
+    display: block;
+  }
 }
 
 .pipeline-demo-container {
@@ -284,7 +291,13 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.5;
+}
+
+.pipeline-status-pulse.active {
   background: #3b82f6;
+  opacity: 1;
   animation: pulse-dot 1.5s infinite;
 }
 
@@ -486,10 +499,10 @@
 }
 
 /* Responsive Overrides */
-@media (max-width: 991px) {
+@media (max-width: 1023px) {
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2rem;
   }
 }
 

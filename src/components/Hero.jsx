@@ -1,10 +1,9 @@
 import React, { useCallback, useRef, useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Play, RefreshCw, AlertCircle, CheckCircle } from 'lucide-react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { ArrowRight, RefreshCw, CheckCircle } from 'lucide-react';
 import { useTextScramble } from '../hooks/useTextScramble';
 import './Hero.css';
 
-// --- Pipeline Demo Component ---
 const stepsInfo = [
   { title: "Claim Ingest", desc: "Claims CSV loaded", color: "#888" },
   { title: "Blind VLM", desc: "Extracting visual facts only", color: "#3b82f6" },
@@ -15,82 +14,109 @@ const stepsInfo = [
 
 const logDatabase = [
   [
-    "📥 [INGEST] Claim ID: #4802-V received.",
-    "📥 [INGEST] Claimant Narrative: 'Cracked bumper from parking gate.'",
-    "📥 [INGEST] Loading damage_bumper.jpg..."
+    "[INGEST] Claim ID: #4802-V received.",
+    "[INGEST] Claimant narrative: 'Cracked bumper from parking gate.'",
+    "[INGEST] Loading damage_bumper.jpg..."
   ],
   [
-    "🔍 [VLM] Running Blind Perception node...",
-    "🔍 [VLM] Analysis: Bumper scratch detected. No structural crack found.",
-    "🔍 [VLM] Confidence score: 0.94"
+    "[VLM] Running Blind Perception node...",
+    "[VLM] Analysis: Bumper scratch detected. No structural crack found.",
+    "[VLM] Confidence score: 0.94"
   ],
   [
-    "🛡️ [GATE] Evaluating claimant narrative vs VLM facts...",
-    "🛡️ [GATE] CONFLICT DETECTED: Narrative claims 'crack', VLM found 'scratch'.",
-    "🛡️ [GATE] Routing to deep review node."
+    "[GATE] Evaluating claimant narrative vs VLM facts...",
+    "[GATE] CONFLICT DETECTED: Narrative claims 'crack', VLM found 'scratch'.",
+    "[GATE] Routing to deep review node."
   ],
   [
-    "⚖️ [LLM] Applying auto policy clauses...",
-    "⚖️ [LLM] Rule 4b: Surface scratches < 3 inches covered under comprehensive.",
-    "⚖️ [LLM] Decision: Approve partial payout. Reject full bumper replacement."
+    "[LLM] Applying auto policy clauses...",
+    "[LLM] Rule 4b: Surface scratches < 3 inches covered under comprehensive.",
+    "[LLM] Decision: Approve partial payout. Reject full bumper replacement."
   ],
   [
-    "✅ [OUTPUT] Verdict generated.",
-    "✅ [OUTPUT] Appending row to batch_verdicts.csv...",
-    "✅ [OUTPUT] Awaiting next claim."
+    "[OUTPUT] Verdict generated.",
+    "[OUTPUT] Appending row to batch_verdicts.csv...",
+    "[OUTPUT] Awaiting next claim."
   ]
 ];
 
+const formatLogTime = () =>
+  new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
 const PipelineDemo = () => {
+  const containerRef = useRef(null);
   const [step, setStep] = useState(0);
   const [logs, setLogs] = useState([]);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const intervalRef = useRef(null);
 
   const runNextStep = useCallback(() => {
     setStep((prevStep) => {
-      const nextStep = (prevStep + 1) % 5;
-      
-      // Update logs list
+      const timestamp = formatLogTime();
       setLogs((prevLogs) => {
-        const nextLogs = [...prevLogs, ...logDatabase[prevStep]];
-        // Limit to last 6 log lines
+        const nextLogs = [
+          ...prevLogs,
+          ...logDatabase[prevStep].map((message) => ({ message, timestamp })),
+        ];
         if (nextLogs.length > 6) {
           return nextLogs.slice(nextLogs.length - 6);
         }
         return nextLogs;
       });
-
-      return nextStep;
+      return (prevStep + 1) % 5;
     });
-  }, [logDatabase]);
+  }, []);
 
   useEffect(() => {
-    if (isPlaying) {
+    const node = containerRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.15 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const shouldRun = isPlaying && isVisible && !document.hidden;
+    if (shouldRun) {
       intervalRef.current = setInterval(runNextStep, 2600);
     } else {
       clearInterval(intervalRef.current);
     }
     return () => clearInterval(intervalRef.current);
-  }, [isPlaying, runNextStep]);
+  }, [isPlaying, isVisible, runNextStep]);
+
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        clearInterval(intervalRef.current);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
+  }, []);
 
   const handleReset = () => {
     setStep(0);
-    setLogs(["🔄 Pipeline reset to initial state. Waiting..."]);
+    setLogs([{ message: 'Pipeline reset. Click Simulate to run again.', timestamp: formatLogTime() }]);
   };
 
   return (
-    <div className="pipeline-demo-container">
+    <div className="pipeline-demo-container" ref={containerRef}>
       <div className="pipeline-demo-header">
         <div className="pipeline-header-left">
-          <div className="pipeline-status-pulse"></div>
+          <div className={`pipeline-status-pulse ${isPlaying && isVisible ? 'active' : ''}`}></div>
           <span className="pipeline-header-title">AI Pipeline Live Simulator</span>
         </div>
         <div className="pipeline-controls">
-          <button 
-            className="pipeline-btn" 
+          <button
+            className="pipeline-btn"
             onClick={() => setIsPlaying(!isPlaying)}
-            title={isPlaying ? "Pause" : "Play"}
+            title={isPlaying ? "Pause" : "Simulate"}
           >
             {isPlaying ? "Pause" : "Simulate"}
           </button>
@@ -100,7 +126,6 @@ const PipelineDemo = () => {
         </div>
       </div>
 
-      {/* Nodes Map */}
       <div className="pipeline-nodes">
         {stepsInfo.map((s, idx) => {
           const isActive = idx === step;
@@ -120,7 +145,6 @@ const PipelineDemo = () => {
         })}
       </div>
 
-      {/* Simulated Console Log */}
       <div className="pipeline-console">
         <div className="console-title-bar">
           <span className="console-dot red"></span>
@@ -130,11 +154,11 @@ const PipelineDemo = () => {
         </div>
         <div className="console-body">
           {logs.length === 0 ? (
-            <div className="console-placeholder">Initializing pipeline logs... Click 'Simulate' or wait.</div>
+            <div className="console-placeholder">Pipeline idle. Click Simulate to run the demo.</div>
           ) : (
             logs.map((log, idx) => (
               <div key={idx} className="console-line">
-                <span className="console-timestamp">[{new Date().toLocaleTimeString()}]</span> {log}
+                <span className="console-timestamp">[{log.timestamp}]</span> {log.message}
               </div>
             ))
           )}
@@ -144,9 +168,7 @@ const PipelineDemo = () => {
   );
 };
 
-// --- Main Hero Component ---
 const Hero = () => {
-  // --- Mouse Parallax Setup ---
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const idleTimeoutRef = useRef(null);
@@ -230,7 +252,6 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
         >
-          {/* Left Column: Information */}
           <div className="hero-content">
             <motion.div
               variants={itemVariants}
@@ -277,9 +298,9 @@ const Hero = () => {
               <a href="#projects" className="btn btn-primary magnetic-btn">
                 See projects <ArrowRight size={18} style={{ marginLeft: '8px' }} />
               </a>
-              <a 
-                href="/Atharav Narang.pdf" 
-                className="btn btn-secondary" 
+              <a
+                href="/Atharav Narang.pdf"
+                className="btn btn-secondary"
                 onClick={handleResumeClick}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -289,8 +310,7 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: Interactive Pipeline Graphic */}
-          <motion.div 
+          <motion.div
             className="hero-visual"
             variants={itemVariants}
           >

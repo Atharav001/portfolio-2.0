@@ -117,7 +117,6 @@ function App() {
       <motion.div 
         style={{ scaleX, transformOrigin: '0%', backgroundColor: 'var(--text-primary)', height: '2px', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 'var(--z-max)' }} 
       />
-      <div className="noise-overlay"></div>
       <AnimatedBackground />
       <GrainOverlay />
       <CustomCursor />

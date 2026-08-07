@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import './About.css';
 
 const About = () => {
-  const tools = ["Python", "Ollama", "n8n", "Docker", "Git", "Cursor IDE", "FAISS", "BM25", "Room DB", "React", "Kotlin"];
+  const tools = ["Ollama", "FAISS", "BM25", "n8n", "Room DB", "Kotlin", "Cursor IDE"];
 
   return (
     <section id="about" className="about-section">
@@ -14,7 +14,6 @@ const About = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="about-wrapper">
-          {/* Section label */}
           <div className="about-label">
             <span className="section-number-inline">01</span>
             <span className="about-label-text">About Me</span>
@@ -39,16 +38,16 @@ const About = () => {
               transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: true, margin: '-80px' }}
             >
-              I am an AI Systems Engineer and software developer. I focus on building and experimenting with local intelligence systems, integrating local models (via Ollama) and vector/lexical retrieval methods (FAISS, BM25) to design responsive applications.
+              I am a second-year B.Tech Computer Science student at Manipal Institute of Technology, Bengaluru. I am a tech enthusiast who learns by building—local LLMs, Android apps, browser extensions, and the occasional hackathon pipeline.
               <br /><br />
-              I enjoy bridging traditional software concepts with modern automation. Whether developing digital wellness tools or experimenting with claims validation ideas, I am constantly learning, optimizing, and exploring new ways to design reliable systems.
+              Most of my work sits at the intersection of AI systems and software engineering: RAG with FAISS and BM25, agentic workflows, and tools that run locally instead of relying on paid APIs. I pick up new stacks when a project needs them and ship until it works.
             </motion.p>
 
             <div className="about-tools-container">
-              <h4 className="tools-title">Technologies & Frameworks I Experiment With</h4>
+              <h4 className="tools-title">Tools I reach for often</h4>
               <div className="tools-cloud">
-                {tools.map((tool, idx) => (
-                  <span key={idx} className="tool-chip">{tool}</span>
+                {tools.map((tool) => (
+                  <span key={tool} className="tool-chip">{tool}</span>
                 ))}
               </div>
             </div>

@@ -57,24 +57,17 @@ const ProjectCard = ({ project, setSelectedImage, setSelectedCaseStudy }) => {
           </div>
 
           <div className="project-info-container">
-            <h3 className="project-title">
-              {project.title}
+            <h3 className="project-title">{project.title}</h3>
+            <div className="project-meta-row">
+              <p className="project-date">{project.date}</p>
               {project.statusTag && (
-                <span className="project-status-tag">{project.statusTag}</span>
+                <span className="project-status-meta">{project.statusTag}</span>
               )}
-            </h3>
-            <p className="project-date">{project.date}</p>
+            </div>
 
             <p className="project-description">
               {project.description}
             </p>
-            <button
-              onClick={() => setSelectedCaseStudy(project)}
-              className="read-more-link interactive-tag"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'inline-block' }}
-            >
-              ↓ Read more
-            </button>
 
             <div className="technologies-section">
               <h4 className="tech-heading">TECHNOLOGIES</h4>
@@ -89,7 +82,7 @@ const ProjectCard = ({ project, setSelectedImage, setSelectedCaseStudy }) => {
 
             <div className="project-actions">
               <a href={project.liveLink} target="_blank" rel="noreferrer" className="action-btn primary interactive-tag">
-                <ExternalLink size={16} /> View Code <ArrowRight size={16} className="ml-1" />
+                <ExternalLink size={16} /> GitHub <ArrowRight size={16} className="ml-1" />
               </a>
               <button onClick={() => setSelectedCaseStudy(project)} className="action-btn secondary interactive-tag">
                 <Eye size={16} /> Case Study <ArrowRight size={16} className="ml-1" />

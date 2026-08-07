@@ -258,7 +258,28 @@
   font-family: var(--font-mono, monospace);
   font-size: 0.8rem;
   color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+.project-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-bottom: 1.5rem;
+}
+
+.project-status-meta {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.project-status-meta::before {
+  content: '·';
+  margin-right: 0.75rem;
+  color: var(--text-muted);
 }
 
 .project-description {
