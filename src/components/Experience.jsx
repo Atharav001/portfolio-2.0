@@ -11,6 +11,7 @@ const Experience = () => {
 
   const [showJavaCert, setShowJavaCert] = useState(false);
   const [showSpaceLabCert, setShowSpaceLabCert] = useState(false);
+  const [showMlNotice, setShowMlNotice] = useState(false);
 
   const skillGroups = [
     {
@@ -129,11 +130,15 @@ const Experience = () => {
                   </div>
                 </div>
 
-                <div className="cert-card ml-specialization cert-card-in-progress">
+                <div
+                  className="cert-card ml-specialization interactive-tag"
+                  onClick={() => setShowMlNotice(true)}
+                  title="Click for certificate details"
+                >
                   <div className="cert-badge deeplearning">deeplearning.ai</div>
                   <div className="cert-info">
                     <h4 className="cert-name">Machine Learning Specialisation</h4>
-                    <span className="cert-status-badge">In progress</span>
+                    <span className="cert-action-hint">Click for certificate details</span>
                     <div className="cert-subcourses">
                       <span className="subcourse">Supervised Machine Learning</span>
                       <span className="subcourse">Advanced Learning Algorithms</span>
@@ -230,6 +235,44 @@ const Experience = () => {
               <div className="cert-modal-footer">
                 <h3>IBM SkillsBuild JAVA Certificate</h3>
                 <p>Successfully completed Java programming certification powered by IBM SkillsBuild.</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {showMlNotice && (
+          <motion.div
+            className="cert-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowMlNotice(false)}
+          >
+            <motion.div
+              className="cert-modal-content cert-notice-modal"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="cert-modal-close" onClick={() => setShowMlNotice(false)}>×</button>
+              <div className="cert-modal-footer cert-notice-body">
+                <h3>Machine Learning Specialisation</h3>
+                <p>
+                  Coursework completed across all three modules in Andrew Ng&apos;s Machine Learning Specialisation on Coursera / deeplearning.ai.
+                </p>
+                <p className="cert-notice-message">
+                  Individual course certificates may not be available here because Coursera&apos;s subscription or membership plan is required to unlock graded assignments and official certificate downloads after completion.
+                </p>
+                <a
+                  href="https://www.coursera.org/specializations/machine-learning-introduction"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="view-pdf-btn"
+                >
+                  View specialisation on Coursera
+                </a>
               </div>
             </motion.div>
           </motion.div>
