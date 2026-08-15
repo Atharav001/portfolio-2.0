@@ -1,172 +1,9 @@
-import React, { useCallback, useRef, useEffect, useState } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ArrowRight, RefreshCw, CheckCircle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useTextScramble } from '../hooks/useTextScramble';
+import ChatWidget from './ChatWidget';
 import './Hero.css';
-
-const stepsInfo = [
-  { title: "Claim Ingest", desc: "Claims CSV loaded", color: "#888" },
-  { title: "Blind VLM", desc: "Extracting visual facts only", color: "#3b82f6" },
-  { title: "Smart Gate", desc: "Validating facts integrity", color: "#10b981" },
-  { title: "Adjudication", desc: "Evaluating LLM policy rules", color: "#8b5cf6" },
-  { title: "Structured Verdict", desc: "CSV output generated", color: "#ec4899" }
-];
-
-const logDatabase = [
-  [
-    "[INGEST] Claim ID: #4802-V received.",
-    "[INGEST] Claimant narrative: 'Cracked bumper from parking gate.'",
-    "[INGEST] Loading damage_bumper.jpg..."
-  ],
-  [
-    "[VLM] Running Blind Perception node...",
-    "[VLM] Analysis: Bumper scratch detected. No structural crack found.",
-    "[VLM] Confidence score: 0.94"
-  ],
-  [
-    "[GATE] Evaluating claimant narrative vs VLM facts...",
-    "[GATE] CONFLICT DETECTED: Narrative claims 'crack', VLM found 'scratch'.",
-    "[GATE] Routing to deep review node."
-  ],
-  [
-    "[LLM] Applying auto policy clauses...",
-    "[LLM] Rule 4b: Surface scratches < 3 inches covered under comprehensive.",
-    "[LLM] Decision: Approve partial payout. Reject full bumper replacement."
-  ],
-  [
-    "[OUTPUT] Verdict generated.",
-    "[OUTPUT] Appending row to batch_verdicts.csv...",
-    "[OUTPUT] Awaiting next claim."
-  ]
-];
-
-const formatLogTime = () =>
-  new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-const PipelineDemo = () => {
-  const containerRef = useRef(null);
-  const [step, setStep] = useState(0);
-  const [logs, setLogs] = useState([]);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const intervalRef = useRef(null);
-
-  const runNextStep = useCallback(() => {
-    setStep((prevStep) => {
-      const timestamp = formatLogTime();
-      setLogs((prevLogs) => {
-        const nextLogs = [
-          ...prevLogs,
-          ...logDatabase[prevStep].map((message) => ({ message, timestamp })),
-        ];
-        if (nextLogs.length > 6) {
-          return nextLogs.slice(nextLogs.length - 6);
-        }
-        return nextLogs;
-      });
-      return (prevStep + 1) % 5;
-    });
-  }, []);
-
-  useEffect(() => {
-    const node = containerRef.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.15 }
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const shouldRun = isPlaying && isVisible && !document.hidden;
-    if (shouldRun) {
-      intervalRef.current = setInterval(runNextStep, 2600);
-    } else {
-      clearInterval(intervalRef.current);
-    }
-    return () => clearInterval(intervalRef.current);
-  }, [isPlaying, isVisible, runNextStep]);
-
-  useEffect(() => {
-    const onVisibilityChange = () => {
-      if (document.hidden) {
-        clearInterval(intervalRef.current);
-      }
-    };
-    document.addEventListener('visibilitychange', onVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
-  }, []);
-
-  const handleReset = () => {
-    setStep(0);
-    setLogs([{ message: 'Pipeline reset. Click Simulate to run again.', timestamp: formatLogTime() }]);
-  };
-
-  return (
-    <div className="pipeline-demo-container" ref={containerRef}>
-      <div className="pipeline-demo-header">
-        <div className="pipeline-header-left">
-          <div className={`pipeline-status-pulse ${isPlaying && isVisible ? 'active' : ''}`}></div>
-          <span className="pipeline-header-title">AI Pipeline Live Simulator</span>
-        </div>
-        <div className="pipeline-controls">
-          <button
-            className="pipeline-btn"
-            onClick={() => setIsPlaying(!isPlaying)}
-            title={isPlaying ? "Pause" : "Simulate"}
-          >
-            {isPlaying ? "Pause" : "Simulate"}
-          </button>
-          <button className="pipeline-btn" onClick={handleReset} title="Reset">
-            <RefreshCw size={12} />
-          </button>
-        </div>
-      </div>
-
-      <div className="pipeline-nodes">
-        {stepsInfo.map((s, idx) => {
-          const isActive = idx === step;
-          const isDone = idx < step;
-          return (
-            <div key={idx} className={`pipeline-node-wrapper ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}>
-              <div className="pipeline-node-dot" style={{ '--node-color': s.color }}>
-                {isDone ? <CheckCircle size={12} /> : idx + 1}
-              </div>
-              <div className="pipeline-node-info">
-                <span className="node-title">{s.title}</span>
-                <span className="node-desc">{s.desc}</span>
-              </div>
-              {idx < 4 && <div className="pipeline-edge-connector"></div>}
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="pipeline-console">
-        <div className="console-title-bar">
-          <span className="console-dot red"></span>
-          <span className="console-dot yellow"></span>
-          <span className="console-dot green"></span>
-          <span className="console-filename">debiased_pipeline.log</span>
-        </div>
-        <div className="console-body">
-          {logs.length === 0 ? (
-            <div className="console-placeholder">Pipeline idle. Click Simulate to run the demo.</div>
-          ) : (
-            logs.map((log, idx) => (
-              <div key={idx} className="console-line">
-                <span className="console-timestamp">[{log.timestamp}]</span> {log.message}
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const Hero = () => {
   const mouseX = useMotionValue(0);
@@ -314,7 +151,7 @@ const Hero = () => {
             className="hero-visual"
             variants={itemVariants}
           >
-            <PipelineDemo />
+            <ChatWidget />
           </motion.div>
         </motion.div>
       </div>
@@ -323,3 +160,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
