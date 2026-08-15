@@ -20,7 +20,34 @@ const getOrCreateSessionId = () => {
   }
 };
 
-// Formats text responses cleanly (handling linebreaks, bullet lists, bold text, and inline code)
+// Parses markdown bold (**text**), inline code (`code`), and markdown clickable links ([text](url))
+const parseLineTokens = (line) => {
+  const tokens = line.split(/(\*\*.*?\*\*|`.*?`|\[.*?\]\(.*?\))/g);
+  return tokens.map((token, idx) => {
+    if (token.startsWith('**') && token.endsWith('**')) {
+      return <strong key={idx}>{token.slice(2, -2)}</strong>;
+    }
+    if (token.startsWith('`') && token.endsWith('`')) {
+      return <code key={idx} className="chat-inline-code">{token.slice(1, -1)}</code>;
+    }
+    const linkMatch = token.match(/^\[(.*?)\]\((.*?)\)$/);
+    if (linkMatch) {
+      return (
+        <a
+          key={idx}
+          href={linkMatch[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="chat-link"
+        >
+          {linkMatch[1]}
+        </a>
+      );
+    }
+    return token;
+  });
+};
+
 const FormattedMessageText = ({ text }) => {
   if (!text) return null;
 
@@ -31,32 +58,20 @@ const FormattedMessageText = ({ text }) => {
       {lines.map((line, lIdx) => {
         const isBullet = line.trim().startsWith('- ') || line.trim().startsWith('* ');
         const cleanLine = isBullet ? line.trim().substring(2) : line;
-
-        // Parse inline elements (bold **text**, inline `code`)
-        const parts = cleanLine.split(/(\*\*.*?\*\*|`.*?`)/g);
-
-        const renderedLine = parts.map((part, pIdx) => {
-          if (part.startsWith('**') && part.endsWith('**')) {
-            return <strong key={pIdx}>{part.slice(2, -2)}</strong>;
-          }
-          if (part.startsWith('`') && part.endsWith('`')) {
-            return <code key={pIdx} className="chat-inline-code">{part.slice(1, -1)}</code>;
-          }
-          return part;
-        });
+        const renderedTokens = parseLineTokens(cleanLine);
 
         if (isBullet) {
           return (
             <div key={lIdx} className="chat-bullet-line">
               <span className="chat-bullet-dot">•</span>
-              <span>{renderedLine}</span>
+              <span>{renderedTokens}</span>
             </div>
           );
         }
 
         return (
           <p key={lIdx} className="chat-paragraph">
-            {renderedLine}
+            {renderedTokens}
           </p>
         );
       })}
@@ -127,7 +142,7 @@ const ChatWidget = () => {
       const data = await response.json();
       const assistantText =
         data.answer ||
-        'I am active and ready! Ask me about Atharav\'s projects, background, education, or skills.';
+        "Atharav is a B.Tech CSE student at MIT Manipal. He built projects like the [Two-Step De-Biased Multi-Modal Pipeline](https://github.com/Atharav001/Two-Step-Debiased-MultiModal-Pipeline). Check out his [GitHub Profile](https://github.com/Atharav001)!";
 
       setMessages((prev) => [
         ...prev,
@@ -145,7 +160,7 @@ const ChatWidget = () => {
         {
           id: 'ast_err_' + Date.now(),
           sender: 'assistant',
-          text: 'Atharav\'s assistant is active! Feel free to ask about his projects, technical skills, or background.',
+          text: "Atharav builds ML pipelines, RAG tools, and Android apps. You can view his projects on his [GitHub Profile](https://github.com/Atharav001).",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
@@ -320,9 +335,6 @@ const ChatWidget = () => {
             <Send size={15} />
           </button>
         </form>
-        <div className="chat-caption">
-          <span>Answers only questions about Atharav. Powered by Gemini & Supabase RAG.</span>
-        </div>
       </div>
     </div>
   );
