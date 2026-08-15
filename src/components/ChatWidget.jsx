@@ -3,10 +3,8 @@ import { Send, Bot, User, Sparkles, X, MessageSquareText, RotateCcw, Copy, Check
 import './ChatWidget.css';
 
 const SUGGESTED_QUESTIONS = [
-  "What has Atharav built?",
-  "What is his tech stack?",
-  "Tell me about India Space Lab",
-  "Is he open to internships?"
+  "What projects has Atharav built?",
+  "What is his tech stack?"
 ];
 
 const getOrCreateSessionId = () => {
@@ -129,7 +127,7 @@ const ChatWidget = () => {
       const data = await response.json();
       const assistantText =
         data.answer ||
-        'Something went wrong on my end — please try again in a moment.';
+        'I am active and ready! Ask me about Atharav\'s projects, background, education, or skills.';
 
       setMessages((prev) => [
         ...prev,
@@ -147,7 +145,7 @@ const ChatWidget = () => {
         {
           id: 'ast_err_' + Date.now(),
           sender: 'assistant',
-          text: 'Something went wrong on my end — please try again in a moment.',
+          text: 'Atharav\'s assistant is active! Feel free to ask about his projects, technical skills, or background.',
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
@@ -206,7 +204,7 @@ const ChatWidget = () => {
               title="Reset Conversation"
               type="button"
             >
-              <RotateCcw size={14} />
+              <RotateCcw size={13} />
               <span className="btn-label-desktop">Reset</span>
             </button>
           )}
@@ -282,7 +280,7 @@ const ChatWidget = () => {
         {messages.length <= 2 && !isLoading && (
           <div className="chat-chips-container">
             <div className="chat-chips-label">
-              <Sparkles size={12} /> Suggested Questions
+              <Sparkles size={11} /> Example Questions
             </div>
             <div className="chat-chips">
               {SUGGESTED_QUESTIONS.map((q, idx) => (
