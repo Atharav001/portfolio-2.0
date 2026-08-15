@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
+import MomentsStrip from './MomentsStrip/MomentsStrip';
 import './Experience.css';
 
 const Experience = () => {
@@ -151,6 +152,8 @@ const Experience = () => {
             </div>
           </div>
         </div>
+
+        <MomentsStrip />
       </motion.div>
 
       <AnimatePresence>

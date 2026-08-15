@@ -1,0 +1,425 @@
+/* ================================================================
+   Dark Scrapbook Style - Moments Showcase Strip (Spacious & Flexible)
+   ================================================================ */
+
+/* --- Container --- */
+.moments-scrapbook-container {
+  margin-top: 4rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+}
+
+/* --- Section Header Row --- */
+.moments-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.moments-header-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.moments-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Handwritten accent word strictly for gallery title accent */
+.moments-title-accent {
+  font-family: 'Caveat', cursive, sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  text-transform: lowercase;
+  color: var(--accent-blue, #00c8ff);
+  margin-left: 0.35rem;
+  letter-spacing: 0;
+}
+
+.moments-subheading {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* --- Control Button (Pause / Play) --- */
+.moments-control-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: var(--glass-bg, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.moments-control-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+/* --- Viewport & Clothesline --- */
+.moments-scrapbook-viewport {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 2rem 0 1.75rem 0;
+  /* Soft edge fade */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+}
+
+/* Soft brass/tan string running horizontally behind the row */
+.moments-clothesline {
+  position: absolute;
+  top: 1.35rem;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(217, 180, 140, 0.45) 5%,
+    rgba(217, 180, 140, 0.5) 95%,
+    transparent 100%
+  );
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.moments-scrapbook-track {
+  display: flex;
+  gap: 2.5rem; /* Generous spacing so cards occupy space without overcrowding */
+  width: max-content;
+  animation: scrapbook-marquee 40s linear infinite;
+  will-change: transform;
+  padding-top: 0.75rem;
+}
+
+/* Pause animation on hover or explicit pause */
+.moments-scrapbook-viewport:hover .moments-scrapbook-track,
+.moments-scrapbook-viewport.paused .moments-scrapbook-track {
+  animation-play-state: paused;
+}
+
+@keyframes scrapbook-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- Polaroid Card Design (Larger & Flexible) --- */
+.moments-polaroid-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #FAF8F5; /* Warm off-white/cream polaroid paper */
+  padding: 12px 12px 16px 12px;
+  border-radius: 4px;
+  width: var(--card-width, 290px);
+  flex-shrink: 0;
+  cursor: pointer;
+  z-index: 2;
+  /* Dynamic tilt angle assigned per card */
+  transform: rotate(var(--tilt-deg, 0deg)) translateY(0);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 
+              0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s ease,
+              z-index 0.1s ease;
+  user-select: none;
+}
+
+/* Hover State: Straighten to 0deg, lift up, drop deep shadow ("picking up photo") */
+.moments-polaroid-card:hover {
+  transform: rotate(0deg) translateY(-10px) scale(1.04) !important;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.7), 
+              0 0 22px rgba(0, 200, 255, 0.2);
+  z-index: 20;
+}
+
+/* --- Cyan/Purple Gradient Pin / Clip --- */
+.moments-polaroid-pin {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.moments-pin-head {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-blue, #00c8ff), #a855f7);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5),
+              inset 0 1px 2px rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.moments-pin-shadow {
+  width: 12px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  margin-top: 1px;
+  filter: blur(1px);
+}
+
+/* --- Photo Frame --- */
+.moments-polaroid-photo-frame {
+  width: 100%;
+  height: var(--photo-height, 185px);
+  overflow: hidden;
+  background: #18181b;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.moments-polaroid-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.moments-polaroid-card:hover .moments-polaroid-image {
+  transform: scale(1.05);
+}
+
+/* --- Handwritten Polaroid Caption Area --- */
+.moments-polaroid-caption-area {
+  padding-top: 10px;
+  padding-left: 2px;
+  padding-right: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.moments-handwritten-caption {
+  font-family: 'Caveat', cursive, sans-serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #24201c; /* Soft dark ink on polaroid paper */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.moments-polaroid-date {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  color: #78716c;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* --- Light Mode adjustments --- */
+:root.light-theme .moments-polaroid-card {
+  background: #FFFDF9;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12),
+              0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+:root.light-theme .moments-polaroid-card:hover {
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.22),
+              0 0 18px rgba(0, 95, 163, 0.15);
+}
+
+/* --- Reduced Motion Mode --- */
+.moments-scrapbook-viewport.reduced-motion {
+  overflow-x: auto;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+.moments-scrapbook-viewport.reduced-motion .moments-scrapbook-track {
+  animation: none !important;
+  padding-bottom: 0.75rem;
+}
+
+.moments-scrapbook-viewport.reduced-motion .moments-polaroid-card {
+  transform: rotate(0deg) !important;
+}
+
+/* --- Lightbox Modal --- */
+.moments-lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.moments-lightbox-content {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.moments-lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  z-index: 10;
+}
+
+.moments-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: rotate(90deg);
+}
+
+.moments-lightbox-image-wrapper {
+  width: 100%;
+  max-height: 60vh;
+  background: #050811;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.moments-lightbox-image {
+  max-width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+  display: block;
+}
+
+.moments-lightbox-footer {
+  padding: 1.25rem 1.5rem;
+  background: rgba(15, 23, 42, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.moments-lightbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.moments-lightbox-title {
+  font-family: 'Caveat', cursive, sans-serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.moments-lightbox-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: var(--accent-blue, #00c8ff);
+  background: rgba(0, 200, 255, 0.1);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 200, 255, 0.2);
+}
+
+.moments-lightbox-alt {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 640px) {
+  .moments-polaroid-card {
+    width: 210px !important;
+    padding: 8px 8px 12px 8px;
+  }
+  .moments-polaroid-photo-frame {
+    height: 130px !important;
+  }
+  .moments-handwritten-caption {
+    font-size: 1.3rem;
+  }
+  .moments-scrapbook-track {
+    gap: 1.5rem;
+  }
+  .moments-section-title {
+    font-size: 1.2rem;
+  }
+  .moments-title-accent {
+    font-size: 1.35rem;
+  }
+}
