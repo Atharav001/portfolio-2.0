@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Bot, User, Sparkles, X, MessageSquareText, RotateCcw, Copy, Check } from 'lucide-react';
-import { ThinkingOrb } from './ThinkingOrb';
+import { ThinkingOrb } from 'thinking-orbs';
 import './ChatWidget.css';
 
 const SUGGESTED_QUESTIONS = [
@@ -288,7 +288,7 @@ const ChatWidget = () => {
               </div>
               <div className="chat-bubble-container">
                 <div className="chat-bubble thinking-bubble-orb">
-                  <ThinkingOrb state="composing" size={32} speed={1.50} />
+                  <ThinkingOrb state="composing" size={48} speed={1.50} theme="dark" />
                   <span className="thinking-text">Composing response...</span>
                 </div>
               </div>

@@ -435,9 +435,9 @@
 }
 
 .chat-input-row:focus-within {
-  border-color: rgba(56, 189, 248, 0.5);
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .chat-input {
@@ -670,8 +670,8 @@
 }
 
 .light-theme .chat-input-row:focus-within {
-  border-color: rgba(14, 165, 233, 0.6);
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+  border-color: rgba(0, 0, 0, 0.18);
+  box-shadow: none;
 }
 
 .light-theme .chat-input {
