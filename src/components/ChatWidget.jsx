@@ -197,6 +197,13 @@ const ChatWidget = () => {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
+  const handleWheel = (e) => {
+    const container = chatMessagesRef.current;
+    if (container) {
+      container.scrollTop += e.deltaY;
+    }
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -243,7 +250,7 @@ const ChatWidget = () => {
       </div>
 
       <div className="chat-body">
-        <div className="chat-messages" ref={chatMessagesRef}>
+        <div className="chat-messages" ref={chatMessagesRef} onWheel={handleWheel}>
           {messages.map((msg) => (
             <div
               key={msg.id}
@@ -288,7 +295,7 @@ const ChatWidget = () => {
               </div>
               <div className="chat-bubble-container">
                 <div className="chat-bubble thinking-bubble-orb">
-                  <ThinkingOrb state="composing" size={48} speed={1.50} theme="dark" />
+                  <ThinkingOrb state="composing" size={64} speed={1.50} theme="dark" />
                   <span className="thinking-text">Composing response...</span>
                 </div>
               </div>
