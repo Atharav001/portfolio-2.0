@@ -246,18 +246,11 @@
   letter-spacing: 0.05em;
 }
 
-/* --- Pipeline Simulator Graphic (laptop/desktop only) --- */
 .hero-visual {
-  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-}
-
-@media (min-width: 900px) {
-  .hero-visual {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 }
 
 .pipeline-demo-container {

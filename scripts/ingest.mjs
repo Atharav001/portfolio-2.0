@@ -68,10 +68,11 @@ function chunkMarkdownFile(fileContent, fileName) {
 async function embedText(text) {
   try {
     const response = await ai.models.embedContent({
-      model: 'text-embedding-004',
+      model: 'gemini-embedding-001',
       contents: text,
+      config: { outputDimensionality: 768 },
     });
-    const embedding = response.embedding?.values;
+    const embedding = response.embedding?.values || response.embeddings?.[0]?.values;
     if (!embedding || embedding.length === 0) {
       throw new Error('Received empty embedding values from Gemini');
     }

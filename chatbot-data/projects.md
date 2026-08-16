@@ -1,29 +1,31 @@
-## Autonomous Multi-Agent Research RAG Framework
+## Portfolio website (portfolio-2.0)
 
-Atharav built a research assistant that doesn't just retrieve information — it reasons about what it retrieved. The framework combines FAISS and BM25 in a hybrid retrieval setup, adds cross-encoder reranking on top, and runs parallel ablation studies across 7 different configurations to empirically determine what actually improves results, rather than guessing at architecture choices. Through this process, retrieval accuracy improved from 0.65 to 0.78, faithfulness improved from 0.70 to 0.82, and evaluation time was cut by 70%. The repository is at github.com/Atharav001/RAG-Agentic-Deep-Research.
+Atharav's own personal portfolio site — a React/Vite site he designed and built from scratch, including a live "Ask About Atharav" RAG-powered chatbot embedded directly in the hero section that answers visitor questions about him in real time, grounded only in his own data. The repository is at github.com/Atharav001/portfolio-2.0.
+
+## RAG-Agentic-Deep-Research (Deep Research Agent)
+
+A modular agentic RAG framework built to autonomously answer complex research questions over a corpus of ~400 arXiv papers (cs.CL, cs.AI, cs.LG, 2024-2026). Given a question, it decomposes it into sub-questions, retrieves passages through hybrid search (BM25 + FAISS dense retrieval fused with Reciprocal Rank Fusion), reranks with a cross-encoder, compresses context, reflects on whether the evidence is actually sufficient (looping back to search again if not), and synthesizes a cited answer — then runs an NLI-style verifier that surgically strips any sentence citing a paper that wasn't actually retrieved, to keep faithfulness high. Every component can be toggled independently for ablation testing, and Atharav ran 7 full ablation configurations in parallel using a ThreadPoolExecutor routing matrix, cutting total evaluation time by over 70%. The entire LLM backend runs locally via Ollama (gemma3:4b) — no API keys, no cloud dependency, fully reproducible. The corpus spans 374 papers chunked into 13,656 overlapping windows. The repository is at github.com/Atharav001/RAG-Agentic-Deep-Research.
+
+## WhatsApp Message Notification Router
+
+Built for the HackerRank Orchestrate hackathon (August 2026), this is a hybrid AI system that routes every incoming WhatsApp message into `notify`, `digest`, or `mute` — using multimodal input (text, images via Vision OCR, voice via faster-whisper ASR), per-user behavioral history, and a deterministic safety gate that runs *after* the model and cannot be prompt-engineered away, so scams and prompt-injection attempts are always suppressed regardless of what the LLM concludes. The pipeline runs through six stages (media processing → signal extraction → user profiling → evidence retrieval → a rules layer that skips the LLM entirely on clear-cut cases → an LLM router for ambiguous cases → the safety gate) and only calls GPT-5.4 mini when deterministic rules can't confidently decide. On the labeled sample set, it hit 100% action accuracy (30/30) and 86.7% message-type accuracy. Across the full 110-message batch, it triggered 49 safety overrides with zero violations, and every one of its evidence citations pointed to a real, retrieved message. The whole system is about 4,300 lines of code across 18 Python modules. The repository is at github.com/Atharav001/whatsapp-message-notification-router.
 
 ## Two-Step De-biased Multimodal Verification Pipeline
 
-Built for automated damage claim verification using Gemini Flash Lite, at zero API cost, for the HackerRank Orchestrate hackathon. The core design decision was separating visual perception from adjudication into two distinct steps: the model first describes what it sees in an image (blind perception) before it's allowed to make any judgment call about the claim. This structural separation — rather than just better prompting — reduces the confirmation bias and anchoring that sinks most single-pass vision-language-model pipelines, and also helps guard against prompt injection. This restructuring took claim validation accuracy from 30% to 65% on the evaluation set. The repository is at github.com/Atharav001/Two-Step-Debiased-MultiModal-Pipeline.
+Built for automated damage claim verification using Gemini Flash Lite at zero API cost. The core design decision was separating visual perception from adjudication into two distinct steps — the model first describes what it sees in an image (blind perception) before it's allowed to make any judgment call about the claim — which structurally reduces the anchoring bias and prompt-injection risk that sinks most single-pass vision-language pipelines. This restructuring took claim validation accuracy from 30% to 65% on the evaluation set. The repository is at github.com/Atharav001/Two-Step-Debiased-MultiModal-Pipeline.
 
-## AI Support Triage Agent
+## Aura (macOS Dynamic Island app)
 
-A support ticket triage agent designed to know when *not* to answer. It uses confidence-gated retrieval over a knowledge base of 774 documents, with deterministic fallback logic — so instead of confidently hallucinating a wrong answer when it's unsure, it hands off gracefully. It runs entirely on local models, meaning zero data leaves the system and there's no latency dependency on external APIs. The repository is at github.com/Atharav001/AI-Support-Triage-Agent.
+A premium native macOS menu bar and Dynamic Island app, built with SwiftUI and AppKit for macOS Sonoma and later. It turns the Mac notch into a calm, always-available command center: live media controls (Spotify/Apple Music), a compact calendar strip with event indicators, a menu bar popover for Pomodoro/deep-work/stopwatch/to-dos, and floating glass widgets that stay pinned and stay synced across the app via a shared App Group store. It's distributed with no Xcode project required — pure Swift Package Manager plus a single run script that builds, codesigns, and launches the app. The repository is at github.com/Atharav001/Aura-mac-app.
 
-## Shortform Usage Sentinel
+## Shortform Usage Sentinel (Scroller's Dashboard)
 
-An Android tool that tracks Instagram and YouTube short-form video usage through structural UI detection combined with physics-based debouncing — deliberately built without relying on Android's Accessibility API as a shortcut, which meant solving the detection problem through careful, from-scratch signal processing instead. The repository is at github.com/Atharav001/shortform-usage-sentinel.
+A native Android digital-wellness app that tracks the actual physical act of scrolling on Instagram Reels and YouTube Shorts — not just time spent in the app, but the exact number of individual swipes — using a custom `AccessibilityService`-based engine with per-platform trackers that analyze screen and touch events in real time, cross-checked against Android's `UsageStatsManager` for accuracy. When a user hits their configured scroll limit, the app draws a real-time overlay directly over Instagram/YouTube showing their own to-do list and habits side-by-side with their scroll count, forcing a conscious choice to continue or stop, rather than just cutting them off. All data — scroll events, tasks, habits, analytics — is stored 100% locally via a Room database, with no accounts, no cloud sync, and detailed analytics gated behind biometric unlock. The repository is at github.com/Atharav001/shortform-usage-sentinel.
 
-## Other projects
+## Flownote (Productivity Sidepanel Extension)
 
-Atharav is also actively exploring internship opportunities in AI/ML and continues building multi-agent research and verification pipelines, with a particular focus on the internals of retrieval systems — hybrid search, reranking, and evaluation methodology at scale.
+A React 19-powered Chromium sidepanel extension that persists alongside normal browsing — combining smart to-dos (inline editing, one-click complete), distraction-free sticky notes that expand into a fullscreen editor, and a rich text editor, all wrapped in a custom glassmorphism theme with Framer Motion-driven transitions. State persists through `chrome.storage.local` via a centralized custom hook, so notes and tasks survive browser restarts and crashes. It also supports bi-directional Google Tasks sync via OAuth. Built on Manifest V3 with React 19, Vite 6, and Tailwind CSS 4. The repository is at github.com/Atharav001/Flownote-Productivity-Sidepanel.
 
-<!--
-NOTE: A six-stage scam/fraud-detection pipeline (media.py -> signals.py ->
-profiles.py -> evidence.py -> router_rules/router_llm -> safety_gate.py),
-using GPT-5.4 mini, faster-whisper ASR, and Vision OCR, with reported
-100% production action accuracy and 4,347 lines of code, appears in the
-portfolio site's case studies but does not have a linked repository in
-the GitHub profile README. Add its section here once you share the repo
-link or more detail — do not let a placeholder for it go live as-is.
--->
+## TabVault (Tab Archiving Extension)
+
+A Chromium extension that automatically archives inactive browser tabs — auto-closing tabs idle for 2 hours (checked every 5 minutes) and triggering a memory-pressure mode that archives the 5 oldest tabs once 50+ are open — while preserving exact scroll position and tab group name/color on restore. It supports one-click full-window "session snapshots," bulk multi-select actions with keyboard shortcuts, a 10-second undo window on mass archiving, drag-to-organize collections, Markdown export of the entire vault, and a live badge showing the current archived-tab count. Built with React 18, TypeScript, Vite 6, Dexie.js (IndexedDB), and Zustand, on Manifest V3. The repository is at github.com/Atharav001/TabVault-Extension.

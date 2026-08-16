@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Bot, User, Sparkles, X, MessageSquareText, RotateCcw, Copy, Check } from 'lucide-react';
+import { ThinkingOrb } from './ThinkingOrb';
 import './ChatWidget.css';
 
 const SUGGESTED_QUESTIONS = [
-  "What projects has Atharav built?",
-  "What is his tech stack?"
+  "What are the projects he has built?",
+  "Tell me about his education."
 ];
 
 const getOrCreateSessionId = () => {
@@ -56,21 +57,24 @@ const FormattedMessageText = ({ text }) => {
   return (
     <div className="formatted-chat-text">
       {lines.map((line, lIdx) => {
-        const isBullet = line.trim().startsWith('- ') || line.trim().startsWith('* ');
-        const cleanLine = isBullet ? line.trim().substring(2) : line;
+        const leadingSpaces = line.search(/\S/);
+        const isNested = leadingSpaces >= 2;
+        const trimmed = line.trim();
+        const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('* ');
+        const cleanLine = isBullet ? trimmed.substring(2) : trimmed;
         const renderedTokens = parseLineTokens(cleanLine);
 
         if (isBullet) {
           return (
-            <div key={lIdx} className="chat-bullet-line">
-              <span className="chat-bullet-dot">•</span>
+            <div key={lIdx} className={`chat-bullet-line${isNested ? ' nested' : ''}`}>
+              <span className="chat-bullet-dot">{isNested ? '▪' : '•'}</span>
               <span>{renderedTokens}</span>
             </div>
           );
         }
 
         return (
-          <p key={lIdx} className="chat-paragraph">
+          <p key={lIdx} className={`chat-paragraph${isNested ? ' nested-para' : ''}`}>
             {renderedTokens}
           </p>
         );
@@ -101,16 +105,18 @@ const ChatWidget = () => {
     setSessionId(getOrCreateSessionId());
   }, []);
 
-  // Scroll ONLY the internal messages container without triggering outer page scrolling
+  // Scroll internal messages container when new messages arrive or loading starts
   useEffect(() => {
     const container = chatMessagesRef.current;
     if (container) {
-      container.scrollTo({
-        top: container.scrollHeight,
-        behavior: 'smooth',
-      });
+      setTimeout(() => {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: 'smooth',
+        });
+      }, 60);
     }
-  }, [messages, isLoading]);
+  }, [messages.length, isLoading]);
 
   const handleSend = async (textToSend) => {
     const query = (textToSend || input).trim();
@@ -142,7 +148,7 @@ const ChatWidget = () => {
       const data = await response.json();
       const assistantText =
         data.answer ||
-        "Atharav is a B.Tech CSE student at MIT Manipal. He built projects like the [Two-Step De-Biased Multi-Modal Pipeline](https://github.com/Atharav001/Two-Step-Debiased-MultiModal-Pipeline). Check out his [GitHub Profile](https://github.com/Atharav001)!";
+        "I'm sorry, I couldn't fetch an answer right now. Please check back in a moment or view Atharav's [GitHub Profile](https://github.com/Atharav001).";
 
       setMessages((prev) => [
         ...prev,
@@ -160,7 +166,7 @@ const ChatWidget = () => {
         {
           id: 'ast_err_' + Date.now(),
           sender: 'assistant',
-          text: "Atharav builds ML pipelines, RAG tools, and Android apps. You can view his projects on his [GitHub Profile](https://github.com/Atharav001).",
+          text: "Sorry, I encountered a network error. Please try again or check Atharav's [GitHub Profile](https://github.com/Atharav001).",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
@@ -281,11 +287,9 @@ const ChatWidget = () => {
                 <Bot size={14} />
               </div>
               <div className="chat-bubble-container">
-                <div className="chat-bubble typing-bubble">
-                  <span className="typing-label">Thinking</span>
-                  <span className="typing-dot"></span>
-                  <span className="typing-dot"></span>
-                  <span className="typing-dot"></span>
+                <div className="chat-bubble thinking-bubble-orb">
+                  <ThinkingOrb state="composing" size={32} speed={1.50} />
+                  <span className="thinking-text">Composing response...</span>
                 </div>
               </div>
             </div>
@@ -314,7 +318,11 @@ const ChatWidget = () => {
       </div>
 
       <div className="chat-footer">
-        <form className="chat-input-row" onSubmit={handleSubmit}>
+        <form
+          className="chat-input-row"
+          onSubmit={handleSubmit}
+          onClick={() => inputRef.current?.focus()}
+        >
           <input
             ref={inputRef}
             type="text"
