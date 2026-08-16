@@ -5,7 +5,7 @@ import { Ratelimit } from '@upstash/ratelimit';
 
 // --- Static Response Constants ---
 const GREETING_RESPONSE =
-  "Hello! I'm Atharav's Portfolio Assistant. Ask me anything about Atharav — his background, education, projects, technical skills, or the tech stack used to build this portfolio site!";
+  "Hello! I'm Atharav's Portfolio Assistant. Ask me anything about Atharav — his background, education, projects, technical skills, or this portfolio site!";
 
 const GATE_BLOCKED_RESPONSE =
   "I can only answer questions about Atharav — his background, projects, technical skills, portfolio website, or experience! Feel free to ask about one of those.";
@@ -30,7 +30,7 @@ ATHARAV NARANG - MASTER PERSONAL & TECHNICAL KNOWLEDGE BASE:
 - LinkedIn: https://linkedin.com/in/atharav-narang-132b74273
 
 2. PORTFOLIO WEBSITE & CHATBOT TECH STACK (portfolio-2.0):
-- Overview: Atharav's portfolio site (portfolio-2.0) is a custom-built React 19 application embedded with an interactive, scope-locked RAG AI assistant ("Ask About Atharav AI").
+- Development Method: Atharav engineered this portfolio website (portfolio-2.0) from scratch himself writing clean React 19 code and modular Vanilla CSS design tokens. It was NOT built using "vibecoding" tools or automated AI web agents.
 - Frontend Architecture:
   * React 19 + Vite 8 for high-performance component rendering and fast HMR builds.
   * Custom Vanilla CSS system with HSL design tokens (tokens.css, index.css) featuring glassmorphism, dynamic backdrop blur filters, and fluid responsive layouts. Zero utility CSS frameworks like Tailwind were used for complete bespoke aesthetic control.
@@ -105,7 +105,7 @@ Decide whether the user message is relevant to Atharav Narang, his portfolio, hi
 
 ALLOW the message if it is:
 1. A question about Atharav Narang (his background, education, projects, technical skills, achievements, values, contact info, availability, or career goals).
-2. A question about THIS portfolio website or the chatbot itself (e.g., "what is the techstack used for building this site?", "how was this chatbot built?", "what technologies power this website?", "how does the RAG work here?", "who built this site?").
+2. A question about THIS portfolio website or the chatbot itself (e.g., "what is the techstack used for building this site?", "how was this chatbot built?", "is it made by vibecoding or agents?", "who built this site?").
 3. A question about developer/engineering topics related to Atharav's work, code repositories, frameworks, or tools he uses.
 4. A standard conversational greeting or question about the assistant (e.g., "hi", "hello", "who are you?", "what can I ask you?", "tell me about yourself").
 
@@ -121,16 +121,18 @@ Classification:`;
 
 const MAIN_SYSTEM_PROMPT = `You are "Atharav's Portfolio Assistant" — the intelligent AI representing Atharav Narang on his personal portfolio site.
 
-Your task is to provide clear, direct, intelligent, and accurate responses grounded in the CONTEXT below. Use your LLM reasoning to directly answer the user's specific question!
+Your task is to provide clear, direct, intelligent, and ACCURATE responses grounded strictly in the CONTEXT below.
 
-GUIDELINES FOR YOUR RESPONSE:
-1. DIRECTLY ANSWER THE QUERY: Answer whatever the user asked using the facts in CONTEXT.
-   - If asked about the tech stack of this site/chatbot: Detail the exact technologies used (React 19, Vite 8, Vanilla CSS design tokens, Vercel Serverless, Supabase pgvector, Google Gemini 2.5 Flash & embedding-001, Upstash Redis, thinking-orbs animation).
-   - If asked about projects: Describe the relevant project(s), core architectural innovations, and concrete metric results.
-   - If asked about education, skills, or background: Provide a structured, engaging answer.
-2. ACCURACY & CONTEXT GROUNDING: Only state facts present in CONTEXT. Never hallucinate fake metrics, dates, or non-existent projects.
-3. TONE & VOICE: Professional, articulate, warm, and confident. Speak in third person ("Atharav built...", "He uses...") or as his official portfolio assistant. Never sound like a generic boilerplate template.
-4. SCOPE LOCK & OFF-TOPIC REFUSAL: If the question is completely off-topic or unrelated to Atharav, his portfolio, his projects, or his skills, respond with EXACTLY:
+CRITICAL INSTRUCTIONS FOR BREVITY AND FOCUS:
+1. STRICT BREVITY & CONCISENESS (MOST IMPORTANT):
+   - Keep ALL responses short, crisp, direct, and concise (typically 2 to 4 sentences, max ~60-80 words).
+   - NEVER generate long multi-category bulleted lists, full architectural overviews, or multi-section essays unless the user EXPLICITLY asks for a complete list or full breakdown.
+2. ANSWER ONLY WHAT IS ASKED:
+   - Answer ONLY the exact question asked by the user. Do NOT add extra unasked details, unasked tech stack lists, or unasked project specifications.
+   - Example: If asked "Is this site built by vibecoding or agents?", respond directly: "No, Atharav engineered this portfolio site from scratch himself using React 19 and custom Vanilla CSS, rather than relying on vibecoding generators or automated AI web agents." Stop there! Do NOT follow up with a long bulleted breakdown of Vite, Supabase, or Redis.
+3. ACCURACY & CONTEXT GROUNDING: Only state facts present in CONTEXT. Never hallucinate metrics, dates, or non-existent tools.
+4. TONE & VOICE: Professional, articulate, warm, and confident. Speak in third person ("Atharav built...", "He uses...") or as his official portfolio assistant.
+5. SCOPE LOCK & OFF-TOPIC REFUSAL: If the question is completely off-topic or unrelated to Atharav, his portfolio, his projects, or his skills, respond with EXACTLY:
    "I can only answer questions about Atharav — his background, projects, technical skills, portfolio website, or experience! Feel free to ask about one of those."
 
 CONTEXT:
@@ -222,47 +224,41 @@ function getTopicAwareFallback(trimmedMessage) {
   const q = (trimmedMessage || '').toLowerCase();
   
   if (
+    q.includes('vibe') ||
+    q.includes('agent') ||
+    q.includes('how is it made') ||
+    q.includes('how was it made') ||
+    q.includes('who built')
+  ) {
+    return "Atharav engineered this portfolio site from scratch himself using React 19, Vite, and custom Vanilla CSS design tokens, rather than relying on vibecoding generators or automated AI web agents.";
+  }
+
+  if (
     q.includes('tech') ||
     q.includes('stack') ||
-    q.includes('website') ||
-    q.includes('site') ||
-    q.includes('built this') ||
-    q.includes('framework') ||
-    q.includes('made this') ||
-    q.includes('architecture') ||
-    q.includes('rag') ||
-    q.includes('bot')
+    q.includes('framework')
   ) {
-    return "This portfolio website is built using **React 19**, **Vite 8**, and **Vanilla CSS** with modular design tokens. The embedded 'Ask About Atharav AI' chatbot is powered by **Vercel Serverless Functions**, **Supabase pgvector** vector search, **Google Gemini API**, and **Upstash Redis** rate limiting.";
+    return "This portfolio is built with **React 19**, **Vite 8**, and **Vanilla CSS tokens**, with a RAG chatbot backend using **Vercel Serverless**, **Supabase pgvector**, **Google Gemini API**, and **Upstash Redis**.";
   }
   
   if (
     q.includes('project') ||
     q.includes('built') ||
     q.includes('work') ||
-    q.includes('repo') ||
-    q.includes('agent')
+    q.includes('repo')
   ) {
-    return "Atharav has built several AI & systems projects:\n\n" +
-      "- **RAG-Agentic-Deep-Research**: Local Ollama deep research agent over ~400 arXiv papers with hybrid BM25 + FAISS search.\n" +
-      "- **WhatsApp Message Router**: Multimodal AI routing WhatsApp messages with a post-model safety gate against prompt injection.\n" +
-      "- **Two-Step De-Biased Pipeline**: Damage claim verification separating perception from adjudication (accuracy 30% → 65%).\n" +
-      "- **Aura macOS App**: Native macOS Dynamic Island app built with SwiftUI & AppKit.\n\n" +
-      "You can explore all his code repositories on [GitHub](https://github.com/Atharav001).";
+    return "Atharav built projects like the **RAG-Agentic-Deep-Research** agent, **WhatsApp Message Notification Router**, **Two-Step De-Biased Multi-Modal Pipeline**, and **Aura macOS app**. Explore his code on [GitHub](https://github.com/Atharav001).";
   }
 
   if (
     q.includes('education') ||
     q.includes('study') ||
     q.includes('college') ||
-    q.includes('university') ||
     q.includes('degree') ||
     q.includes('mit') ||
-    q.includes('manipal') ||
-    q.includes('btech') ||
-    q.includes('school')
+    q.includes('manipal')
   ) {
-    return "Atharav is pursuing his B.Tech in Computer Science at **Manipal Institute of Technology (MAHE), Bengaluru** (July 2025 – Present), focusing on AI/ML architectures, DSA, and intelligent systems. Prior to MIT Bengaluru, he completed high school in Delhi under the CBSE board.";
+    return "Atharav is pursuing his B.Tech in Computer Science at **Manipal Institute of Technology (MAHE), Bengaluru** (July 2025 – Present), focusing on AI/ML architectures, DSA, and system engineering.";
   }
 
   if (
@@ -271,26 +267,21 @@ function getTopicAwareFallback(trimmedMessage) {
     q.includes('email') ||
     q.includes('hire') ||
     q.includes('internship') ||
-    q.includes('job') ||
     q.includes('linkedin')
   ) {
-    return "You can reach Atharav by email at `atharavnarang05@gmail.com` or connect with him on [LinkedIn](https://linkedin.com/in/atharav-narang-132b74273). He is open to Software Engineering and AI/ML internship opportunities!";
+    return "You can reach Atharav by email at `atharavnarang05@gmail.com` or on [LinkedIn](https://linkedin.com/in/atharav-narang-132b74273). He is open to Software Engineering and AI/ML internship opportunities!";
   }
 
   if (
     q.includes('skill') ||
     q.includes('language') ||
     q.includes('python') ||
-    q.includes('java') ||
-    q.includes('tool')
+    q.includes('java')
   ) {
-    return "Atharav's key technical skills include:\n\n" +
-      "- **Languages**: Python, Java, C/C++, JavaScript, SQL, Kotlin, Swift.\n" +
-      "- **AI & Systems**: RAG Architectures, Local LLMs (Ollama), FAISS, BM25, Supabase pgvector, Prompt Engineering.\n" +
-      "- **Frameworks & Tools**: React 19, Node.js, Android SDK, AppKit/SwiftUI, Git, Docker, Linux.";
+    return "Atharav's core skills include Python, Java, C/C++, JavaScript, RAG architectures, local LLMs (Ollama), FAISS, BM25, Supabase pgvector, React 19, and Android SDK.";
   }
 
-  return "Atharav is a B.Tech Computer Science student at Manipal Institute of Technology (MAHE), Bengaluru, specializing in AI/ML pipeline engineering, RAG frameworks, and systems development. Feel free to ask about his projects, skills, or view his work on [GitHub](https://github.com/Atharav001).";
+  return "Atharav is a B.Tech CS student at Manipal Institute of Technology (MAHE), Bengaluru, focusing on AI/ML pipelines and software engineering. Explore his work on [GitHub](https://github.com/Atharav001).";
 }
 
 export default async function handler(req, res) {
@@ -462,7 +453,7 @@ export default async function handler(req, res) {
 
       if (
         answer.includes('You are "Atharav\'s Portfolio Assistant"') ||
-        answer.includes('GUIDELINES FOR YOUR RESPONSE:')
+        answer.includes('CRITICAL INSTRUCTIONS FOR BREVITY AND FOCUS:')
       ) {
         answer = GATE_BLOCKED_RESPONSE;
       }
