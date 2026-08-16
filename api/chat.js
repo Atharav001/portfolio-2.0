@@ -5,7 +5,7 @@ import { Ratelimit } from '@upstash/ratelimit';
 
 // --- Static Response Constants ---
 const GREETING_RESPONSE =
-  "Hello! I'm Atharav's Portfolio Assistant. I'm active and ready to answer any questions about Atharav's background, education, projects, technical skills, or the architecture of this portfolio site! Feel free to ask what tech stack was used to build this site, explore his [Two-Step De-Biased Multi-Modal Pipeline](https://github.com/Atharav001/Two-Step-Debiased-MultiModal-Pipeline), or check out his [GitHub Profile](https://github.com/Atharav001).";
+  "Hello! I'm Atharav's Portfolio Assistant. Ask me anything about Atharav — his background, education, projects, technical skills, or the tech stack used to build this portfolio site!";
 
 const GATE_BLOCKED_RESPONSE =
   "I can only answer questions about Atharav — his background, projects, technical skills, portfolio website, or experience! Feel free to ask about one of those.";
@@ -41,7 +41,7 @@ ATHARAV NARANG - MASTER PERSONAL & TECHNICAL KNOWLEDGE BASE:
   * Vercel Serverless Function (/api/chat.js) backend with CORS origin verification and input sanitization.
   * Supabase Vector Database (pgvector extension) running cosine similarity search over chunked knowledge embeddings via match_knowledge_chunks RPC.
   * Google Gemini embedding-001 model generating 768-dimensional dense vector embeddings for query matching.
-  * Google Gemini API (gemini-3.6-flash with automatic fallbacks to gemini-3.5-flash-lite and gemini-2.5-flash) for LLM reasoning and response generation.
+  * Google Gemini API (gemini-2.5-flash with automatic fallbacks to gemini-2.5-flash-lite and gemini-3.6-flash) for LLM reasoning and response generation.
   * Upstash Redis (dual sliding-window rate limiters: 8 requests/5 min per IP, 20 requests/24 hrs per session, plus global daily token budget cap).
   * Two-pass AI pipeline: Pass 1 is an intelligent Topic Classifier guarding scope lock while allowing portfolio & tech stack questions. Pass 2 is an LLM synthesis engine grounded in vector context.
 
@@ -125,7 +125,7 @@ Your task is to provide clear, direct, intelligent, and accurate responses groun
 
 GUIDELINES FOR YOUR RESPONSE:
 1. DIRECTLY ANSWER THE QUERY: Answer whatever the user asked using the facts in CONTEXT.
-   - If asked about the tech stack of this site/chatbot: Detail the exact technologies used (React 19, Vite 8, Vanilla CSS design tokens, Vercel Serverless, Supabase pgvector, Google Gemini 3.6 Flash & embedding-001, Upstash Redis, thinking-orbs animation).
+   - If asked about the tech stack of this site/chatbot: Detail the exact technologies used (React 19, Vite 8, Vanilla CSS design tokens, Vercel Serverless, Supabase pgvector, Google Gemini 2.5 Flash & embedding-001, Upstash Redis, thinking-orbs animation).
    - If asked about projects: Describe the relevant project(s), core architectural innovations, and concrete metric results.
    - If asked about education, skills, or background: Provide a structured, engaging answer.
 2. ACCURACY & CONTEXT GROUNDING: Only state facts present in CONTEXT. Never hallucinate fake metrics, dates, or non-existent projects.
@@ -189,10 +189,10 @@ function getRateLimiters() {
 
 async function callGeminiModel(ai, promptText) {
   const modelsToTry = [
+    'gemini-2.5-flash',
+    'gemini-2.5-flash-lite',
     'gemini-3.6-flash',
     'gemini-3.5-flash-lite',
-    'gemini-3.1-flash-lite',
-    'gemini-2.5-flash-lite',
   ];
   let lastErr = null;
 
@@ -216,6 +216,81 @@ async function callGeminiModel(ai, promptText) {
     }
   }
   throw lastErr || new Error('Failed to generate content with Gemini');
+}
+
+function getTopicAwareFallback(trimmedMessage) {
+  const q = (trimmedMessage || '').toLowerCase();
+  
+  if (
+    q.includes('tech') ||
+    q.includes('stack') ||
+    q.includes('website') ||
+    q.includes('site') ||
+    q.includes('built this') ||
+    q.includes('framework') ||
+    q.includes('made this') ||
+    q.includes('architecture') ||
+    q.includes('rag') ||
+    q.includes('bot')
+  ) {
+    return "This portfolio website is built using **React 19**, **Vite 8**, and **Vanilla CSS** with modular design tokens. The embedded 'Ask About Atharav AI' chatbot is powered by **Vercel Serverless Functions**, **Supabase pgvector** vector search, **Google Gemini API**, and **Upstash Redis** rate limiting.";
+  }
+  
+  if (
+    q.includes('project') ||
+    q.includes('built') ||
+    q.includes('work') ||
+    q.includes('repo') ||
+    q.includes('agent')
+  ) {
+    return "Atharav has built several AI & systems projects:\n\n" +
+      "- **RAG-Agentic-Deep-Research**: Local Ollama deep research agent over ~400 arXiv papers with hybrid BM25 + FAISS search.\n" +
+      "- **WhatsApp Message Router**: Multimodal AI routing WhatsApp messages with a post-model safety gate against prompt injection.\n" +
+      "- **Two-Step De-Biased Pipeline**: Damage claim verification separating perception from adjudication (accuracy 30% → 65%).\n" +
+      "- **Aura macOS App**: Native macOS Dynamic Island app built with SwiftUI & AppKit.\n\n" +
+      "You can explore all his code repositories on [GitHub](https://github.com/Atharav001).";
+  }
+
+  if (
+    q.includes('education') ||
+    q.includes('study') ||
+    q.includes('college') ||
+    q.includes('university') ||
+    q.includes('degree') ||
+    q.includes('mit') ||
+    q.includes('manipal') ||
+    q.includes('btech') ||
+    q.includes('school')
+  ) {
+    return "Atharav is pursuing his B.Tech in Computer Science at **Manipal Institute of Technology (MAHE), Bengaluru** (July 2025 – Present), focusing on AI/ML architectures, DSA, and intelligent systems. Prior to MIT Bengaluru, he completed high school in Delhi under the CBSE board.";
+  }
+
+  if (
+    q.includes('contact') ||
+    q.includes('reach') ||
+    q.includes('email') ||
+    q.includes('hire') ||
+    q.includes('internship') ||
+    q.includes('job') ||
+    q.includes('linkedin')
+  ) {
+    return "You can reach Atharav by email at `atharavnarang05@gmail.com` or connect with him on [LinkedIn](https://linkedin.com/in/atharav-narang-132b74273). He is open to Software Engineering and AI/ML internship opportunities!";
+  }
+
+  if (
+    q.includes('skill') ||
+    q.includes('language') ||
+    q.includes('python') ||
+    q.includes('java') ||
+    q.includes('tool')
+  ) {
+    return "Atharav's key technical skills include:\n\n" +
+      "- **Languages**: Python, Java, C/C++, JavaScript, SQL, Kotlin, Swift.\n" +
+      "- **AI & Systems**: RAG Architectures, Local LLMs (Ollama), FAISS, BM25, Supabase pgvector, Prompt Engineering.\n" +
+      "- **Frameworks & Tools**: React 19, Node.js, Android SDK, AppKit/SwiftUI, Git, Docker, Linux.";
+  }
+
+  return "Atharav is a B.Tech Computer Science student at Manipal Institute of Technology (MAHE), Bengaluru, specializing in AI/ML pipeline engineering, RAG frameworks, and systems development. Feel free to ask about his projects, skills, or view his work on [GitHub](https://github.com/Atharav001).";
 }
 
 export default async function handler(req, res) {
@@ -395,15 +470,15 @@ export default async function handler(req, res) {
       return res.status(200).json({ answer });
     }
 
-    // Fallback if AI service is offline
+    // Fallback if AI service is offline or unconfigured
     return res.status(200).json({
-      answer: `Atharav is a B.Tech CSE student at Manipal Institute of Technology (MAHE), Bengaluru. He built projects like the [Two-Step De-Biased Multi-Modal Pipeline](https://github.com/Atharav001/Two-Step-Debiased-MultiModal-Pipeline) and [RAG-Agentic-Deep-Research](https://github.com/Atharav001/RAG-Agentic-Deep-Research). View his full portfolio on his [GitHub Profile](https://github.com/Atharav001).`
+      answer: getTopicAwareFallback(trimmedMessage)
     });
 
   } catch (err) {
     console.error('Unhandled exception in /api/chat handler:', err);
     return res.status(200).json({
-      answer: `Atharav is a B.Tech CSE student at Manipal Institute of Technology (MAHE), Bengaluru. Check out his projects and repositories on his [GitHub Profile](https://github.com/Atharav001).`
+      answer: getTopicAwareFallback(req.body?.message || '')
     });
   }
 }

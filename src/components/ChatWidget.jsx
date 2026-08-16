@@ -4,10 +4,8 @@ import { ThinkingOrb } from 'thinking-orbs';
 import './ChatWidget.css';
 
 const SUGGESTED_QUESTIONS = [
-  "What is the techstack used for building this site?",
-  "What key projects has Atharav built?",
-  "Tell me about Atharav's education and background.",
-  "How can I contact Atharav for an internship?"
+  "What are the projects he has built?",
+  "Tell me about his education."
 ];
 
 const getOrCreateSessionId = () => {
