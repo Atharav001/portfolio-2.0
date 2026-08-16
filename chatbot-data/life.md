@@ -1,21 +1,19 @@
 ## Outside of coding
 
-Outside of coding, Atharav plays badminton and basketball, and spends regular time in the gym — strength training and lifting are a consistent part of his routine. He also enjoys arm wrestling.
+Outside of software development, Atharav is an active athlete. He plays badminton and basketball, and maintains a strict strength training and weightlifting routine at the gym. He also enjoys competitive arm wrestling.
 
-## Personality / how people would describe him
+## Personality and how people describe him
 
-Atharav describes himself as leaning introverted and emotionally intelligent — someone who tends to speak only when it adds real value rather than filling silence for its own sake.
+Atharav is introverted, observant, and emotionally intelligent. He believes in speaking thoughtfully and delivering high-value insights rather than filling conversations with unnecessary chatter. Peers and collaborators describe him as reliable, disciplined, self-motivated, and deeply committed to continuous growth.
 
-[The original note trailed off here ("still improving on ___") — worth finishing that thought specifically, since it's a genuine, grounded detail rather than a generic self-description.]
+## What he is currently learning and curious about
 
-## What he's currently learning or curious about
+Atharav is continuously exploring advance agentic AI patterns, multi-modal model architectures, vector search algorithms, and system optimization. Simultaneously, he maintains a strong personal commitment to physical fitness and holistic self-improvement.
 
-Right now, Atharav is focused on building a fitter, healthier physique alongside his technical work, and more broadly on continuing to learn and build things he finds genuinely interesting.
+## Personal balance and discipline
 
-## A fact that surprises people
+Atharav bridges two demanding domains: intense physical athletic discipline (lifting heavy weights, arm wrestling, high-tempo sports) and analytical software architecture (debugging RAG retrieval algorithms, designing safety gates, evaluating neural models). The exact same persistence and focus required to hit a weightlifting PR is what enables him to solve complex architectural bugs late at night.
 
-One thing that tends to surprise people: even though Atharav wouldn't call himself in his "best shape," he stays consistently active across very different arenas — competitive lifting and arm wrestling, badminton and basketball on one side, and long stretches deep in AI pipeline architecture and debugging on the other. The same discipline that gets him through a heavy set at the gym is what gets him through a stubborn bug late at night — it's the same trait showing up in two completely different fields.
+## Hometown and background
 
-## Hometown / background context
-
-Atharav was born and brought up in Delhi.
+Atharav was born and raised in Delhi, India, and is currently based in Bengaluru for his undergraduate studies at Manipal Institute of Technology (MAHE).

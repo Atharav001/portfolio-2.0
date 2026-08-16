@@ -4,8 +4,10 @@ import { ThinkingOrb } from 'thinking-orbs';
 import './ChatWidget.css';
 
 const SUGGESTED_QUESTIONS = [
-  "What are the projects he has built?",
-  "Tell me about his education."
+  "What is the techstack used for building this site?",
+  "What key projects has Atharav built?",
+  "Tell me about Atharav's education and background.",
+  "How can I contact Atharav for an internship?"
 ];
 
 const getOrCreateSessionId = () => {
@@ -20,6 +22,8 @@ const getOrCreateSessionId = () => {
     return 'sess_' + Date.now();
   }
 };
+
+const generateId = (prefix) => `${prefix}_${Math.random().toString(36).substring(2, 9)}`;
 
 // Parses markdown bold (**text**), inline code (`code`), and markdown clickable links ([text](url))
 const parseLineTokens = (line) => {
@@ -84,7 +88,7 @@ const FormattedMessageText = ({ text }) => {
 };
 
 const ChatWidget = () => {
-  const [sessionId, setSessionId] = useState('');
+  const [sessionId] = useState(getOrCreateSessionId);
   const [messages, setMessages] = useState([
     {
       id: 'welcome',
@@ -100,10 +104,6 @@ const ChatWidget = () => {
 
   const chatMessagesRef = useRef(null);
   const inputRef = useRef(null);
-
-  useEffect(() => {
-    setSessionId(getOrCreateSessionId());
-  }, []);
 
   // Scroll internal messages container when new messages arrive or loading starts
   useEffect(() => {
@@ -153,7 +153,7 @@ const ChatWidget = () => {
     if (!query || isLoading) return;
 
     const userMsg = {
-      id: 'user_' + Date.now(),
+      id: generateId('user'),
       sender: 'user',
       text: query,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -183,7 +183,7 @@ const ChatWidget = () => {
       setMessages((prev) => [
         ...prev,
         {
-          id: 'ast_' + Date.now(),
+          id: generateId('ast'),
           sender: 'assistant',
           text: assistantText,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -194,7 +194,7 @@ const ChatWidget = () => {
       setMessages((prev) => [
         ...prev,
         {
-          id: 'ast_err_' + Date.now(),
+          id: generateId('ast_err'),
           sender: 'assistant',
           text: "Sorry, I encountered a network error. Please try again or check Atharav's [GitHub Profile](https://github.com/Atharav001).",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -213,7 +213,7 @@ const ChatWidget = () => {
   const handleClear = () => {
     setMessages([
       {
-        id: 'welcome_' + Date.now(),
+        id: generateId('welcome'),
         sender: 'assistant',
         text: "Hi! I'm Atharav's Portfolio Assistant. Ask me anything about Atharav — his background, projects, skills, or experience!",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),

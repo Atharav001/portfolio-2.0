@@ -1,75 +1,145 @@
 <div align="center">
 
-# Hi, I'm Atharav 👋
+# ⚡ Atharav Narang — Portfolio 2.0 & Scope-Locked RAG AI
 
-**CS undergrad building AI systems that go beyond demos — RAG pipelines, agentic workflows, and multimodal verification tools.**
+**Next-Gen Developer Portfolio featuring "Ask About Atharav AI" — an embedded, scope-locked Retrieval-Augmented Generation (RAG) assistant built with React 19, Supabase pgvector, and Google Gemini 3.6.**
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-atharav001n.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://atharav001n.vercel.app)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/atharav-narang-132b74273)
+[✨ Live Portfolio Demo](https://atharav001n.vercel.app) • [💼 LinkedIn](https://linkedin.com/in/atharav-narang-132b74273) • [🐙 GitHub](https://github.com/Atharav001)
+
+---
+
+[![React 19](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Google Gemini API](https://img.shields.io/badge/Google_Gemini-3.6_Flash-8E75B2?style=for-the-badge&logo=google-gemini&logoColor=white)](https://ai.google.dev/)
+[![Supabase pgvector](https://img.shields.io/badge/Supabase-pgvector-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+[![Upstash Redis](https://img.shields.io/badge/Upstash-Redis_Rate_Limiter-00E599?style=for-the-badge&logo=redis&logoColor=black)](https://upstash.com/)
+[![Vercel](https://img.shields.io/badge/Vercel-Serverless-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
 </div>
 
----
-
-### About Me
-
- I'm a first-year Computer Science student at MIT Bengaluru (MAHE), currently deep in the weeds of retrieval systems, agentic architectures, and the unglamorous work of making AI pipelines actually reliable — not just accurate on a good day.
-
-Most of what I build starts from the same annoyance: AI demos that look great until you push on them. So I spend a lot of time on the boring-but-critical parts — ablation studies, confidence gating, fallback logic — the stuff that decides whether a system survives contact with real inputs.
-
-- 🔭 Currently building multi-agent research and verification pipelines
-- 🌱 Learning the internals of retrieval — hybrid search, reranking, and evaluation at scale
-- 💬 Always up for a conversation about RAG architecture, agent design, or why your eval numbers are lying to you
-- 📍 Based in Bengaluru, India
+<br />
 
 ---
 
-### Projects I'm Proud Of
+## 🌟 Overview
 
-**[Autonomous Multi-Agent Research RAG Framework](https://github.com/Atharav001/RAG-Agentic-Deep-Research)**
-A research assistant that doesn't just retrieve — it reasons about what it retrieved. Combines FAISS and BM25 in a hybrid setup with cross-encoder reranking, and runs parallel ablations across 7 configurations to find what actually works instead of guessing.
-> Accuracy: 0.65 → 0.78 · Faithfulness: 0.70 → 0.82 · Evaluation time cut by 70%
+**Portfolio 2.0** is a custom-built, ultra-responsive developer portfolio for **Atharav Narang** — a Computer Science undergrad at Manipal Institute of Technology (MAHE), Bengaluru, specializing in AI/ML pipeline engineering, RAG architectures, local multi-agent systems, and system design.
 
-**[Two-Step De-biased Multimodal Verification Pipeline](https://github.com/Atharav001/Two-Step-Debiased-MultiModal-Pipeline)**
-Built for automated damage claim verification using Gemini Flash Lite. The key idea: separate blind perception from adjudication, so the model describes what it sees before it's allowed to judge it — cutting down on the confirmation bias that sinks most single-pass VLM pipelines.
-> Accuracy: 30% → 65% by restructuring the decision flow, not just the prompt
-
-**[AI Support Triage Agent](https://github.com/Atharav001/AI-Support-Triage-Agent)**
-A support agent that knows when *not* to answer. Confidence-gated retrieval over 774 documents with deterministic fallbacks, so it hands off gracefully instead of hallucinating a confident wrong answer.
-
-**[Shortform Usage Sentinel](https://github.com/Atharav001/shortform-usage-sentinel)**
-An Android tool that tracks Instagram/YouTube short-form usage through structural UI detection and physics-based debouncing — no accessibility-API shortcuts, just careful signal processing.
+Rather than being a static showcase site, Portfolio 2.0 features an embedded, real-time AI assistant called **"Ask About Atharav AI"**. Visitors can query the chatbot in natural language to learn about Atharav's projects, technical background, architecture decisions, and availability.
 
 ---
 
-### Tech I Work With
+## 🧠 "Ask About Atharav AI" — System Architecture
 
-<div align="left">
+The chatbot is built as a **Scope-Locked RAG System**, ensuring it accurately answers questions grounded strictly in Atharav's personal knowledge base while gracefully handling general inquiries, technical stack questions, and blocking off-topic prompt injections.
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![FAISS](https://img.shields.io/badge/FAISS-4285F4?style=flat-square&logo=meta&logoColor=white)
-![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+```
+┌─────────────────┐       ┌────────────────────────┐       ┌───────────────────────┐
+│                 │  POST │                        │ RPC   │                       │
+│  User Query     ├──────►│ Vercel Serverless API  ├──────►│ Supabase pgvector     │
+│  (Chat Widget)  │       │ (/api/chat.js)         │       │ (match_knowledge)     │
+└─────────────────┘       └──────────┬─────────────┘       └──────────┬────────────┘
+                                     │                                │
+                                     ▼                                ▼
+                          ┌────────────────────┐          ┌───────────────────────┐
+                          │  Upstash Redis     │          │ Gemini embedding-001  │
+                          │  Sliding-Window    │          │ (768-dim Vectors)     │
+                          │  Rate-Limiter      │          └───────────────────────┘
+                          └──────────┬─────────┘
+                                     │
+                                     ▼
+                          ┌────────────────────┐
+                          │  Google Gemini     │
+                          │  3.6 Flash LLM     │──────► Synthesized Answer
+                          │  (Reasoning Engine)│
+                          └────────────────────┘
+```
 
-</div>
+### Key RAG Pipeline Innovations:
+- **Two-Pass Topic Classification**: Pass 1 evaluates topic intent (allowing portfolio site tech stack, projects, education, skills, and greetings while blocking unrelated general trivia or DAN prompt injection attempts). Pass 2 synthesizes grounded answers using LLM reasoning.
+- **768-dim Vector Similarity Search**: Powered by Google Gemini `embedding-001` and Supabase `pgvector` stored procedures (`match_knowledge_chunks`).
+- **Dual Sliding-Window Rate Limiting**: Upstash Redis enforcing 8 requests/5 mins per IP, 20 requests/24 hrs per session, and a global daily API token safety cap.
+- **Dynamic UI Telemetry**: Powered by `thinking-orbs` for canvas-based animated state feedback during LLM response generation.
 
 ---
+
+## 🛠️ Technology Stack
+
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend UI** | React 19, Vite 8, Vanilla CSS (HSL design tokens, glassmorphic layout, backdrop filters), Lucide Icons |
+| **Animations & FX** | Framer Motion, Lenis Smooth Scroll, `thinking-orbs` animated canvas component |
+| **AI / RAG Backend** | Vercel Serverless Functions, `@google/genai` (Gemini 3.6 Flash & embedding-001) |
+| **Vector DB** | Supabase (`pgvector`, cosine distance RPC `match_knowledge_chunks`) |
+| **Rate Limiting** | Upstash Redis (`@upstash/ratelimit` & `@upstash/redis`) |
+| **Analytics & Deployment** | `@vercel/analytics`, Vercel Edge Serverless Deployment |
+
+---
+
+## 🚀 Featured Engineering Projects
+
+| Project | Key Architecture & Innovations | Concrete Metrics / Outcome | Link |
+| :--- | :--- | :--- | :--- |
+| **RAG-Agentic-Deep-Research** | Local Ollama multi-agent research agent; hybrid BM25 + FAISS search, RRF fusion, cross-encoder reranking, NLI verifier. | 374 arXiv papers (13k windows); 7 parallel matrix ablations cutting eval latency by **>70%**. | [Repo ↗](https://github.com/Atharav001/RAG-Agentic-Deep-Research) |
+| **WhatsApp Message Router** | Multimodal router (text, Vision OCR, faster-whisper ASR); 6-stage pipeline with post-model safety gate against prompt injection. | **100% action accuracy** (30/30); 49 safety overrides across 110 messages with 0 violations. | [Repo ↗](https://github.com/Atharav001/whatsapp-message-notification-router) |
+| **Two-Step De-Biased Pipeline** | Automated claim verification separating visual perception from adjudication to eliminate anchoring bias & prompt injection. | Claim validation accuracy boosted from **30% → 65%** at zero API cost with Gemini Flash Lite. | [Repo ↗](https://github.com/Atharav001/Two-Step-Debiased-MultiModal-Pipeline) |
+| **Aura macOS App** | Native Mac Dynamic Island & menu bar command center app with live media controls, Pomodoro timer, and glass widgets. | Pure Swift Package Manager build script (**0 Xcode project file dependency**); AppKit & SwiftUI. | [Repo ↗](https://github.com/Atharav001/Aura-mac-app) |
+| **Shortform Usage Sentinel** | Native Android digital wellness app tracking physical scroll swipes on Reels/Shorts with AccessibilityService engine. | 100% local persistence in Room DB with local biometric security unlock & live scroll overlay. | [Repo ↗](https://github.com/Atharav001/shortform-usage-sentinel) |
+| **Flownote Extension** | React 19 Chromium sidepanel extension with sticky notes, rich text editor, and Google Tasks OAuth sync. | Built on Manifest V3, React 19, Vite 6, `chrome.storage.local`. | [Repo ↗](https://github.com/Atharav001/Flownote-Productivity-Sidepanel) |
+
+---
+
+## 💻 Local Development Setup
+
+### Prerequisites
+- Node.js 18+ and `npm` installed.
+
+### Installation & Execution
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Atharav001/portfolio-2.0.git
+   cd portfolio-2.0
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables** (`.env.local`):
+   ```env
+   GOOGLE_AI_API_KEY=your_gemini_api_key
+   SUPABASE_URL=https://your-supabase-project.supabase.co
+   SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+   UPSTASH_REDIS_REST_URL=https://your-upstash-redis.upstash.io
+   UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
+   ALLOWED_ORIGIN=http://localhost:5173
+   ```
+
+4. **Run the Development Server**:
+   ```bash
+   npm run dev
+   ```
+
+5. **Re-embed & Ingest Knowledge Base** (Optional):
+   ```bash
+   node scripts/ingest.mjs
+   ```
+
+---
+
+## 📬 Contact & Connect
+
+- **Portfolio**: [atharav001n.vercel.app](https://atharav001n.vercel.app)
+- **Email**: [atharavnarang05@gmail.com](mailto:atharavnarang05@gmail.com)
+- **LinkedIn**: [linkedin.com/in/atharav-narang-132b74273](https://linkedin.com/in/atharav-narang-132b74273)
+- **GitHub**: [github.com/Atharav001](https://github.com/Atharav001)
+
+<br />
 
 <div align="center">
 
-<img height="165em" src="https://github-readme-stats.vercel.app/api?username=Atharav001&show_icons=true&theme=default&hide_border=true&count_private=true" />
-<img height="165em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Atharav001&layout=compact&hide_border=true" />
-
-</div>
-
----
-
-<div align="center">
-
-*Currently exploring internship opportunities in AI/ML — reach out if you're building something interesting.*
+*Designed & Architected with discipline by Atharav Narang © 2026*
 
 </div>
