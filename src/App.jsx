@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Lenis from 'lenis';
 import { motion, useScroll, useSpring, useReducedMotion } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 import './index.css';
 
 // Components
@@ -133,6 +134,7 @@ function App() {
           <SectionDivider />
           <Contact />
       </main>
+      <Analytics />
     </>
   );
 }
