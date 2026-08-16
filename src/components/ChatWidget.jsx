@@ -118,6 +118,36 @@ const ChatWidget = () => {
     }
   }, [messages.length, isLoading]);
 
+  // Isolate scrolling strictly inside the chat container (prevent outer webpage scrolling)
+  useEffect(() => {
+    const container = chatMessagesRef.current;
+    if (!container) return;
+
+    const onWheel = (e) => {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      const delta = e.deltaY;
+      const isScrollingDown = delta > 0;
+      const isScrollingUp = delta < 0;
+
+      container.scrollTop += delta;
+
+      // Prevent scroll chaining to the outer page
+      if (
+        (isScrollingDown && scrollTop + clientHeight >= scrollHeight - 1) ||
+        (isScrollingUp && scrollTop <= 0) ||
+        scrollHeight > clientHeight
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
+    container.addEventListener('wheel', onWheel, { passive: false });
+    return () => {
+      container.removeEventListener('wheel', onWheel);
+    };
+  }, []);
+
   const handleSend = async (textToSend) => {
     const query = (textToSend || input).trim();
     if (!query || isLoading) return;
