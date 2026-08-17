@@ -21,7 +21,7 @@ ATHARAV NARANG - MASTER PERSONAL & TECHNICAL KNOWLEDGE BASE:
 
 1. GENERAL & BIO:
 - Full Name: Atharav Narang
-- Role: First-year B.Tech Computer Science student at Manipal Institute of Technology (MAHE), Bengaluru (July 2025 – Present).
+- Role: Second-year B.Tech Computer Science student at Manipal Institute of Technology (MAHE), Bengaluru (July 2025 – Present).
 - Hometown: Delhi, India.
 - Availability: Open to Software Engineering Internships, AI/ML Engineering roles, research internships, and systems development. Open to both remote and on-site roles (Delhi, Bengaluru, or relocation).
 - Portfolio Website: https://atharav001n.vercel.app
