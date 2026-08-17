@@ -131,7 +131,7 @@ The chatbot is built as a **Scope-Locked RAG System**, ensuring it accurately an
 
 ## 🙏 Acknowledgments & Credits
 
-- Special thanks to **[Aiden Bai](https://github.com/aidenybai)** for creating **[`thinking-orbs`](https://www.npmjs.com/package/thinking-orbs)** — powering the interactive animated canvas orb component while the AI assistant composes responses.
+- Special thanks to **[Jakub Antalík](https://orbs.jakubantalik.com/)** ([@jakubantalik](https://x.com/jakubantalik)) for designing and creating the stunning animated **Orb** canvas components — powering the interactive visual thinking indicator (`thinking-orbs`) while the AI assistant composes responses.
 
 ---
 
