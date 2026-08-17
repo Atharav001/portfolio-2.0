@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Send, Bot, User, Sparkles, X, MessageSquareText, RotateCcw, Copy, Check } from 'lucide-react';
 import { ThinkingOrb } from 'thinking-orbs';
 import './ChatWidget.css';
@@ -102,6 +103,23 @@ const ChatWidget = () => {
 
   const chatMessagesRef = useRef(null);
   const inputRef = useRef(null);
+
+  // Lock outer webpage scrolling and Lenis scroll when mobile fullscreen modal is open
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const lenis = window.__lenis;
+    if (isMobileExpanded) {
+      if (lenis) lenis.stop();
+      document.body.style.overflow = 'hidden';
+    } else {
+      if (lenis) lenis.start();
+      document.body.style.overflow = '';
+    }
+    return () => {
+      if (lenis) lenis.start();
+      document.body.style.overflow = '';
+    };
+  }, [isMobileExpanded]);
 
   // Scroll internal messages container when new messages arrive or loading starts
   useEffect(() => {
@@ -399,12 +417,15 @@ const ChatWidget = () => {
         </button>
       </div>
 
-      {/* Mobile Fullscreen Overlay */}
-      {isMobileExpanded && (
-        <div className="chat-mobile-overlay">
-          {content}
-        </div>
-      )}
+      {/* Mobile Fullscreen Overlay Portal */}
+      {isMobileExpanded &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div className="chat-mobile-overlay">
+            {content}
+          </div>,
+          document.body
+        )}
     </div>
   );
 };
